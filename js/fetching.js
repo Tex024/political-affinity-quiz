@@ -1,18 +1,12 @@
-let questionData = [];
+let questionsData = [];
 
 async function fetchQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
-        questionData = data.questions;
+        questionsData = data.questions; // Load all questions
+        console.log('Domande caricate:', questionsData);
     } catch (error) {
         console.error('Errore nel caricamento delle domande:', error);
     }
 }
-
-function getQuestions() {
-    return questionData;
-}
-
-// Ensure the fetch happens on page load
-document.addEventListener('DOMContentLoaded', fetchQuestions);

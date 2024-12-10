@@ -4,46 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz</title>
-    
-    <!-- Import external JavaScript files -->
+    <!-- Import JS Scripts -->
     <script src="js/fetching.js" defer></script>
-    <!--script src="js/manager.js" defer></script-->
+    <script src="js/manager.js" defer></script>
 </head>
 <body>
     <!-- Introduction Section -->
-    <div id="intro-section">
-        <h1>Benvenuto al Quiz</h1>
-        <p>Questo quiz ti guiderà attraverso alcune domande interessanti.</p>
-        <button id="start-btn">Inizia il Quiz</button>
+    <div id="introduction-section">
+        <h1>Benvenuto al Quiz!</h1>
+        <p>Premi il pulsante qui sotto per iniziare il quiz.</p>
+        <button id="start-button">Inizia il Quiz</button>
     </div>
 
-    <!-- Quiz Section (Hidden at first) -->
-    <div id="quiz-section" style="display: none;">
+    <!-- Questions Section (Hidden at first) -->
+    <div id="quiz-section" style="display:none;">
         <div id="questions-container">
-            <!-- Questions will dynamically load here -->
-        </div>
-        <div>
-            <button id="back-btn" style="display: none;">Indietro</button>
-            <button id="next-btn" style="display: none;">Avanti</button>
+            <!-- Dynamically populated questions will be rendered here -->
         </div>
     </div>
 
-    <!-- Hidden Questions Section -->
-    <div id="questions-template" style="display: none;">
-        <!-- Questions are hidden here and will be dynamically loaded -->
-        <div class="question">
-            <h3 class="question-text"></h3>
-            <button class="description-btn">Mostra Descrizione</button>
-            <p class="description-text" style="display: none;"></p>
-            <div class="answers">
-                <label><input type="radio" name="answer" value="strongly_disagree"> Fortemente in disaccordo</label><br>
-                <label><input type="radio" name="answer" value="disagree"> In disaccordo</label><br>
-                <label><input type="radio" name="answer" value="neutral"> Neutro</label><br>
-                <label><input type="radio" name="answer" value="agree"> In accordo</label><br>
-                <label><input type="radio" name="answer" value="strongly_agree"> Fortemente in accordo</label><br>
-                <label><input type="radio" name="answer" value="uninterested"> Indifferente</label>
-            </div>
-        </div>
+    <!-- Hidden questions section for the question JSON data -->
+    <div id="hidden-questions" style="display:none;">
+        <!-- JSON content will be dynamically inserted here -->
     </div>
 </body>
 </html>
