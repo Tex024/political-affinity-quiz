@@ -1,84 +1,62 @@
-document.addEventListener("DOMContentLoaded", () => {
-  let questions = [];
-  let currentIndex = 0;
-
-  const introductionSection = document.getElementById("introduction-section");
-  const questionSection = document.getElementById("questions-section");
-  const questionDiv = document.getElementById("question");
-  const questionTextDiv = document.getElementById("question-text");
-  const questionDescriptionDiv = document.getElementById("question-description");
-  const descriptionToggleBtn = document.createElement("button");
-  const nextButton = document.getElementById("next-btn");
-  const backButton = document.getElementById("back-btn");
-
-  // Fetch questions from questions.json
-  async function fetchQuestions() {
-    try {
-      const response = await fetch("questions.json");
-      const data = await response.json();
-      questions = data.questions;
-      displayQuestion(0);
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-    }
-  }
-
-  // Handle introduction button click
-  const handleStart = () => {
-    introductionSection.style.display = "none";
-    questionSection.style.display = "block";
-    fetchQuestions();
-  };
-
-  document.getElementById("start-button").addEventListener("click", handleStart);
-
-  // Display question based on index
-  function displayQuestion(index) {
-    if (index < 0 || index >= questions.length) return;
-
-    currentIndex = index;
-    const questionData = questions[index];
-
-    questionTextDiv.textContent = questionData.question;
-    questionDescriptionDiv.textContent = questionData.description || ""; // Handle optional descriptions
-    questionDiv.setAttribute("value", index);
-
-    // Handle visibility of question description toggle
-    if (questionData.description) {
-      if (!descriptionToggleBtn.parentElement) {
-        descriptionToggleBtn.textContent = "Mostra descrizione";
-        descriptionToggleBtn.addEventListener("click", () => {
-          if (questionDescriptionDiv.style.display === "none") {
-            questionDescriptionDiv.style.display = "block";
-            descriptionToggleBtn.textContent = "Nascondi descrizione";
-          } else {
-            questionDescriptionDiv.style.display = "none";
-            descriptionToggleBtn.textContent = "Mostra descrizione";
+// Fetching the questions from the JSON file and updating the HTML
+window.addEventListener("load", () => {
+  fetch("questions.json")
+      .then(response => {
+          if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
           }
-        });
-        questionDiv.appendChild(descriptionToggleBtn);
-        questionDescriptionDiv.style.display = "none";
-      }
-    } else {
-      descriptionToggleBtn.style.display = "none";
-    }
+          return response.json();
+      })
+      .then(data => {
+          const questions = data.domande;
+          const questionsDiv = document.getElementById("questions-div");
 
-    // Handle navigation buttons' visibility
-    backButton.style.display = index > 0 ? "block" : "none";
-    nextButton.style.display = index < questions.length - 1 ? "block" : "none";
-  }
+          questions.forEach((question, index) => {
+              // Create a new question container
+              const questionContainer = document.createElement("div");
+              questionContainer.id = "question";
+              questionContainer.setAttribute("value", index);
 
-  // Handle "Next" button click
-  nextButton.addEventListener("click", () => {
-    if (currentIndex < questions.length - 1) {
-      displayQuestion(currentIndex + 1);
-    }
-  });
+              // Add question text
+              const questionText = document.createElement("div");
+              questionText.id = "question-text";
+              questionText.textContent = question.domanda;
+              questionContainer.appendChild(questionText);
 
-  // Handle "Back" button click
-  backButton.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      displayQuestion(currentIndex - 1);
-    }
-  });
+              // Add answers buttons
+              const answersDiv = document.createElement("div");
+              answersDiv.id = "answers";
+
+              const answerTexts = [
+                  "Fortemente d'accordo",
+                  "D'accordo",
+                  "Neutro",
+                  "In disaccordo",
+                  "Fortemente in disaccordo",
+                  "Non interessato"
+              ];
+
+              answerTexts.forEach((text, value) => {
+                  const answerBtn = document.createElement("button");
+                  answerBtn.className = "answer-btn";
+                  answerBtn.setAttribute("data-value", value);
+                  answerBtn.textContent = text;
+                  answersDiv.appendChild(answerBtn);
+              });
+
+              questionContainer.appendChild(answersDiv);
+
+              // Add question description
+              const questionDescription = document.createElement("div");
+              questionDescription.id = "question-description";
+              questionDescription.textContent = question.descrizione;
+              questionContainer.appendChild(questionDescription);
+
+              // Append the complete question to the questionsDiv
+              questionsDiv.appendChild(questionContainer);
+          });
+      })
+      .catch(error => {
+          console.error("Error loading questions: ", error);
+      });
 });
