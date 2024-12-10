@@ -1,3 +1,23 @@
+// quiz.js
+
+let questions = []; // Placeholder for fetched questions
+
+// Fetch the questions from the JSON file
+async function fetchQuestions() {
+    try {
+        const response = await fetch('questions.json');
+        const data = await response.json();
+        questions = data.questions; // Populate the questions constant
+    } catch (error) {
+        console.error('Errore nel caricamento delle domande:', error);
+    }
+}
+
+// Wait for questions to load before starting the quiz
+fetchQuestions().then(() => {
+    console.log('Domande caricate correttamente', questions);
+});
+
 // DOM elements
 const startSection = document.getElementById('start-section');
 const questionSection = document.getElementById('question-section');
@@ -7,34 +27,10 @@ const detailedExplanation = document.getElementById('detailed-explanation');
 const resultsSection = document.getElementById('results-section');
 
 // State management
-let questions = [];
 let currentQuestionIndex = 0;
 let userAnswers = [];
 
-// Fetch questions from JSON file
-async function loadQuestions() {
-    try {
-        const response = await fetch('questions.json');
-        const data = await response.json();
-        questions = data.questions;
-        console.log('Questions loaded:', questions);
-    } catch (error) {
-        console.error('Failed to load questions:', error);
-        alert('Errore durante il caricamento delle domande.');
-    }
-}
-
 // Initialize the quiz
-async function initializeQuiz() {
-    await loadQuestions();
-    if (questions.length > 0) {
-        startSection.style.display = 'block';
-    } else {
-        alert('Nessuna domanda trovata nel file JSON.');
-    }
-}
-
-// Start the quiz
 function startQuiz() {
     startSection.style.display = 'none';
     questionSection.style.display = 'block';
@@ -114,5 +110,3 @@ function endQuiz() {
     console.log('User Answers:', userAnswers);
 }
 
-// Start the initialization process
-initializeQuiz();
