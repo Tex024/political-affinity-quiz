@@ -1,4 +1,4 @@
-// quiz.js
+// quizManager.js
 
 let questions = []; // Placeholder for fetched questions
 
@@ -28,8 +28,14 @@ let userAnswers = [];
 
 // Initialize the quiz
 function initialize() {
-    document.getElementById('start-button').addEventListener('click', startQuiz);
     fetchQuestions();
+    
+    const startButton = document.getElementById('start-button');
+    if (startButton) {
+        startButton.addEventListener('click', startQuiz);
+    } else {
+        console.error('Start button not found');
+    }
 }
 
 // Start the quiz
@@ -124,5 +130,5 @@ function endQuiz() {
     console.log('User Answers:', userAnswers);
 }
 
-// Start initialization
-initialize();
+// Wait for DOM to fully load before executing scripts
+document.addEventListener('DOMContentLoaded', initialize);
