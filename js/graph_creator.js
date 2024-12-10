@@ -75,6 +75,25 @@ window.addEventListener("load", () => {
                 yAxis.style.backgroundColor = "black";
                 graphContainer.appendChild(yAxis);
 
+                // Add grid lines (every 1 scale unit)
+                for (let i = 1; i <= 7; i++) {
+                    const gridLineX = document.createElement("div");
+                    gridLineX.style.position = "absolute";
+                    gridLineX.style.width = "2px";
+                    gridLineX.style.height = "100%";
+                    gridLineX.style.left = `${centerX + i * scale}px`;
+                    gridLineX.style.backgroundColor = "gray";
+                    graphContainer.appendChild(gridLineX);
+
+                    const gridLineY = document.createElement("div");
+                    gridLineY.style.position = "absolute";
+                    gridLineY.style.height = "2px";
+                    gridLineY.style.width = "100%";
+                    gridLineY.style.top = `${centerY - i * scale}px`;
+                    gridLineY.style.backgroundColor = "gray";
+                    graphContainer.appendChild(gridLineY);
+                }
+
                 // Add the user's position as a colored square (dark blue)
                 const userSquare = document.createElement("div");
                 userSquare.style.position = "absolute";
@@ -104,7 +123,7 @@ window.addEventListener("load", () => {
                     graphContainer.appendChild(quadrant);
                 });
 
-                // Add labels for the axes (now at the extremes)
+                // Add labels for the axes (at consistent positions)
                 const labelX1 = document.createElement("div");
                 labelX1.textContent = "Progressista";
                 labelX1.style.position = "absolute";
