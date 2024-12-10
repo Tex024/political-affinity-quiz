@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <!-- Import JS Scripts -->
-    <script src="js/fetching.js" defer></script>
-    <script src="js/manager.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz in Italiano</title>
+  <script src="js/fetching.js" defer></script>
 </head>
 <body>
-    <!-- Introduction Section -->
-    <div id="introduction-section">
-        <h1>Benvenuto al Quiz!</h1>
-        <p>Premi il pulsante qui sotto per iniziare il quiz.</p>
-        <button id="start-button">Inizia il Quiz</button>
+  <h1>Benvenuto al Quiz</h1>
+  <div id="quiz-container">
+    <div id="question-section">
+      <div id="question-text"></div>
+      <div id="answers">
+        <button class="answer-btn" data-value="0">Fortemente d'accordo</button>
+        <button class="answer-btn" data-value="1">D'accordo</button>
+        <button class="answer-btn" data-value="2">Neutro</button>
+        <button class="answer-btn" data-value="3">In disaccordo</button>
+        <button class="answer-btn" data-value="4">Fortemente in disaccordo</button>
+        <button class="answer-btn" data-value="5">Non interessato</button>
+      </div>
+      <div>
+        <button id="back-btn" style="display: none;">Indietro</button>
+        <button id="next-btn" style="display: none;">Avanti</button>
+      </div>
     </div>
-
-    <!-- Questions Section (Hidden at first) -->
-    <div id="quiz-section" style="display:none;">
-        <div id="questions-container">
-            <!-- Dynamically populated questions will be rendered here -->
-        </div>
-    </div>
-
-    <!-- Hidden questions section for the question JSON data -->
-    <div id="hidden-questions" style="display:none;">
-        <!-- JSON content will be dynamically inserted here -->
-    </div>
+    <div id="hidden-questions" style="display: none;"></div>
+  </div>
 </body>
 </html>
