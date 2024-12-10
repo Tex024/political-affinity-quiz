@@ -52,6 +52,9 @@ window.addEventListener("load", () => {
 
     // Next button functionality
     nextButton.addEventListener("click", () => {
+        console.log(isAnswerSelected())
+        console.log(currentQuestion)
+        console.log(document.querySelectorAll("#questions-div > #question").length - 1)
         if (currentQuestion < document.querySelectorAll("#questions-div > #question").length - 1 && isAnswerSelected()) {
             currentQuestion++;
             updateVisibleQuestion();
