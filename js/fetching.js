@@ -50,7 +50,19 @@ window.addEventListener("load", () => {
               const questionDescription = document.createElement("div");
               questionDescription.id = "question-description";
               questionDescription.textContent = question.descrizione;
+              questionDescription.style.display = "none";
               questionContainer.appendChild(questionDescription);
+
+              // Add toggle symbol
+              const toggleSymbol = document.createElement("span");
+              toggleSymbol.textContent = "\u2139"; // Unicode for information symbol
+              toggleSymbol.style.cursor = "pointer";
+              toggleSymbol.style.marginLeft = "10px";
+              toggleSymbol.addEventListener("click", () => {
+                  questionDescription.style.display = 
+                      questionDescription.style.display === "none" ? "block" : "none";
+              });
+              questionContainer.appendChild(toggleSymbol);
 
               // Append the complete question to the questionsDiv
               questionsDiv.appendChild(questionContainer);
