@@ -1,12 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GFG</title>
+    <script src="question_management.js" type="text/javascript"></script>
+    <title>Test di Attitudine Politica</title>
 </head>
 <body>
-    <h1>Hello World this is my first web page.</h1>
+    <!-- Sezione di Inizio -->
+    <div id="start-section">
+        <h1>Test di Attitudine Politica</h1>
+        <p>Scopri dove ti posizioni nello spettro politico rispondendo a poche semplici domande!</p>
+        <button onclick="startQuiz()">Inizia il Quiz</button>
+    </div>
+
+    <!-- Sezione Domande (Nascosta di Default) -->
+    <div id="question-section" style="display: none;">
+        <h2>Domanda 1 di N</h2>
+        <p id="question-text">[Testo della domanda qui]</p>
+
+        <div id="answers">
+            <button>
+                <img src="icons/strongly_agree.png" alt="Fortemente D'accordo">
+            </button>
+            <button>
+                <img src="icons/agree.png" alt="D'accordo">
+            </button>
+            <button>
+                <img src="icons/moderate.png" alt="Moderato">
+            </button>
+            <button>
+                <img src="icons/disagree.png" alt="In Disaccordo">
+            </button>
+            <button>
+                <img src="icons/strongly_disagree.png" alt="Fortemente In Disaccordo">
+            </button>
+            <button>
+                <img src="icons/uninterested.png" alt="Non Interessato">
+            </button>
+        </div>
+
+        <div id="detailed-explanation">
+            <p>[Spiegazione dettagliata della domanda qui]</p>
+        </div>
+    </div>
+
+    <!-- Sezione Risultati (Nascosta di Default) -->
+    <div id="results-section" style="display: none;">
+        <h2>I Tuoi Risultati</h2>
+        <div id="graph">
+            <!-- Segnaposto per il grafico -->
+            <p>[Segnaposto per il grafico o il diagramma]</p>
+        </div>
+        <div id="description">
+            <p>[Descrizione dettagliata della valutazione politica qui]</p>
+        </div>
+    </div>
 </body>
 </html>
