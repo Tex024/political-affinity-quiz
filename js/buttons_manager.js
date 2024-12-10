@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
     const startButton = document.getElementById("start-button");
     const introductionSection = document.getElementById("introduction-section");
     const questionsSection = document.getElementById("questions-section");
+    const resultsSection = document.getElementById("results-section");
     const backButton = document.getElementById("back-btn");
     const nextButton = document.getElementById("next-btn");
 
@@ -36,7 +37,7 @@ window.addEventListener("load", () => {
 
     const goToResults = () => {
         questionsSection.style.display = "none";
-        introductionSection.style.display = "block";
+        resultsSection.style.display = "block";
     }
 
     // Add event listeners for each answer button
