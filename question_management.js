@@ -1,109 +1,120 @@
-// quiz.js
+document.addEventListener('DOMContentLoaded', () => {
+    const startSection = document.getElementById('start-section');
+    const questionSection = document.getElementById('question-section');
+    const questionText = document.getElementById('question-text');
+    const answersDiv = document.getElementById('answers');
+    const detailedExplanation = document.getElementById('detailed-explanation');
+    const resultsSection = document.getElementById('results-section');
 
-// Load the JSON questions (placeholder example; replace with an actual fetch call if hosted)
-const questions = [
-    {
-        "question": "Example question 1?",
-        "description": "Detailed explanation for question 1.",
-        "partiti": {}
-    },
-    {
-        "question": "Example question 2?",
-        "description": "Detailed explanation for question 2.",
-        "partiti": {}
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let questions = [];
+
+    // Fetch questions from the JSON file
+    async function loadQuestions() {
+        try {
+            const response = await fetch('questions.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch questions');
+            }
+            const data = await response.json();
+            questions = data.questions;
+        } catch (error) {
+            console.error('Error loading questions:', error);
+        }
     }
-    // Add more questions here
-];
 
-// DOM elements
-const startSection = document.getElementById('start-section');
-const questionSection = document.getElementById('question-section');
-const questionText = document.getElementById('question-text');
-const answersDiv = document.getElementById('answers');
-const detailedExplanation = document.getElementById('detailed-explanation');
-const resultsSection = document.getElementById('results-section');
+    // Start the quiz
+    function startQuiz() {
+        startSection.style.display = 'none';
+        questionSection.style.display = 'block';
+        displayQuestion();
+    }
 
-// State management
-let currentQuestionIndex = 0;
-let userAnswers = [];
+    // Display a question
+    function displayQuestion() {
+        const question = questions[currentQuestionIndex];
+        if (!question) return; // Safety check
 
-// Initialize the quiz
-function startQuiz() {
-    startSection.style.display = 'none';
-    questionSection.style.display = 'block';
-    displayQuestion(currentQuestionIndex);
-}
-
-// Display a specific question
-function displayQuestion(index) {
-    const question = questions[index];
-    questionText.textContent = `Domanda ${index + 1}: ${question.question}`;
-
-    // Clear existing answers and append new ones
-    answersDiv.innerHTML = '';
-    const icons = ['strongly_agree', 'agree', 'moderate', 'disagree', 'strongly_disagree', 'uninterested'];
-    icons.forEach((icon, i) => {
-        const button = document.createElement('button');
-        button.innerHTML = `<img src='icons/${icon}.png' alt='${icon}'>`;
-        button.onclick = () => selectAnswer(i);
-        answersDiv.appendChild(button);
-    });
-
-    // Clear and set detailed explanation
-    detailedExplanation.innerHTML = '';
-    const descriptionButton = document.createElement('button');
-    descriptionButton.textContent = 'Mostra Spiegazione';
-    descriptionButton.onclick = () => {
+        questionText.textContent = `Domanda ${currentQuestionIndex + 1}: ${question.question}`;
+        answersDiv.innerHTML = ''; // Clear previous answers
         detailedExplanation.textContent = question.description;
-    };
-    detailedExplanation.appendChild(descriptionButton);
+        detailedExplanation.style.display = 'none'; // Hide description by default
 
-    // Remove Next Question button if present
-    const nextButton = document.getElementById('next-button');
-    if (nextButton) nextButton.remove();
-}
+        // Add answer icons
+        const answers = ['strongly_agree', 'agree', 'moderate', 'disagree', 'strongly_disagree', 'uninterested'];
+        answers.forEach((answer, index) => {
+            const button = document.createElement('button');
+            button.className = 'answer-button';
+            button.innerHTML = `<img src="icons/${answer}.png" alt="${answer}">`;
+            button.addEventListener('click', () => selectAnswer(index));
+            answersDiv.appendChild(button);
+        });
 
-// Handle answer selection
-function selectAnswer(answerIndex) {
-    // Highlight the selected answer
-    const buttons = answersDiv.querySelectorAll('button');
-    buttons.forEach((btn, i) => {
-        btn.style.border = i === answerIndex ? '2px solid blue' : 'none';
+        // Add button to show detailed explanation
+        const showDescriptionButton = document.createElement('button');
+        showDescriptionButton.textContent = 'Mostra dettagli';
+        showDescriptionButton.addEventListener('click', () => {
+            detailedExplanation.style.display =
+                detailedExplanation.style.display === 'none' ? 'block' : 'none';
+        });
+        questionSection.appendChild(showDescriptionButton);
+    }
+
+    // Handle answer selection
+    function selectAnswer(answerIndex) {
+        // Highlight selected answer
+        Array.from(answersDiv.children).forEach((button, index) => {
+            button.classList.toggle('selected', index === answerIndex);
+        });
+
+        // Show the "Next Question" button
+        let nextButton = document.getElementById('next-button');
+        if (!nextButton) {
+            nextButton = document.createElement('button');
+            nextButton.id = 'next-button';
+            nextButton.textContent = 'Domanda successiva';
+            nextButton.addEventListener('click', nextQuestion);
+            questionSection.appendChild(nextButton);
+        }
+    }
+
+    // Move to the next question
+    function nextQuestion() {
+        const selectedAnswer = Array.from(answersDiv.children).findIndex((button) =>
+            button.classList.contains('selected')
+        );
+
+        if (selectedAnswer === -1) {
+            alert('Per favore seleziona una risposta!');
+            return;
+        }
+
+        userAnswers.push({ question: currentQuestionIndex, answer: selectedAnswer });
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+            displayQuestion();
+        } else {
+            endQuiz();
+        }
+    }
+
+    // End the quiz
+    function endQuiz() {
+        questionSection.style.display = 'none';
+        resultsSection.style.display = 'block';
+        console.log('Risposte dell\'utente:', userAnswers);
+
+        // Placeholder for displaying results
+        resultsSection.innerHTML = '<h2>Grazie per aver completato il quiz!</h2>';
+    }
+
+    // Attach event listener to the Start Quiz button
+    document.getElementById('start-button').addEventListener('click', startQuiz);
+
+    // Load questions when the page loads
+    loadQuestions().then(() => {
+        console.log('Domande caricate:', questions);
     });
-
-    // Add Next Question button if not already present
-    if (!document.getElementById('next-button')) {
-        const nextButton = document.createElement('button');
-        nextButton.id = 'next-button';
-        nextButton.textContent = 'Prossima Domanda';
-        nextButton.onclick = () => {
-            storeAnswer(answerIndex);
-            goToNextQuestion();
-        };
-        questionSection.appendChild(nextButton);
-    }
-}
-
-// Store the selected answer
-function storeAnswer(answerIndex) {
-    userAnswers[currentQuestionIndex] = answerIndex;
-}
-
-// Go to the next question
-function goToNextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        displayQuestion(currentQuestionIndex);
-    } else {
-        endQuiz();
-    }
-}
-
-// End the quiz
-function endQuiz() {
-    questionSection.style.display = 'none';
-    resultsSection.style.display = 'block';
-    // Placeholder for result processing logic
-    console.log('User Answers:', userAnswers);
-}
-
+});
