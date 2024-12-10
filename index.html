@@ -1,60 +1,17 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="quizManager.js" defer></script>
-    <title>Test di Attitudine Politica</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="fetching.js" defer></script>
+  <script src="listeners.js" defer></script>
+  <title>Quiz</title>
 </head>
 <body>
-    <!-- Sezione di Inizio -->
-    <div id="start-section">
-        <h1>Test di Attitudine Politica</h1>
-        <p>Scopri dove ti posizioni nello spettro politico rispondendo a poche semplici domande!</p>
-        <button onclick="startQuiz()" id="start-button">Inizia il Quiz</button>
-    </div>
-
-    <!-- Sezione Domande (Nascosta di Default) -->
-    <div id="question-section" style="display: none;">
-        <h2>Domanda 1 di N</h2>
-        <p id="question-text">[Testo della domanda qui]</p>
-
-        <div id="answers">
-            <button>
-                <img src="icons/strongly_agree.png" alt="Fortemente D'accordo">
-            </button>
-            <button>
-                <img src="icons/agree.png" alt="D'accordo">
-            </button>
-            <button>
-                <img src="icons/moderate.png" alt="Moderato">
-            </button>
-            <button>
-                <img src="icons/disagree.png" alt="In Disaccordo">
-            </button>
-            <button>
-                <img src="icons/strongly_disagree.png" alt="Fortemente In Disaccordo">
-            </button>
-            <button>
-                <img src="icons/uninterested.png" alt="Non Interessato">
-            </button>
-        </div>
-
-        <div id="detailed-explanation">
-            <p>[Spiegazione dettagliata della domanda qui]</p>
-        </div>
-    </div>
-
-    <!-- Sezione Risultati (Nascosta di Default) -->
-    <div id="results-section" style="display: none;">
-        <h2>I Tuoi Risultati</h2>
-        <div id="graph">
-            <!-- Segnaposto per il grafico -->
-            <p>[Segnaposto per il grafico o il diagramma]</p>
-        </div>
-        <div id="description">
-            <p>[Descrizione dettagliata della valutazione politica qui]</p>
-        </div>
-    </div>
+  <section id="start-section">
+    <h1>Benvenuto al Quiz</h1>
+    <button onclick="start()">Avvia Quiz</button>
+  </section>
+  <section id="questions-container"></section>
 </body>
 </html>

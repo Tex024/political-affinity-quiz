@@ -4,22 +4,22 @@
             "question": "Testo della domanda 1",
             "description": "Descrizione dettagliata della domanda 1",
             "answers": {
-                "destra": [1, 0, 0, 0, 0, 0],
-                "sinistra": [0, 0, 0, 0, 0, 1],
-                "partito1": [0, 1, 0, 0, 0, 0],
-                "partito2": [0, 0, 0, 0, 1, 0],
-                "partito3": [0, 0, 0.5, 0.5, 0, 0]
+                "destra": [1, 0, 0, 0, 0],
+                "sinistra": [0, 0, 0, 0, 1],
+                "partito1": [0, 1, 0, 0, 0],
+                "partito2": [0, 0, 0, 0, 1],
+                "partito3": [0, 0, 0.5, 0.5, 0]
             }
         },
         {
             "question": "Testo della domanda 2",
             "description": "Descrizione dettagliata della domanda 2",
             "answers": {
-                "destra": [1, 0, 0, 0, 0, 0],
-                "sinistra": [0, 0, 0, 0, 0, 1],
-                "partito1": [0.1, 0.5, 0.4, 0, 0, 0],
-                "partito2": [0, 0, 1, 0, 0, 0],
-                "partito3": [0, 0, 0, 0, 0, 1]
+                "destra": [1, 0, 0, 0, 0],
+                "sinistra": [0, 0, 0, 0, 0],
+                "partito1": [0.1, 0.5, 0.4, 0, 0],
+                "partito2": [0, 0, 1, 0, 0],
+                "partito3": [0, 0, 0, 0, 1]
             }
         }
     ]

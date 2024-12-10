@@ -2,6 +2,7 @@ let questions = [];
 let currentQuestionIndex = 0;
 let userAnswers = [];
 
+// fetching
 document.addEventListener("DOMContentLoaded", () => {
   fetch("questions.json")
     .then((response) => response.json())
@@ -13,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("start-section").querySelector("button").addEventListener("click", startQuiz);
 });
 
+
+// starting the quiz
 function startQuiz() {
   document.getElementById("start-section").style.display = "none";
   showQuestion();
