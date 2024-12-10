@@ -2,7 +2,7 @@ let questionData = [];
 
 async function fetchQuestions() {
     try {
-        const response = await fetch('/data/questions.json');
+        const response = await fetch('questions.json');
         const data = await response.json();
         questionData = data.questions;
     } catch (error) {
