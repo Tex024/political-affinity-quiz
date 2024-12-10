@@ -1,17 +1,49 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="fetching.js" defer></script>
-  <script src="listeners.js" defer></script>
-  <title>Quiz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    
+    <!-- Import external JavaScript files -->
+    <script src="js/fetching.js" defer></script>
+    <script src="js/manager.js" defer></script>
 </head>
 <body>
-  <section id="start-section">
-    <h1>Benvenuto al Quiz</h1>
-    <button onclick="start()">Avvia Quiz</button>
-  </section>
-  <section id="questions-container"></section>
+    <!-- Introduction Section -->
+    <div id="intro-section">
+        <h1>Benvenuto al Quiz</h1>
+        <p>Questo quiz ti guiderà attraverso alcune domande interessanti.</p>
+        <button id="start-btn">Inizia il Quiz</button>
+    </div>
+
+    <!-- Quiz Section (Hidden at first) -->
+    <div id="quiz-section" style="display: none;">
+        <div id="questions-container">
+            <!-- Questions will dynamically load here -->
+        </div>
+        <div>
+            <button id="back-btn" style="display: none;">Indietro</button>
+            <button id="next-btn" style="display: none;">Avanti</button>
+        </div>
+    </div>
+
+    <!-- Hidden Questions Section -->
+    <div id="questions-template" style="display: none;">
+        <!-- Questions are hidden here and will be dynamically loaded -->
+        <div class="question">
+            <h3 class="question-text"></h3>
+            <button class="description-btn">Mostra Descrizione</button>
+            <p class="description-text" style="display: none;"></p>
+            <div class="answers">
+                <label><input type="radio" name="answer" value="strongly_disagree"> Fortemente in disaccordo</label><br>
+                <label><input type="radio" name="answer" value="disagree"> In disaccordo</label><br>
+                <label><input type="radio" name="answer" value="neutral"> Neutro</label><br>
+                <label><input type="radio" name="answer" value="agree"> In accordo</label><br>
+                <label><input type="radio" name="answer" value="strongly_agree"> Fortemente in accordo</label><br>
+                <label><input type="radio" name="answer" value="uninterested"> Indifferente</label>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
