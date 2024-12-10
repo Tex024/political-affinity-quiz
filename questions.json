@@ -5,10 +5,8 @@
             "id": 1,
             "descrizione": "Descrizione dettagliata della domanda 1",
             "assi": {
-                "conservatore": [1, 0.5, 0, 0, 0],
-                "progressista": [0, 0, 0, 0.5, 1],
-                "liberalista": [1, 0.5, 0, 0, 0],
-                "communitarista": [0, 0, 0, 0.5, 1]
+                "progressista-conservativo": [-1, -0.5, 0, 0.5, 1],
+                "liberalista-communitarista": [-1, -0.5, 0, 0.5, 1]
             },
             "partiti": {
                 "partito_1": [0, 1, 0, 0, 0],
@@ -21,10 +19,8 @@
             "id": 2,
             "descrizione": "Descrizione dettagliata della domanda 2",
             "assi": {
-                "conservatore": [1, 0.5, 0, 0, 0],
-                "progressista": [0, 0, 0, 0.5, 1],
-                "liberalista": [1, 0.5, 0, 0, 0],
-                "communitarista": [0, 0, 0, 0.5, 1]
+                "progressista-conservativo": [-1, -0.5, 0, 0.5, 1],
+                "liberalista-communitarista": [-1, -0.5, 0, 0.5, 1]
             },
             "partiti": {
                 "partito_1": [0, 1, 0, 0, 0],
