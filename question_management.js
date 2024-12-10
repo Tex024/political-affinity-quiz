@@ -25,6 +25,16 @@ async function loadQuestions() {
 }
 
 // Initialize the quiz
+async function initializeQuiz() {
+    await loadQuestions();
+    if (questions.length > 0) {
+        startSection.style.display = 'block';
+    } else {
+        alert('Nessuna domanda trovata nel file JSON.');
+    }
+}
+
+// Start the quiz
 function startQuiz() {
     startSection.style.display = 'none';
     questionSection.style.display = 'block';
@@ -104,3 +114,5 @@ function endQuiz() {
     console.log('User Answers:', userAnswers);
 }
 
+// Start the initialization process
+initializeQuiz();
