@@ -1,104 +1,113 @@
-// File: js/graph_creator.js
+window.addEventListener("load", () => {
+    const questionsSection = document.getElementById("questions-section");
+    const resultsSection = document.getElementById("results-section");
+    const resultsDiv = document.querySelector("#results-section");
 
-function createGraph(results) {
-    const canvas = document.createElement('canvas');
-    const canvasSize = 400; // Size of the graph (width and height in pixels)
-    canvas.width = canvasSize;
-    canvas.height = canvasSize;
-  
-    const ctx = canvas.getContext('2d');
-  
-    const axisColor = '#000';
-    const userPointColor = '#f00';
-    const gridColor = '#ddd';
-  
-    const { totalX, totalY, maxX, minX, maxY, minY } = results;
-  
-    const scaleX = canvasSize / (maxX - minX); // Pixels per unit on X-axis
-    const scaleY = canvasSize / (maxY - minY); // Pixels per unit on Y-axis
-    const centerX = canvasSize / 2; // Graph center X-coordinate
-    const centerY = canvasSize / 2; // Graph center Y-coordinate
-  
-    // Draw grid lines
-    ctx.strokeStyle = gridColor;
-    ctx.lineWidth = 0.5;
-    for (let x = minX; x <= maxX; x++) {
-      const xPos = centerX + x * scaleX;
-      ctx.beginPath();
-      ctx.moveTo(xPos, 0);
-      ctx.lineTo(xPos, canvasSize);
-      ctx.stroke();
-    }
-    for (let y = minY; y <= maxY; y++) {
-      const yPos = centerY - y * scaleY;
-      ctx.beginPath();
-      ctx.moveTo(0, yPos);
-      ctx.lineTo(canvasSize, yPos);
-      ctx.stroke();
-    }
-  
-    // Draw axes
-    ctx.strokeStyle = axisColor;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(centerX, 0); // Y-axis
-    ctx.lineTo(centerX, canvasSize);
-    ctx.stroke();
-  
-    ctx.beginPath();
-    ctx.moveTo(0, centerY); // X-axis
-    ctx.lineTo(canvasSize, centerY);
-    ctx.stroke();
-  
-    // Draw user point
-    const userX = centerX + totalX * scaleX;
-    const userY = centerY - totalY * scaleY;
-  
-    ctx.fillStyle = userPointColor;
-    ctx.beginPath();
-    ctx.arc(userX, userY, 5, 0, 2 * Math.PI);
-    ctx.fill();
-  
-    return canvas;
-  }
-  
-  function calculateResults(questions, userAnswers) {
-    const results = {
-      totalX: 0,
-      totalY: 0,
-      maxX: 0,
-      minX: 0,
-      maxY: 0,
-      minY: 0,
-    };
-  
-    questions.forEach((question, index) => {
-      const selectedAnswerIndex = userAnswers[index];
-  
-      if (selectedAnswerIndex === undefined) return;
-  
-      const axes = question.assi;
-  
-      results.totalX += axes['progressista-conservativo'][selectedAnswerIndex];
-      results.totalY += axes['liberalista-communitarista'][selectedAnswerIndex];
-  
-      results.maxX += Math.max(...axes['progressista-conservativo']);
-      results.minX += Math.min(...axes['progressista-conservativo']);
-      results.maxY += Math.max(...axes['liberalista-communitarista']);
-      results.minY += Math.min(...axes['liberalista-communitarista']);
-    });
-  
-    return results;
-  }
-  
-  function displayResults(questions, userAnswers) {
-    const resultsSection = document.getElementById('results-section');
-  
-    const results = calculateResults(questions, userAnswers);
-    const graph = createGraph(results);
-  
-    resultsSection.appendChild(graph);
-  }
-  
-  export { displayResults };
-  
+    let userAnswers = [];
+
+    // Fetch the questions and map them to axis values
+    fetch("questions.json")
+        .then(response => response.json())
+        .then(data => {
+            const questions = data.domande;
+            userAnswers = questions.map(() => ({
+                progressistaConservativo: 0,
+                liberalistaCommunitarista: 0
+            }));
+
+            // Function to calculate the graph
+            const calculateScores = () => {
+                let totalX = 0;
+                let totalY = 0;
+
+                questions.forEach((question, index) => {
+                    const selectedButton = document.querySelector(`#questions-div > #question[value="${index}"] .answer-btn[data-selected="true"]`);
+                    if (selectedButton) {
+                        const answerIndex = Array.from(selectedButton.parentElement.children).indexOf(selectedButton);
+
+                        // Add axis values based on selected answer
+                        totalX += question.assi["progressista-conservativo"][answerIndex];
+                        totalY += question.assi["liberalista-communitarista"][answerIndex];
+                    }
+                });
+
+                // Generate the graph
+                renderGraph(totalX, totalY);
+            };
+
+            // Render graph function
+            const renderGraph = (totalX, totalY) => {
+                resultsDiv.innerHTML = ""; // Clear any previous results
+
+                // Create a container for the graph
+                const graphContainer = document.createElement("div");
+                graphContainer.style.position = "relative";
+                graphContainer.style.width = "400px";
+                graphContainer.style.height = "400px";
+                graphContainer.style.border = "2px solid black";
+                graphContainer.style.marginTop = "20px";
+                graphContainer.style.display = "block";
+                resultsDiv.appendChild(graphContainer);
+
+                // Define graph's center and scale
+                const centerX = 200;
+                const centerY = 200;
+                const scale = 50; // 1 point = 50 pixels
+
+                // Calculate position for the user's square
+                const userX = centerX + totalX * scale;
+                const userY = centerY - totalY * scale;
+
+                // Add axes (X and Y)
+                const xAxis = document.createElement("div");
+                xAxis.style.position = "absolute";
+                xAxis.style.width = "100%";
+                xAxis.style.height = "2px";
+                xAxis.style.top = `${centerY - 1}px`;
+                xAxis.style.backgroundColor = "black";
+                graphContainer.appendChild(xAxis);
+
+                const yAxis = document.createElement("div");
+                yAxis.style.position = "absolute";
+                yAxis.style.height = "100%";
+                yAxis.style.width = "2px";
+                yAxis.style.left = `${centerX - 1}px`;
+                yAxis.style.backgroundColor = "black";
+                graphContainer.appendChild(yAxis);
+
+                // Add the user's position as a colored square
+                const userSquare = document.createElement("div");
+                userSquare.style.position = "absolute";
+                userSquare.style.width = "10px";
+                userSquare.style.height = "10px";
+                userSquare.style.backgroundColor = "blue";
+                userSquare.style.left = `${userX - 5}px`; // Center the square on the point
+                userSquare.style.top = `${userY - 5}px`; // Center the square on the point
+                graphContainer.appendChild(userSquare);
+
+                // Add labels for the axes (optional)
+                const labelX = document.createElement("div");
+                labelX.textContent = "Conservatore";
+                labelX.style.position = "absolute";
+                labelX.style.top = `${centerY + 10}px`;
+                labelX.style.left = `${centerX + 10}px`;
+                graphContainer.appendChild(labelX);
+
+                const labelY = document.createElement("div");
+                labelY.textContent = "Liberalista";
+                labelY.style.position = "absolute";
+                labelY.style.left = `${centerX + 10}px`;
+                labelY.style.top = `${centerY - 30}px`;
+                graphContainer.appendChild(labelY);
+            };
+
+            // Trigger graph calculation once the user has completed the quiz
+            const finishButton = document.createElement("button");
+            finishButton.textContent = "Visualizza Risultati";
+            finishButton.addEventListener("click", calculateScores);
+            resultsDiv.appendChild(finishButton);
+        })
+        .catch(error => {
+            console.error("Error loading questions: ", error);
+        });
+});
