@@ -39,19 +39,19 @@ window.addEventListener("load", () => {
             const renderGraph = (totalX, totalY) => {
                 resultsDiv.innerHTML = ""; // Clear any previous results
 
-                // Create a container for the graph
+                // Create a container for the graph (larger size)
                 const graphContainer = document.createElement("div");
                 graphContainer.style.position = "relative";
-                graphContainer.style.width = "500px";  // Adjust the size
-                graphContainer.style.height = "500px"; // Adjust the size
+                graphContainer.style.width = "600px";  // Increased size
+                graphContainer.style.height = "600px"; // Increased size
                 graphContainer.style.border = "2px solid black";
                 graphContainer.style.marginTop = "20px";
                 graphContainer.style.display = "block";
                 resultsDiv.appendChild(graphContainer);
 
                 // Define graph's center and scale
-                const centerX = 250;
-                const centerY = 250;
+                const centerX = 300;
+                const centerY = 300;
                 const scale = 40; // 1 point = 40 pixels for better sizing
 
                 // Calculate position for the user's square
@@ -104,33 +104,33 @@ window.addEventListener("load", () => {
                     graphContainer.appendChild(quadrant);
                 });
 
-                // Add labels for the axes and quadrants
+                // Add labels for the axes (now at the extremes)
                 const labelX1 = document.createElement("div");
-                labelX1.textContent = "Conservatore";
+                labelX1.textContent = "Progressista";
                 labelX1.style.position = "absolute";
                 labelX1.style.top = `${centerY + 10}px`;
-                labelX1.style.left = `${centerX + 10}px`;
+                labelX1.style.left = `${centerX - 130}px`; // Left extreme of X-axis
                 graphContainer.appendChild(labelX1);
 
                 const labelX2 = document.createElement("div");
-                labelX2.textContent = "Progressista";
+                labelX2.textContent = "Conservatore";
                 labelX2.style.position = "absolute";
                 labelX2.style.top = `${centerY + 10}px`;
-                labelX2.style.left = `${centerX - 110}px`;
+                labelX2.style.left = `${centerX + 100}px`; // Right extreme of X-axis
                 graphContainer.appendChild(labelX2);
 
                 const labelY1 = document.createElement("div");
-                labelY1.textContent = "Liberalista";
+                labelY1.textContent = "Communitarista";
                 labelY1.style.position = "absolute";
-                labelY1.style.left = `${centerX + 10}px`;
-                labelY1.style.top = `${centerY - 30}px`;
+                labelY1.style.left = `${centerX - 40}px`;
+                labelY1.style.top = `${centerY - 140}px`; // Top extreme of Y-axis
                 graphContainer.appendChild(labelY1);
 
                 const labelY2 = document.createElement("div");
-                labelY2.textContent = "Communitarista";
+                labelY2.textContent = "Liberalista";
                 labelY2.style.position = "absolute";
-                labelY2.style.left = `${centerX - 100}px`;
-                labelY2.style.top = `${centerY - 30}px`;
+                labelY2.style.left = `${centerX - 40}px`;
+                labelY2.style.top = `${centerY + 100}px`; // Bottom extreme of Y-axis
                 graphContainer.appendChild(labelY2);
             };
 
