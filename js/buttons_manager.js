@@ -34,6 +34,11 @@ window.addEventListener("load", () => {
         return currentQuestionDiv.querySelector(".answer-btn[data-selected]") !== null;
     };
 
+    const goToResults = () => {
+        questionsSection.style.display = "none";
+        introductionSection.style.display = "block";
+    }
+
     // Add event listeners for each answer button
     document.querySelectorAll("#questions-div").forEach(questionDiv => {
         questionDiv.addEventListener("click", (event) => {
@@ -57,6 +62,10 @@ window.addEventListener("load", () => {
             currentQuestion++;
             updateVisibleQuestion();
         }
+        if (currentQuestion === document.querySelectorAll("#questions-div > #question").length - 1 && isAnswerSelected()){
+            goToResults();
+        }
+
     });
 
     // Back button functionality
