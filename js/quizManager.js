@@ -7,16 +7,12 @@ async function fetchQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
-        questions = data.questions; // Populate the questions constant
+        questions = data.questions; // Populate the questions array
+        console.log('Questions loaded successfully', questions);
     } catch (error) {
-        console.error('Errore nel caricamento delle domande:', error);
+        console.error('Error loading questions:', error);
     }
 }
-
-// Wait for questions to load before starting the quiz
-fetchQuestions().then(() => {
-    console.log('Domande caricate correttamente', questions);
-});
 
 // DOM elements
 const startSection = document.getElementById('start-section');
@@ -31,59 +27,78 @@ let currentQuestionIndex = 0;
 let userAnswers = [];
 
 // Initialize the quiz
+function initialize() {
+    document.getElementById('start-button').addEventListener('click', startQuiz);
+    fetchQuestions();
+}
+
+// Start the quiz
 function startQuiz() {
     startSection.style.display = 'none';
     questionSection.style.display = 'block';
     displayQuestion(currentQuestionIndex);
 }
 
-// Display a specific question
+// Display a question
 function displayQuestion(index) {
     const question = questions[index];
-    questionText.textContent = Domanda ${index + 1}: ${question.question};
+    if (!question) {
+        console.error('No question found at index:', index);
+        return;
+    }
 
-    // Clear existing answers and append new ones
+    questionText.textContent = `Domanda ${index + 1}: ${question.question}`;
+
+    // Clear existing answers and dynamically generate new ones
     answersDiv.innerHTML = '';
-    const icons = ['strongly_agree', 'agree', 'moderate', 'disagree', 'strongly_disagree', 'uninterested'];
+    const icons = [
+        'strongly_agree',
+        'agree',
+        'moderate',
+        'disagree',
+        'strongly_disagree',
+        'uninterested'
+    ];
+    
     icons.forEach((icon, i) => {
         const button = document.createElement('button');
-        button.innerHTML = <img src='icons/${icon}.png' alt='${icon}'>;
+        button.innerHTML = `<img src="icons/${icon}.png" alt="${icon}">`;
         button.onclick = () => selectAnswer(i);
         answersDiv.appendChild(button);
     });
 
-    // Clear and set detailed explanation
+    // Handle the detailed explanation section
     detailedExplanation.innerHTML = '';
     const descriptionButton = document.createElement('button');
     descriptionButton.textContent = 'Mostra Spiegazione';
     descriptionButton.onclick = () => {
-        detailedExplanation.textContent = question.description;
+        detailedExplanation.textContent = question.description || "Nessuna spiegazione disponibile";
     };
     detailedExplanation.appendChild(descriptionButton);
 
-    // Remove Next Question button if present
+    // Remove "Next Question" button if already exists
     const nextButton = document.getElementById('next-button');
     if (nextButton) nextButton.remove();
 }
 
 // Handle answer selection
 function selectAnswer(answerIndex) {
-    // Highlight the selected answer
     const buttons = answersDiv.querySelectorAll('button');
+    
     buttons.forEach((btn, i) => {
         btn.style.border = i === answerIndex ? '2px solid blue' : 'none';
     });
 
-    // Add Next Question button if not already present
-    if (!document.getElementById('next-button')) {
-        const nextButton = document.createElement('button');
-        nextButton.id = 'next-button';
-        nextButton.textContent = 'Prossima Domanda';
-        nextButton.onclick = () => {
+    const nextButton = document.getElementById('next-button');
+    if (!nextButton) {
+        const btn = document.createElement('button');
+        btn.id = 'next-button';
+        btn.textContent = 'Prossima Domanda';
+        btn.onclick = () => {
             storeAnswer(answerIndex);
             goToNextQuestion();
         };
-        questionSection.appendChild(nextButton);
+        questionSection.appendChild(btn);
     }
 }
 
@@ -92,7 +107,7 @@ function storeAnswer(answerIndex) {
     userAnswers[currentQuestionIndex] = answerIndex;
 }
 
-// Go to the next question
+// Handle transition to the next question
 function goToNextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex < questions.length) {
@@ -106,6 +121,8 @@ function goToNextQuestion() {
 function endQuiz() {
     questionSection.style.display = 'none';
     resultsSection.style.display = 'block';
-    // Placeholder for result processing logic
     console.log('User Answers:', userAnswers);
 }
+
+// Start initialization
+initialize();
