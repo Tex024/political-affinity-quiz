@@ -16,22 +16,26 @@ window.addEventListener("load", () => {
     });
 
     // Function to update the visible question
-    const updateVisibleQuestion = () => {
-        const allQuestions = document.querySelectorAll("#questions-div > #question");
-        allQuestions.forEach((question, index) => {
-            question.style.display = index === currentQuestion ? "block" : "none";
+    function updateVisibleQuestion() {
+        const allQuestions = document.querySelectorAll('#questions-div > div[id="question"]');
+        allQuestions.forEach((question) => {
+            question.style.display = "none";
         });
-
-        // Update navigation buttons visibility
-        backButton.style.display = currentQuestion > 0 ? "inline-block" : "none";
-        nextButton.style.display = isAnswerSelected() ? "inline-block" : "none";
-    };
-
-    // Function to check if an answer is selected for the current question
-    const isAnswerSelected = () => {
-        const currentQuestionDiv = document.querySelector(`#questions-div > #question[value="${currentQuestion}"]`);
-        return currentQuestionDiv.querySelector(".answer-btn[data-selected]") !== null;
-    };
+    
+        const currentQuestionDiv = document.querySelector(`#questions-div > div[id="question"][value="${currentQuestion}"]`);
+        if (currentQuestionDiv) { // Add null check
+            currentQuestionDiv.style.display = "block";
+            updateButtonVisibility();
+        }
+    }
+    
+    function isAnswerSelected() {
+        const currentQuestionDiv = document.querySelector(`#questions-div > div[id="question"][value="${currentQuestion}"]`);
+        if (!currentQuestionDiv) return false; // Add null check to avoid errors
+    
+        const selectedAnswer = currentQuestionDiv.querySelector('.answer-btn[selected]');
+        return !!selectedAnswer; // Return true if an answer is selected, false otherwise
+    }    
 
     // Add event listeners for each answer button
     document.querySelectorAll("#questions-div").forEach(questionDiv => {
