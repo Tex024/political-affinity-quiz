@@ -1,165 +1,97 @@
+// Create the graph for the results section
 window.addEventListener("load", () => {
-    const questionsSection = document.getElementById("questions-section");
+    // DOM references
     const resultsSection = document.getElementById("results-section");
-    const resultsDiv = document.querySelector("#results-section");
 
-    let userAnswers = [];
+    // Dimensions for the graph canvas
+    const graphSize = 400; // Graph is 400x400 pixels
+    const gridSize = 20; // Each square in the graph represents 20x20 pixels
+    const halfGraphSize = graphSize / 2;
 
-    // Fetch the questions and map them to axis values
-    fetch("questions.json")
-        .then(response => response.json())
-        .then(data => {
-            const questions = data.domande;
-            userAnswers = questions.map(() => ({
-                progressistaConservativo: 0,
-                liberalistaCommunitarista: 0
-            }));
+    // Create and append the canvas
+    const canvas = document.createElement("canvas");
+    canvas.width = graphSize;
+    canvas.height = graphSize;
+    canvas.style.border = "1px solid black";
+    resultsSection.appendChild(canvas);
 
-            // Function to calculate the graph
-            const calculateScores = () => {
-                let totalX = 0;
-                let totalY = 0;
+    const ctx = canvas.getContext("2d");
 
-                questions.forEach((question, index) => {
-                    const selectedButton = document.querySelector(`#questions-div > #question[value="${index}"] .answer-btn[data-selected="true"]`);
-                    if (selectedButton) {
-                        const answerIndex = Array.from(selectedButton.parentElement.children).indexOf(selectedButton);
+    // Function to draw the graph grid
+    const drawGrid = () => {
+        ctx.clearRect(0, 0, graphSize, graphSize);
 
-                        // Add axis values based on selected answer
-                        totalX += question.assi["progressista-conservativo"][answerIndex];
-                        totalY += question.assi["liberalista-communitarista"][answerIndex];
-                    }
-                });
+        // Draw background grid
+        ctx.strokeStyle = "#e0e0e0";
+        for (let x = 0; x <= graphSize; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, graphSize);
+            ctx.stroke();
+        }
+        for (let y = 0; y <= graphSize; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(graphSize, y);
+            ctx.stroke();
+        }
 
-                // Generate the graph
-                renderGraph(totalX, totalY);
-            };
+        // Draw X and Y axes
+        ctx.strokeStyle = "#000000";
+        ctx.beginPath();
+        ctx.moveTo(halfGraphSize, 0);
+        ctx.lineTo(halfGraphSize, graphSize);
+        ctx.stroke();
 
-            // Render graph function
-            const renderGraph = (totalX, totalY) => {
-                resultsDiv.innerHTML = ""; // Clear any previous results
+        ctx.beginPath();
+        ctx.moveTo(0, halfGraphSize);
+        ctx.lineTo(graphSize, halfGraphSize);
+        ctx.stroke();
+    };
 
-                // Create a container for the graph (larger size)
-                const graphContainer = document.createElement("div");
-                graphContainer.style.position = "relative";
-                graphContainer.style.width = "600px";  // Increased size
-                graphContainer.style.height = "600px"; // Increased size
-                graphContainer.style.border = "2px solid black";
-                graphContainer.style.marginTop = "20px";
-                graphContainer.style.display = "block";
-                resultsDiv.appendChild(graphContainer);
+    // Function to calculate and render the user's position
+    const renderUserPosition = (userScores) => {
+        const { totalX, totalY } = userScores;
 
-                // Define graph's center and scale
-                const centerX = 300;
-                const centerY = 300;
-                const scale = 40; // 1 point = 40 pixels for better sizing
+        // Translate graph coordinates to canvas coordinates
+        const canvasX = halfGraphSize + totalX * gridSize;
+        const canvasY = halfGraphSize - totalY * gridSize;
 
-                // Calculate position for the user's square
-                const userX = centerX + totalX * scale;
-                const userY = centerY - totalY * scale;
+        // Draw the user's position as a colored square
+        ctx.fillStyle = "#ff0000"; // Red for user's position
+        ctx.fillRect(canvasX - gridSize / 2, canvasY - gridSize / 2, gridSize, gridSize);
+    };
 
-                // Add axes (X and Y)
-                const xAxis = document.createElement("div");
-                xAxis.style.position = "absolute";
-                xAxis.style.width = "100%";
-                xAxis.style.height = "2px";
-                xAxis.style.top = `${centerY - 1}px`;
-                xAxis.style.backgroundColor = "black";
-                graphContainer.appendChild(xAxis);
+    // Function to calculate scores based on user's answers
+    const calculateScores = () => {
+        const questionsDiv = document.getElementById("questions-div");
+        const questions = questionsDiv.querySelectorAll("#question");
+        let totalX = 0;
+        let totalY = 0;
 
-                const yAxis = document.createElement("div");
-                yAxis.style.position = "absolute";
-                yAxis.style.height = "100%";
-                yAxis.style.width = "2px";
-                yAxis.style.left = `${centerX - 1}px`;
-                yAxis.style.backgroundColor = "black";
-                graphContainer.appendChild(yAxis);
+        questions.forEach(question => {
+            const selectedBtn = question.querySelector(".answer-btn[data-selected]");
+            if (selectedBtn) {
+                const responseIndex = parseInt(selectedBtn.getAttribute("data-value"), 10);
+                const axesValues = JSON.parse(question.getAttribute("data-axes"));
 
-                // Add grid lines (every 1 scale unit)
-                for (let i = 1; i <= 7; i++) {
-                    const gridLineX = document.createElement("div");
-                    gridLineX.style.position = "absolute";
-                    gridLineX.style.width = "2px";
-                    gridLineX.style.height = "100%";
-                    gridLineX.style.left = `${centerX + i * scale}px`;
-                    gridLineX.style.backgroundColor = "gray";
-                    graphContainer.appendChild(gridLineX);
-
-                    const gridLineY = document.createElement("div");
-                    gridLineY.style.position = "absolute";
-                    gridLineY.style.height = "2px";
-                    gridLineY.style.width = "100%";
-                    gridLineY.style.top = `${centerY - i * scale}px`;
-                    gridLineY.style.backgroundColor = "gray";
-                    graphContainer.appendChild(gridLineY);
-                }
-
-                // Add the user's position as a colored square (dark blue)
-                const userSquare = document.createElement("div");
-                userSquare.style.position = "absolute";
-                userSquare.style.width = "10px";
-                userSquare.style.height = "10px";
-                userSquare.style.backgroundColor = "darkblue";
-                userSquare.style.left = `${userX - 5}px`; // Center the square on the point
-                userSquare.style.top = `${userY - 5}px`; // Center the square on the point
-                graphContainer.appendChild(userSquare);
-
-                // Color the four quadrants
-                const quadrantColors = [
-                    { top: 0, left: 0, backgroundColor: "lightblue" },  // Liberal-Left
-                    { top: 0, left: centerX, backgroundColor: "lightyellow" },  // Liberal-Right
-                    { top: centerY, left: 0, backgroundColor: "lightgreen" },  // Communitarian-Left
-                    { top: centerY, left: centerX, backgroundColor: "lightcoral" }  // Communitarian-Right
-                ];
-
-                quadrantColors.forEach(({ top, left, backgroundColor }) => {
-                    const quadrant = document.createElement("div");
-                    quadrant.style.position = "absolute";
-                    quadrant.style.width = `${centerX}px`;
-                    quadrant.style.height = `${centerY}px`;
-                    quadrant.style.backgroundColor = backgroundColor;
-                    quadrant.style.top = `${top}px`;
-                    quadrant.style.left = `${left}px`;
-                    graphContainer.appendChild(quadrant);
-                });
-
-                // Add labels for the axes (at consistent positions)
-                const labelX1 = document.createElement("div");
-                labelX1.textContent = "Progressista";
-                labelX1.style.position = "absolute";
-                labelX1.style.top = `${centerY + 10}px`;
-                labelX1.style.left = `${centerX - 130}px`; // Left extreme of X-axis
-                graphContainer.appendChild(labelX1);
-
-                const labelX2 = document.createElement("div");
-                labelX2.textContent = "Conservatore";
-                labelX2.style.position = "absolute";
-                labelX2.style.top = `${centerY + 10}px`;
-                labelX2.style.left = `${centerX + 100}px`; // Right extreme of X-axis
-                graphContainer.appendChild(labelX2);
-
-                const labelY1 = document.createElement("div");
-                labelY1.textContent = "Communitarista";
-                labelY1.style.position = "absolute";
-                labelY1.style.left = `${centerX - 40}px`;
-                labelY1.style.top = `${centerY - 140}px`; // Top extreme of Y-axis
-                graphContainer.appendChild(labelY1);
-
-                const labelY2 = document.createElement("div");
-                labelY2.textContent = "Liberalista";
-                labelY2.style.position = "absolute";
-                labelY2.style.left = `${centerX - 40}px`;
-                labelY2.style.top = `${centerY + 100}px`; // Bottom extreme of Y-axis
-                graphContainer.appendChild(labelY2);
-            };
-
-            // Trigger graph calculation once the user has completed the quiz
-            const finishButton = document.createElement("button");
-            finishButton.textContent = "Visualizza Risultati";
-            finishButton.addEventListener("click", calculateScores);
-            resultsDiv.appendChild(finishButton);
-        })
-        .catch(error => {
-            console.error("Error loading questions: ", error);
+                totalX += axesValues["progressista-conservativo"][responseIndex];
+                totalY += axesValues["liberalista-communitarista"][responseIndex];
+            }
         });
+
+        return { totalX, totalY };
+    };
+
+    // Draw the grid initially
+    drawGrid();
+
+    // Calculate the scores and render the graph when results are displayed
+    const showResults = () => {
+        const userScores = calculateScores();
+        renderUserPosition(userScores);
+    };
+
+    // Add event listener for when the results section is shown
+    document.addEventListener("results:show", showResults);
 });
