@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domanda</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="js/question_manager.js" defer></script>
+</head>
+
+<body>
+  <div id="question-container">
+    <h2 id="question-text"></h2>
+    <div id="answers">
+      <button class="answer-btn" data-value="1">Totalmente in disaccordo</button>
+      <button class="answer-btn" data-value="2">Disaccordo</button>
+      <button class="answer-btn" data-value="3">Neutrale</button>
+      <button class="answer-btn" data-value="4">D'accordo</button>
+      <button class="answer-btn" data-value="5">Totalmente d'accordo</button>
+    </div>
+    <button id="not-interested-button">Non Interessato</button>
+    <div id="navigation">
+      <button id="back-button" style="display: none;">Indietro</button>
+      <button id="next-button" style="display: none;">Avanti</button>
+    </div>
+  </div>
+  
+  <button id="toggle-details">Mostra dettagli</button>
+  <div id="details" style="display: none;">
+    <p id="description"></p>
+    <ul>
+      <li id="explanation-agree"></li>
+      <li id="explanation-neutral"></li>
+      <li id="explanation-disagree"></li>
+    </ul>
+  </div>
+</body>
+
+</html>

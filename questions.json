@@ -1,31 +1,57 @@
 {
     "domande": [
         {
-            "domanda": "Testo della domanda 1",
+            "domanda": "Per far fronte al sovrappopolamento delle carceri dovremmo liberare chi ha compiuto reati minori, come lo spaccio",
             "id": 1,
             "descrizione": "Descrizione dettagliata della domanda 1",
-            "assi": {
-                "progressista-conservativo": [-1, -0.5, 0, 0.5, 1],
-                "liberalista-communitarista": [-1, -0.5, 0, 0.5, 1]
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "categorie": {
+                "economia": 0,
+                "politica_interna": 0.8,
+                "politica_estera": 0,
+                "politiche_energetiche": 0,
+                "etica": 0.2
             },
             "partiti": {
-                "partito_1": [0, 1, 0, 0, 0],
-                "partito_2": [0, 0, 0, 0, 1],
-                "partito_3": [0, 0, 0.5, 0.5, 0]
+                "lega": [0.8, 1.2, 0, 0, 0],
+                "FdI": [1.4, 0.6, 0, 0, 0],
+                "FI": [0.6, 1, 0.4, 0, 0],
+                "Italia Viva": [0, 0.2, 1.1, 0.7, 0],
+                "Azione": [0, 0.2, 1.1, 0.7, 0],
+                "PD": [0, 0, 0.2, 1.2, 0.6],
+                "M5S": [0, 0, 0.4, 1, 0.6],
+                "VeS": [0, 0.2, 0.9, 0.7, 0.2]
             }
         },
         {
-            "domanda": "Testo della domanda 2",
+            "domanda": "Legalizzazione della cannabis",
             "id": 2,
             "descrizione": "Descrizione dettagliata della domanda 2",
-            "assi": {
-                "progressista-conservativo": [-1, -0.5, 0, 0.5, 1],
-                "liberalista-communitarista": [-1, -0.5, 0, 0.5, 1]
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "categorie": {
+                "economia": 0.1,
+                "politica_interna": 0.6,
+                "politica_estera": 0,
+                "politiche_energetiche": 0,
+                "etica": 0.3
             },
             "partiti": {
-                "partito_1": [0, 1, 0, 0, 0],
-                "partito_2": [0, 0, 0, 0, 1],
-                "partito_3": [0, 0, 0.5, 0.5, 0]
+                "lega": [1.4, 0.6, 0, 0, 0],
+                "FdI": [1.1, 0.8, 0.1, 0, 0],
+                "FI": [0.2, 0.6, 1, 0.2, 0],
+                "Italia Viva": [0, 0.4, 1.2, 0.4, 0],
+                "Azione": [0, 0.3, 1.1, 0.6, 0],
+                "PD": [0, 0, 0.3, 0.5, 1.2],
+                "M5S": [0, 0, 0, 0.6, 1.4],
+                "VeS": [0, 0, 0.4, 0.6, 1]
             }
         }
     ]
