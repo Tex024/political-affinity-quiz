@@ -17,7 +17,7 @@
                 "etica": 0.2
             },
             "partiti": {
-                "lega": [0.8, 1.2, 0, 0, 0],
+                "Lega": [0.8, 1.2, 0, 0, 0],
                 "FdI": [1.4, 0.6, 0, 0, 0],
                 "FI": [0.6, 1, 0.4, 0, 0],
                 "Italia Viva": [0, 0.2, 1.1, 0.7, 0],
@@ -44,7 +44,7 @@
                 "etica": 0.3
             },
             "partiti": {
-                "lega": [1.4, 0.6, 0, 0, 0],
+                "Lega": [1.4, 0.6, 0, 0, 0],
                 "FdI": [1.1, 0.8, 0.1, 0, 0],
                 "FI": [0.2, 0.6, 1, 0.2, 0],
                 "Italia Viva": [0, 0.4, 1.2, 0.4, 0],
@@ -52,6 +52,33 @@
                 "PD": [0, 0, 0.3, 0.5, 1.2],
                 "M5S": [0, 0, 0, 0.6, 1.4],
                 "VeS": [0, 0, 0.4, 0.6, 1]
+            }
+        },
+        {
+            "domanda": "Ognuno è libero di fare tutto ciò che vuole, e lo stato non dovrebbe influire sulla volontà degli individui",
+            "id": 3,
+            "descrizione": "Descrizione dettagliata della domanda 3",
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "categorie": {
+                "economia": 0,
+                "politica_interna": 0.5,
+                "politica_estera": 0,
+                "politiche_energetiche": 0,
+                "etica": 0.5
+            },
+            "partiti": {
+                "Lega": [0, 0.6, 1, 0.4, 0],
+                "FdI": [0, 0.6, 1, 0.4, 0],
+                "FI": [0, 0.2, 0.8, 1, 0],
+                "Italia Viva": [0, 0, 0.2, 1.2, 0.6],
+                "Azione": [0, 0, 0.2, 1.2, 0.6],
+                "PD": [0, 0, 0.7, 1.3, 0],
+                "M5S": [0, 0, 0, 0.8, 1.2],
+                "VeS": [0, 0, 0, 0.8, 1.2]
             }
         }
     ]
