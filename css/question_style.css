@@ -90,6 +90,10 @@
   #not-interested-button:hover {
     background-color: #525252;
   }
+
+  #not-interested-button.selected {
+    background-color: #525252;
+  }
   
   #navigation {
     text-align: center;
