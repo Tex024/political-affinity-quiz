@@ -4,13 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Risultati del Quiz</title>
+  <link rel="stylesheet" href="css/results_style.css">
   <script src="js/results_manager.js" defer></script>
 </head>
 <body>
-  <h1>Risultati del Quiz</h1>
-  <div id="results-container">
-    <p>I risultati del tuo quiz sono i seguenti:</p>
-    <ul id="results-list"></ul>
-  </div>
+  <main>
+    <header>
+      <h1>Risultati del Quiz</h1>
+      <p>Di seguito trovi i risultati del tuo quiz.</p>
+    </header>
+    <section id="results-container">
+      <article id="general-results">
+        <h2>Risultati Generali</h2>
+        <div id="general-results-list"></div>
+      </article>
+      <article id="category-results">
+        <h2>Risultati per Categorie</h2>
+        <div id="category-results-list"></div>
+      </article>
+    </section>
+  </main>
 </body>
 </html>

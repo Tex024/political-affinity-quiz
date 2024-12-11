@@ -1,122 +1,164 @@
 document.addEventListener("DOMContentLoaded", async () => {
-    const resultsContainer = document.querySelector("#results-list");
+    const resultsContainer = document.querySelector("#results-container");
+    const generalResultsList = document.querySelector("#general-results-list");
+    const categoryResultsList = document.querySelector("#category-results-list");
     const userAnswers = JSON.parse(localStorage.getItem("userAnswers"));
   
     if (!userAnswers) {
-      resultsContainer.textContent = "Non sono stati trovati risultati.";
+      displayError("Non sono stati trovati risultati.");
       return;
     }
   
     try {
-      // Carica i dati dal JSON
-      const response = await fetch("questions.json");
-      const data = await response.json();
-      const questions = data.domande;
+      const questions = await loadQuestions();
   
-      const partyScores = {};
-      const partyMaxScores = {};
-      const categoryScores = {};
-      const categoryMaxScores = {};
+      const { partyResults, categoryResults } = calculateResults(questions, userAnswers);
   
-      // Inizializza i partiti e le categorie
-      Object.keys(questions[0].partiti).forEach((party) => {
-        partyScores[party] = 0;
-        partyMaxScores[party] = 0;
-      });
-  
-      Object.keys(questions[0].categorie).forEach((category) => {
-        categoryScores[category] = {};
-        categoryMaxScores[category] = {};
-  
-        Object.keys(questions[0].partiti).forEach((party) => {
-          categoryScores[category][party] = 0;
-          categoryMaxScores[category][party] = 0;
-        });
-      });
-  
-      // Itera su tutte le domande e calcola i punteggi
-      userAnswers.forEach((answer, index) => {
-        if (answer === -1) return; // Skippa le domande non risposte
-  
-        const question = questions[index];
-        const partiti = question.partiti;
-        const categorie = question.categorie;
-  
-        // Calcola i punteggi generali
-        Object.entries(partiti).forEach(([party, scores]) => {
-          partyScores[party] += scores[answer-1] || 0;
-          partyMaxScores[party] += Math.max(...scores);
-        });
-  
-        // Calcola i punteggi per categoria
-        Object.entries(categorie).forEach(([category, weight]) => {
-          Object.entries(partiti).forEach(([party, scores]) => {
-            const weightedScore = (scores[answer-1] || 0) * weight;
-            const weightedMaxScore = Math.max(...scores) * weight;
-  
-            categoryScores[category][party] += weightedScore;
-            categoryMaxScores[category][party] += weightedMaxScore;
-          });
-        });
-      });
-  
-      // Calcola le percentuali generali e ordina i risultati
-      const partyResults = Object.keys(partyScores).map((party) => {
-        const userScore = partyScores[party];
-        const maxScore = partyMaxScores[party];
-        const percentage = maxScore > 0 ? (userScore / maxScore) * 100 : 0;
-  
-        return { party, userScore, maxScore, percentage };
-      });
-  
-      partyResults.sort((a, b) => b.percentage - a.percentage);
-  
-      // Calcola le percentuali per categorie
-      const categoryResults = {};
-      Object.keys(categoryScores).forEach((category) => {
-        categoryResults[category] = Object.keys(categoryScores[category]).map(
-          (party) => {
-            const userScore = categoryScores[category][party];
-            const maxScore = categoryMaxScores[category][party];
-            const percentage = maxScore > 0 ? (userScore / maxScore) * 100 : 0;
-  
-            return { party, userScore, maxScore, percentage };
-          }
-        );
-  
-        categoryResults[category].sort((a, b) => b.percentage - a.percentage);
-      });
-  
-      // Aggiorna il DOM con i risultati generali
-      const generalTitle = document.createElement("h2");
-      generalTitle.textContent = "Risultati Generali";
-      resultsContainer.appendChild(generalTitle);
-  
-      partyResults.forEach((result) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${result.party}: ${result.percentage.toFixed(
-          1
-        )}% (Punteggio: ${result.userScore}/${result.maxScore})`;
-        resultsContainer.appendChild(listItem);
-      });
-  
-      // Aggiorna il DOM con i risultati per categorie
-      Object.entries(categoryResults).forEach(([category, results]) => {
-        const categoryTitle = document.createElement("h2");
-        categoryTitle.textContent = `Risultati per Categoria: ${category}`;
-        resultsContainer.appendChild(categoryTitle);
-  
-        results.forEach((result) => {
-          const listItem = document.createElement("li");
-          listItem.textContent = `${result.party}: ${result.percentage.toFixed(
-            1
-          )}% (Punteggio: ${result.userScore}/${result.maxScore})`;
-          resultsContainer.appendChild(listItem);
-        });
-      });
+      renderGeneralResults(partyResults, generalResultsList);
+      renderCategoryResults(categoryResults, categoryResultsList);
     } catch (error) {
-      resultsContainer.textContent = "Errore nel caricamento dei dati.";
+      displayError("Errore nel caricamento dei dati.");
       console.error("Errore:", error);
     }
   });
   
+  async function loadQuestions() {
+    const response = await fetch("questions.json");
+    if (!response.ok) {
+      throw new Error("Impossibile caricare il file JSON delle domande.");
+    }
+    const data = await response.json();
+    return data.domande;
+  }
+  
+  function calculateResults(questions, userAnswers) {
+    const partyScores = initializeScores(questions[0].partiti);
+    const categoryScores = initializeCategoryScores(questions[0].categorie, questions[0].partiti);
+  
+    userAnswers.forEach((answer, index) => {
+      if (answer === -1) return;
+  
+      const question = questions[index];
+      updatePartyScores(question.partiti, answer, partyScores);
+      updateCategoryScores(question.categorie, question.partiti, answer, categoryScores);
+    });
+  
+    const partyResults = calculatePercentages(partyScores);
+    const categoryResults = Object.fromEntries(
+      Object.entries(categoryScores).map(([category, scores]) => [
+        category,
+        calculatePercentages(scores),
+      ])
+    );
+  
+    return { partyResults, categoryResults };
+  }
+  
+  function initializeScores(parties) {
+    const scores = {};
+    Object.keys(parties).forEach((party) => {
+      scores[party] = { userScore: 0, maxScore: 0 };
+    });
+    return scores;
+  }
+  
+  function initializeCategoryScores(categories, parties) {
+    const scores = {};
+    Object.keys(categories).forEach((category) => {
+      scores[category] = initializeScores(parties);
+    });
+    return scores;
+  }
+  
+  function updatePartyScores(parties, answer, partyScores) {
+    Object.entries(parties).forEach(([party, scores]) => {
+      const score = scores[answer - 1] || 0;
+      partyScores[party].userScore += score;
+      partyScores[party].maxScore += Math.max(...scores);
+    });
+  }
+  
+  function updateCategoryScores(categories, parties, answer, categoryScores) {
+    Object.entries(categories).forEach(([category, weight]) => {
+      Object.entries(parties).forEach(([party, scores]) => {
+        const score = (scores[answer - 1] || 0) * weight;
+        const maxScore = Math.max(...scores) * weight;
+        categoryScores[category][party].userScore += score;
+        categoryScores[category][party].maxScore += maxScore;
+      });
+    });
+  }
+  
+  function calculatePercentages(scores) {
+    return Object.keys(scores).map((key) => {
+      const { userScore, maxScore } = scores[key];
+      const percentage = maxScore > 0 ? (userScore / maxScore) * 100 : 0;
+      return { name: key, userScore, maxScore, percentage };
+    }).sort((a, b) => b.percentage - a.percentage);
+  }
+  
+  function renderGeneralResults(results, container) {
+    const table = document.createElement("table");
+    table.classList.add("results-table");
+  
+    const headerRow = document.createElement("tr");
+    headerRow.innerHTML = `
+      <th>Partito</th>
+      <th>Affinità</th>
+      <th>Punteggio</th>
+    `;
+    table.appendChild(headerRow);
+  
+    results.forEach((result) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${result.name}</td>
+        <td>${result.percentage.toFixed(1)}%</td>
+        <td>${result.userScore.toFixed(2)}/${result.maxScore.toFixed(2)}</td>
+      `;
+      table.appendChild(row);
+    });
+  
+    container.appendChild(table);
+  }
+  
+  function renderCategoryResults(results, container) {
+    Object.entries(results).forEach(([category, scores]) => {
+      const categorySection = document.createElement("section");
+      const categoryTitle = document.createElement("h3");
+      categoryTitle.textContent = `Categoria: ${category}`;
+      categorySection.appendChild(categoryTitle);
+  
+      const table = document.createElement("table");
+      table.classList.add("results-table");
+  
+      const headerRow = document.createElement("tr");
+      headerRow.innerHTML = `
+        <th>Partito</th>
+        <th>Affinità</th>
+        <th>Punteggio</th>
+      `;
+      table.appendChild(headerRow);
+  
+      scores.forEach((result) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${result.name}</td>
+          <td>${result.percentage.toFixed(1)}%</td>
+          <td>${result.userScore.toFixed(2)}/${result.maxScore.toFixed(2)}</td>
+        `;
+        table.appendChild(row);
+      });
+  
+      categorySection.appendChild(table);
+      container.appendChild(categorySection);
+    });
+  }
+  
+  
+  function displayError(message) {
+    const errorParagraph = document.createElement("p");
+    errorParagraph.textContent = message;
+    errorParagraph.classList.add("error");
+    document.querySelector("#results-container").appendChild(errorParagraph);
+  }

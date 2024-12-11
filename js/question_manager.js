@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const questionText = document.getElementById("question-text");
   const answerButtons = document.querySelectorAll(".answer-btn");
   const nextButton = document.getElementById("next-button");
-  const backButton = document.getElementById("back-button");
   const notInterestedButton = document.getElementById("not-interested-button");
   const toggleDetailsButton = document.getElementById("toggle-details");
   const details = document.getElementById("details");
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     explanationNeutral.textContent = question.spiegazione.neutrale;
     explanationDisagree.textContent = question.spiegazione.disaccordo;
     nextButton.style.display = "none";
-    backButton.style.display = currentQuestionIndex > 0 ? "block" : "none"; // Show Back button if there's a previous question
     answerButtons.forEach(btn => btn.classList.remove("selected"));
     notInterestedButton.classList.remove("selected");
   }
@@ -60,13 +58,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
       window.location.href = "results.html";
-    }
-  });
-
-  backButton.addEventListener("click", () => {
-    if (currentQuestionIndex > 0) {
-      currentQuestionIndex--;
-      renderQuestion();
     }
   });
 

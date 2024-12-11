@@ -4,37 +4,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Domanda</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Quiz - Domanda</title>
+  <link rel="stylesheet" href="css/question_style.css">
   <script src="js/question_manager.js" defer></script>
 </head>
 
 <body>
-  <div id="question-container">
-    <h2 id="question-text"></h2>
-    <div id="answers">
-      <button class="answer-btn" data-value="1">Totalmente in disaccordo</button>
-      <button class="answer-btn" data-value="2">Disaccordo</button>
-      <button class="answer-btn" data-value="3">Neutrale</button>
-      <button class="answer-btn" data-value="4">D'accordo</button>
-      <button class="answer-btn" data-value="5">Totalmente d'accordo</button>
-    </div>
-    <button id="not-interested-button">Non Interessato</button>
-    <div id="navigation">
-      <button id="back-button" style="display: none;">Indietro</button>
-      <button id="next-button" style="display: none;">Avanti</button>
-    </div>
-  </div>
-  
-  <button id="toggle-details">Mostra dettagli</button>
-  <div id="details" style="display: none;">
-    <p id="description"></p>
-    <ul>
-      <li id="explanation-agree"></li>
-      <li id="explanation-neutral"></li>
-      <li id="explanation-disagree"></li>
-    </ul>
-  </div>
+  <header>
+    <h1>Quiz di Affinità Politica</h1>
+  </header>
+
+  <main>
+    <section id="question-container">
+      <h2 id="question-text">Caricamento della domanda...</h2>
+      <div id="answers">
+        <button class="answer-btn" data-value="1">
+          <span class="icon">😡</span> <!-- Totally disagree -->
+        </button>
+        <button class="answer-btn" data-value="2">
+          <span class="icon">🙁</span> <!-- Disagree -->
+        </button>
+        <button class="answer-btn" data-value="3">
+          <span class="icon">😐</span> <!-- Neutral -->
+        </button>
+        <button class="answer-btn" data-value="4">
+          <span class="icon">🙂</span> <!-- Agree -->
+        </button>
+        <button class="answer-btn" data-value="5">
+          <span class="icon">😊</span> <!-- Totally agree -->
+        </button>
+      </div>
+      <button id="not-interested-button" class="secondary-btn">Non Interessato</button>
+      <div id="navigation">
+        <button id="next-button" class="primary-btn" style="display: none;">Avanti</button>
+      </div>
+    </section>
+
+    <section id="details-section">
+      <button id="toggle-details" class="secondary-btn">Mostra dettagli</button>
+      <div id="details" style="display: none;">
+        <h3>Dettagli della Domanda</h3>
+        <p id="description">Descrizione non disponibile.</p>
+        <ul>
+          <li><strong>Totalmente d'accordo:</strong> <span id="explanation-agree">N/A</span></li>
+          <li><strong>Neutrale:</strong> <span id="explanation-neutral">N/A</span></li>
+          <li><strong>Totalmente in disaccordo:</strong> <span id="explanation-disagree">N/A</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 - Quiz di Affinità Politica</p>
+  </footer>
 </body>
 
 </html>

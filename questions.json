@@ -11,9 +11,9 @@
             },
             "categorie": {
                 "economia": 0,
-                "politica_interna": 0.8,
-                "politica_estera": 0,
-                "politiche_energetiche": 0,
+                "politica interna": 0.8,
+                "politica estera": 0,
+                "politiche energetiche": 0,
                 "etica": 0.2
             },
             "partiti": {
@@ -38,9 +38,9 @@
             },
             "categorie": {
                 "economia": 0.1,
-                "politica_interna": 0.6,
-                "politica_estera": 0,
-                "politiche_energetiche": 0,
+                "politica interna": 0.6,
+                "politica estera": 0,
+                "politiche energetiche": 0,
                 "etica": 0.3
             },
             "partiti": {
@@ -65,9 +65,9 @@
             },
             "categorie": {
                 "economia": 0,
-                "politica_interna": 0.5,
-                "politica_estera": 0,
-                "politiche_energetiche": 0,
+                "politica interna": 0.5,
+                "politica estera": 0,
+                "politiche energetiche": 0,
                 "etica": 0.5
             },
             "partiti": {
