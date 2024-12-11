@@ -1,104 +1,100 @@
-/* General styles */
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     color: #333;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
   
-  /* Header styles */
   header {
-    background-color: #6200ea;
+    background-color: #007BFF;
     color: white;
-    padding: 20px;
     text-align: center;
+    padding: 20px;
   }
   
   header h1 {
-    font-size: 2rem;
     margin: 0;
+    font-size: 2rem;
   }
   
   header p {
-    font-size: 1.2rem;
     margin-top: 10px;
+    font-size: 1rem;
   }
   
-  /* Results container */
+  /* Results Container */
   #results-container {
-    padding: 20px;
-    margin: 20px auto;
     max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   article {
-    margin-bottom: 30px;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    color: #6200ea;
-    margin-bottom: 10px;
-  }
-  
-  h3 {
-    font-size: 1.3rem;
-    color: #6200ea;
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-  
-  /* Tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
     margin-bottom: 20px;
   }
   
-  th, td {
-    padding: 10px;
+  h2, h3 {
+    font-size: 1.5rem;
+    color: #007BFF;
+  }
+  
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 8px;
     text-align: left;
     border: 1px solid #ddd;
   }
   
-  th {
-    background-color: #6200ea;
-    color: white;
+  .results-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
   }
   
-  td {
+  .results-table td {
+    font-size: 1rem;
+  }
+  
+  .results-table tr:nth-child(even) {
     background-color: #f9f9f9;
   }
   
-  tr:nth-child(even) td {
-    background-color: #e7e7e7;
+  .results-table tr:hover {
+    background-color: #f0f0f0;
   }
   
   /* Error message */
   .error {
     color: red;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     margin-top: 20px;
   }
   
-  /* Button styling for consistency */
-  button {
-    font-size: 1rem;
-    background-color: #6200ea;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    header h1 {
+      font-size: 1.5rem;
+    }
   
-  button:hover {
-    background-color: #4e00c7;
+    .results-table th, .results-table td {
+      font-size: 0.9rem;
+    }
+  
+    #results-container {
+      margin: 10px;
+      padding: 15px;
+    }
   }
   
