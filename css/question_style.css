@@ -178,3 +178,17 @@
     margin: 10px 0;
   }
   
+  @media (max-width: 768px) {
+    button.answer-btn {
+      font-size: 1.5rem; /* Reduce font size */
+      padding: 8px 12px; /* Reduce padding */
+    }
+
+    #question-text {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #333;
+      font-weight: 600;
+    }
+  }
+  

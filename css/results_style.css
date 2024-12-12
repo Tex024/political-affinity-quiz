@@ -1,115 +1,143 @@
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  header {
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  header h1 {
-    margin: 0;
-    font-size: 2rem;
-  }
-  
-  header p {
-    margin-top: 10px;
-    font-size: 1rem;
-  }
-  
-  /* Results Container */
-  #results-container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+/* General resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  button {
-    font-size: 1.2rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #2d3e50;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+#home-button {
+  font-size: 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+#home-button:hover {
+  background-color: #0056b3;
+}
+
+/* Main content */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#results-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#results-container h2 {
+  font-size: 1.8rem;
+  color: #2d3e50;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+#general-results,
+#category-results {
+  margin-bottom: 20px;
+}
+
+#general-results-list,
+#category-results-list {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.results-table th, .results-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.results-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.results-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.results-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.results-table td {
+  text-align: center;
+}
+
+section h3 {
+  font-size: 1.2rem;
+  margin: 15px 0;
+  color: #333;
+}
+
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+  #home-button {
+    position: static; /* Remove absolute positioning */
+    float: top; /* Make it float to the right */
+    margin-bottom: 20px; /* Add margin to create space below the button */
   }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  article {
-    margin-bottom: 20px;
-  }
-  
-  h2, h3 {
-    font-size: 1.5rem;
-    color: #007BFF;
-  }
-  
-  .results-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  .results-table th,
-  .results-table td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .results-table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-  }
-  
-  .results-table td {
-    font-size: 1rem;
-  }
-  
-  .results-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .results-table tr:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Error message */
-  .error {
-    color: red;
-    font-size: 1rem;
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 1.5rem;
-    }
-  
-    .results-table th, .results-table td {
-      font-size: 0.9rem;
-    }
-  
-    #results-container {
-      margin: 10px;
-      padding: 15px;
-    }
-  }
-  
+}
