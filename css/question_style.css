@@ -32,6 +32,24 @@
     max-width: 800px;
     margin: 0 auto;
   }
+
+  #home-button {
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  
+  #home-button:hover {
+    background-color: #0056b3;
+  }
   
   #question-container {
     background-color: #fff;
@@ -46,13 +64,16 @@
     margin-bottom: 20px;
     color: #333;
     font-weight: 600;
+    text-align: center;
   }
   
   #answers {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-  }
+    flex-wrap: wrap; /* Ensure wrapping for smaller screens */
+    gap: 10px; /* Add spacing between buttons */
+}
   
   button.answer-btn {
     font-size: 2rem;
@@ -63,7 +84,8 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     flex: 1;
-    margin: 0 5px;
+    min-width: 60px; /* Minimum size for very small screens */
+    max-width: 150px; /* Limit the width for larger screens */
   }
   
   button.answer-btn.selected {
@@ -85,6 +107,10 @@
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
   
   #not-interested-button:hover {
@@ -109,6 +135,10 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
   
   #next-button:hover {
@@ -179,16 +209,30 @@
   }
   
   @media (max-width: 768px) {
-    button.answer-btn {
-      font-size: 1.5rem; /* Reduce font size */
-      padding: 8px 12px; /* Reduce padding */
+    header h1 {
+      font-size: 2rem; /* Reduce title size */
     }
 
     #question-text {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      color: #333;
-      font-weight: 600;
+        font-size: 1.2rem; /* Reduce question size */
     }
+
+    button.answer-btn {
+        font-size: 1.5rem; /* Reduce button font size */
+        padding: 8px 12px; /* Reduce padding */
+        flex: 1 1 calc(20% - 10px); /* Ensure proportional sizing */
+    }
+
+    #answers {
+        flex-wrap: wrap; /* Allow wrapping of buttons */
+        gap: 5px;
+    }
+
+    #home-button {
+        position: static; /* Adjust position for mobile */
+        float: none;
+        margin-bottom: 20px; /* Add spacing */
+    }
+
   }
   

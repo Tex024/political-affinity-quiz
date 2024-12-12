@@ -2,6 +2,7 @@ let currentQuestionIndex = 0;
 let userAnswers = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const homeButton = document.getElementById("home-button");
   const questionContainer = document.getElementById("question-container");
   const questionText = document.getElementById("question-text");
   const answerButtons = document.querySelectorAll(".answer-btn");
@@ -42,6 +43,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       userAnswers[currentQuestionIndex] = parseInt(button.dataset.value);
       nextButton.style.display = "block";
     });
+  });
+
+  homeButton.addEventListener("click", () => {
+    if (confirm("Andando alla Home perderai tutte le risposte date. Sei sicuro?") == true) {
+        window.location.href = "index.html";
+    }
   });
 
   notInterestedButton.addEventListener("click", () => {
