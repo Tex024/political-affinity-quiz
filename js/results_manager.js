@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   
     homeButton.addEventListener("click", () => {
-      let text = "Press a button!\nEither OK or Cancel.";
         if (confirm("Andando alla Home perderai tutte le statistiche. Sei sicuro?") == true) {
             window.location.href = "index.html";
         }
