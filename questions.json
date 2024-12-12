@@ -149,7 +149,7 @@
                 "politica interna": 0.7,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 
+                "etica": 0.1
             },
             "partiti": {
                 "Lega": [0, 0, 0, 0.8, 1,2],

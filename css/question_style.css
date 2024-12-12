@@ -118,7 +118,9 @@
   }
 
   #not-interested-button.selected {
-    background-color: #525252;
+    background-color: #4CAF50;
+    color: white;
+    border-color: #838383;
   }
   
   #navigation {
