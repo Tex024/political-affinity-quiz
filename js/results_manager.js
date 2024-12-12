@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    const homeButton = document.getElementById("home-button");
     const resultsContainer = document.querySelector("#results-container");
     const generalResultsList = document.querySelector("#general-results-list");
     const categoryResultsList = document.querySelector("#category-results-list");
@@ -20,6 +21,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       displayError("Errore nel caricamento dei dati.");
       console.error("Errore:", error);
     }
+  
+    homeButton.addEventListener("click", () => {
+      let text = "Press a button!\nEither OK or Cancel.";
+        if (confirm("Andando alla Home perderai tutte le statistiche. Sei sicuro?") == true) {
+            window.location.href = "index.html";
+        }
+    });
   });
   
   async function loadQuestions() {
