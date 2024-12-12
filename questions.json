@@ -84,7 +84,7 @@
         {
             "domanda": "Chi è più ricco dovrebbe pagare tasse più alte in percentuale.",
             "id": 4,
-            "descrizione": "Descrizione dettagliata della domanda 2",
+            "descrizione": "Descrizione dettagliata della domanda 4",
             "spiegazione": {
                 "daccordo": "significa che sei daccordo",
                 "neutrale": "significa che sei neutrale",
@@ -111,7 +111,7 @@
         {
             "domanda": "I media vanno controllati per impedire la propaganda d’idee estremiste.",
             "id": 5,
-            "descrizione": "Descrizione dettagliata della domanda 2",
+            "descrizione": "Descrizione dettagliata della domanda 5",
             "spiegazione": {
                 "daccordo": "significa che sei daccordo",
                 "neutrale": "significa che sei neutrale",
@@ -134,6 +134,89 @@
                 "M5S": [0, 0, 0, 0.8, 1.2],
                 "VeS": [0, 0.8, 1, 0.2, 0]
             }
+        },
+        {
+            "domanda": "L'Italia dovrebbe investire di più nella difesa?",
+            "id": 6,
+            "descrizione": "Descrizione della domanda 6",
+            "spiegazione": {
+                "daccordo": "e necessario aumentare le spese nel settore della difesa, sia sul piano nazionale, sia in favore della NATO.",
+                "neutrale": "È necessario investire nella difesa, ma senza aumentarne i fondi, anche perchè facciamo parte della NATO.",
+                "disaccordo": "L'Italia dovrebbe andare verso un disarmo, e ridestinare i fondi su altri settori."
+            },
+            "categorie": {
+                "economia": 0.2,
+                "politica interna": 0.7,
+                "politica estera": 0,
+                "politiche energetiche": 0,
+                "etica": 
+            },
+            "partiti": {
+                "Lega": [0, 0, 0, 0.8, 1,2],
+                "FdI": [0, 0, 0, 6, 1.4],
+                "FI": [0, 0, 0, 0.8, 1.2],
+                "Italia Viva": [0, 0.3, 1.1, 0.6, 0],
+                "Azione": [0, 0.3, 1.1, 0.6, 0],
+                "PD": [0, 0.7, 0.9, 0.4, 0],
+                "M5S": [0.5, 1.2, 0.3, 0, 0],
+                "VeS": [1.2, 0.8, 0, 0, 0]
+            }
+        },
+        {
+            "domanda": "Il passaggio all'energia nucleare va fatto, il prima possibile econ le tecnologie attualmente in commercio.",
+            "id": 7,
+            "descrizione": "Descrizione domanda 7",
+            "spiegazione": {
+                "daccordo": "Supporto la costruzone di centrali nucleari che utilizzino reattori di terza generazione.",
+                "neutrale": "Considero importante lo sfruttamento dell'energia nucleare, ma ho una serie di dubbi e vorrei aspettare l'entrata in commercio dei reattori di quarta generazione.",
+                "disaccordo": "Credo che le centrali nucleari siano più un pericolo piuttosto che una risorsa, bisogna concentrarsi su altre fonti per la produzioni d'energia."
+            },
+            "categorie": {
+                "economia": 0.3,
+                "politica interna": 0,
+                "politica estera": 0,
+                "politiche energetiche": 0.7,
+                "etica": 0
+            },
+            "partiti": {
+                "Lega": [0, 0, 0, 0.6, 1.4],
+                "FdI": [0, 0, 0, 0.8, 1.2],
+                "FI": [0, 0, 0.5, 1.3, 0.2],
+                "Italia Viva": [0, 0, 0.7, 1.2, 0.1],
+                "Azione": [0, 0, 0.5, 1.3, 0.2],
+                "PD": [0.6, 1, 0.4, 0, 0],
+                "M5S": [1.4, 0.6, 0, 0, 0],
+                "VeS": [1.4, 0.6, 0, 0, 0]
+            }
+        },
+        {
+            "domanda": "Bisogna investire nelle energie rinnovabili e la mobilità elettrica, anche se svantaggioso economicamente",
+            "id": 8,
+            "descrizione": "Descrizione domanda 8",
+            "spiegazione": {
+                "daccordo": "Le fonti fossili ed i motori termici vanno abbandonati subito, e bisogna investire in rinnovabili e mobilità elettrica, anche se economicamnte svantaggioso per le aziende ed i cittadini.",
+                "neutrale": "Bisogna abbandonare lo sfruttamento di risorse fossili, ma con i giusti tempi, per evitare un aumento del costo di energia e del carburante.",
+                "disaccordo": "Bisogna sfruttare al meglio le risorse attuali, al momento non sia in gradi di sostenere il compo causato da una rapida transizione alla mobilità elettrica ed ad altre fonti per la produzione d'energia."
+            },
+            "categorie": {
+                "economia": 0.4,
+                "politica interna": 0,
+                "politica estera": 0,
+                "politiche energetiche": 0.6,
+                "etica": 0
+            },
+            "partiti": {
+                "Lega": [0, 1.1, 0.9, 0, 0],
+                "FdI": [0, 0.9, 1.1, 0, 0],
+                "FI": [0, 0.8, 1,2, 0, 0],
+                "Italia Viva": [0, 0.5, 1.3, 0.2, 0],
+                "Azione": [0, 0.5, 1.3, 0.2, 0],
+                "PD": [0, 0, 0, 1.3, 0.7],
+                "M5S": [0, 0, 0.4, 1.1, 0.5],
+                "VeS": [0, 0, 0, 0.6, 1.4]
+            }
         }
+
+
     ]
 }
