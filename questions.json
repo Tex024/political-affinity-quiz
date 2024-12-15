@@ -215,7 +215,62 @@
                 "M5S": [0, 0, 0.4, 1.1, 0.5],
                 "VeS": [0, 0, 0, 0.6, 1.4]
             }
+        },
+        {
+            "domanda": "È giusto che la maternità surrogata sia da considerare reato?",
+            "id": 9,
+            "descrizione": "Descrizione domanda 9",
+            "spiegazione": {
+                "daccordo": "La maternità surrogata è da considerare reato, in quanto porta alla nascita di aziende che sfruttano ragazze in situazioni di grave povertà.",
+                "neutrale": "Si potrebbe legalizzarla, ma dovrebbe essere pesantemente normata.",
+                "disaccordo": "Andrebbe legalizzata, poichè le donne che accettano questi accori lo fanno per loro spontanea volontà."
+            },
+            "categorie": {
+                "economia": 0,
+                "politica interna": 0,
+                "politica estera": 0,
+                "politiche energetiche": 0,
+                "etica": 1
+            },
+            "partiti": {
+                "Lega": [0, 0, 0, 0.8, 1.2],
+                "FdI": [0, 0, 0, 0.6, 1.4],
+                "FI": [0, 0, 0.4, 1, 0.6],
+                "Italia Viva": [0.2, 0.6, 1.2, 0, 0],
+                "Azione": [0.2, 0.6, 1.2, 0, 0],
+                "PD": [0, 0.2, 0.4, 1.2, 0.2],
+                "M5S": [0, 0.2, 0.5, 1.1, 0.2],
+                "VeS": [0, 0, 0, 0.8, 1.2]
+            }
+        },
+        {
+            "domanda": "È necessario continuare ad inviare armi all'ucraina, per aiutarla contro la Russia.",
+            "id": 10,
+            "descrizione": "Descrizione domanda 10",
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "categorie": {
+                "economia": 0.3,
+                "politica interna": 0,
+                "politica estera": 0.5,
+                "politiche energetiche": 0,
+                "etica": 0.2
+            },
+            "partiti": {
+                "Lega": [0, 0, 0.2, 0.7, 1.1],
+                "FdI": [0, 0, 0, 0.8, 1.2],
+                "FI": [0, 0, 0, 0.8, 1.2],
+                "Italia Viva": [0, 0, 0, 1.3, 0.7],
+                "Azione": [0, 0, 0, 1.3, 0.7],
+                "PD": [0, 0.2, 0.7, 1.1, 0],
+                "M5S": [0.6, 1.2, 0.2, 0, 0],
+                "VeS": [0.3, 0.7, 1, 0, 0]
+            }
         }
+
 
 
     ]
