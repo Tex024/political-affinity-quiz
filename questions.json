@@ -11,7 +11,7 @@
             },
             "categorie": {
                 "economia": 0,
-                "politica interna": 0.8,
+                "politica interna": 1,
                 "politica estera": 0,
                 "politiche energetiche": 0,
                 "etica": 0.2
@@ -38,10 +38,10 @@
             },
             "categorie": {
                 "economia": 0.1,
-                "politica interna": 0.6,
+                "politica interna": 0.8,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 0.3
+                "etica": 0.4
             },
             "partiti": {
                 "Lega": [1.4, 0.6, 0, 0, 0],
@@ -65,10 +65,10 @@
             },
             "categorie": {
                 "economia": 0,
-                "politica interna": 0.5,
+                "politica interna": 1,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 0.5
+                "etica": 1
             },
             "partiti": {
                 "Lega": [0, 0.6, 1, 0.4, 0],
@@ -91,11 +91,11 @@
                 "disaccordo": "significa che sei in disaccordo"
             },
             "categorie": {
-                "economia": 0.6,
+                "economia": 0.7,
                 "politica interna": 0.4,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 0
+                "etica": 0.1
             },
             "partiti": {
                 "Lega": [1.3, 0.7, 0, 0, 0],
@@ -119,10 +119,10 @@
             },
             "categorie": {
                 "economia": 0,
-                "politica interna": 0.5,
+                "politica interna": 1,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 0.5
+                "etica": 1
             },
             "partiti": {
                 "Lega": [0.6, 1.2, 0.2, 0, 0],
@@ -145,11 +145,11 @@
                 "disaccordo": "L'Italia dovrebbe andare verso un disarmo, e ridestinare i fondi su altri settori."
             },
             "categorie": {
-                "economia": 0.2,
-                "politica interna": 0.7,
+                "economia": 0.6,
+                "politica interna": 1,
                 "politica estera": 0,
                 "politiche energetiche": 0,
-                "etica": 0.1
+                "etica": 0.3
             },
             "partiti": {
                 "Lega": [0, 0, 0, 0.8, 1,2],
@@ -172,10 +172,10 @@
                 "disaccordo": "Credo che le centrali nucleari siano più un pericolo piuttosto che una risorsa, bisogna concentrarsi su altre fonti per la produzioni d'energia."
             },
             "categorie": {
-                "economia": 0.3,
+                "economia": 0.5,
                 "politica interna": 0,
                 "politica estera": 0,
-                "politiche energetiche": 0.7,
+                "politiche energetiche": 1,
                 "etica": 0
             },
             "partiti": {
@@ -199,10 +199,10 @@
                 "disaccordo": "Bisogna sfruttare al meglio le risorse attuali, al momento non sia in gradi di sostenere il compo causato da una rapida transizione alla mobilità elettrica ed ad altre fonti per la produzione d'energia."
             },
             "categorie": {
-                "economia": 0.4,
+                "economia": 0.6,
                 "politica interna": 0,
                 "politica estera": 0,
-                "politiche energetiche": 0.6,
+                "politiche energetiche": 1,
                 "etica": 0
             },
             "partiti": {
@@ -253,11 +253,11 @@
                 "disaccordo": "significa che sei in disaccordo"
             },
             "categorie": {
-                "economia": 0.3,
+                "economia": 0.6,
                 "politica interna": 0,
-                "politica estera": 0.5,
+                "politica estera": 1,
                 "politiche energetiche": 0,
-                "etica": 0.2
+                "etica": 0.3
             },
             "partiti": {
                 "Lega": [0, 0, 0.2, 0.7, 1.1],
