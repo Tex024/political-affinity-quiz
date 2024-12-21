@@ -190,7 +190,7 @@
             }
         },
         {
-            "domanda": "Bisogna investire nelle energie rinnovabili e la mobilità elettrica, anche se svantaggioso economicamente",
+            "domanda": "Bisogna investire nelle energie rinnovabili, anche se svantaggioso economicamente per consumatori e aziende",
             "id": 8,
             "descrizione": "Descrizione domanda 8",
             "spiegazione": {
@@ -269,7 +269,63 @@
                 "M5S": [0.6, 1.2, 0.2, 0, 0],
                 "VeS": [0.3, 0.7, 1, 0, 0]
             }
+        },
+        {
+            "domanda": "Bisogna porre fine alla produzione di motori termici nel minor tempo possibile, per favorire i veicoli eletrici",
+            "id": 11,
+            "descrizione": "Descrizione domanda 11",
+            "spiegazione": {
+                "daccordo": "Bisogna sanzionare le aziende che producono motori termici e porre una data oltre la quale vietarne interamente la produzione.",
+                "neutrale": "Non bisogna imporre sanzioni o bloccare la produzione di motori termici, bisogna lascilare il mercato libero, pensando ad eventuali incentivi per veicoli ibridi o eletrici.",
+                "disaccordo": "La mobilità elettrica non rappresenta un futuro sostenibile per l'industria italiana ed europea, bisognerebbe focalizzarsi sull'ibrido ed altre tecnologie"
+            },
+            "categorie": {
+                "economia": 0.6,
+                "politica interna": 0.3,
+                "politica estera": 0.4,
+                "politiche energetiche": 0.6,
+                "etica": 0
+            },
+            "partiti": {
+                "Lega": [1.2, 0.8, 0, 0, 0],
+                "FdI": [0.6, 1.2, 0.2, 0, 0],
+                "FI": [0.4, 1.4, 0.2, 0, 0],
+                "Italia Viva": [0, 0, 0.6, 1.1, 0.3],
+                "Azione": [0, 0.2, 1, 0.8, 0],
+                "PD": [0, 0, 0.1, 1.3, 0.6],
+                "M5S": [0, 0, 0, 0.7, 1.3],
+                "VeS": [0, 0, 0, 0.5, 1.5]
+            }
+        },
+        {
+            "domanda": "Le regioni italiane dovrebbero essere più indipendenti nella gestione dei fondi",
+            "id": 12,
+            "descrizione": "Descrizione domanda 12",
+            "spiegazione": {
+                "daccordo": "Le regioni dovrebbero avere grandi autonomie sulla gestione dei fonti provenienti dalle tassazioni, trattendone la maggior parte.",
+                "neutrale": "È giusto che le regioni lascino che lo stato ridistribuisca parte delle tasse da regioni economicamente più floride a quelle con difficoltà, ma bisognerebbe dare più autonomia alle regioni rispetto alla situazione attuale.",
+                "disaccordo": "bisogna intermente centralizzare la gestione dei fondi, con il governo che decide quanto investire in ogni regione."
+            },
+            "categorie": {
+                "economia": 0.8,
+                "politica interna": 1,
+                "politica estera": 0,
+                "politiche energetiche": 0,
+                "etica": 0
+            },
+            "partiti": {
+                "Lega": [0, 0, 0, 0.8, 1.2],
+                "FdI": [0, 0, 0, 0.8, 1.2],
+                "FI": [0, 0.1, 0.5, 1.2, 0.2],
+                "Italia Viva": [0.7, 1.3, 0, 0, 0],
+                "Azione": [0, 0.3, 1.2, 0.5, 0],
+                "PD": [0.2, 1.2, 0.6, 0, 0],
+                "M5S": [1.4, 0.6, 0, 0, 0],
+                "VeS": [1.4, 0.6, 0, 0, 0]
+            }
         }
+
+
 
 
 
