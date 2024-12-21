@@ -32,9 +32,9 @@
             "id": 2,
             "descrizione": "Descrizione dettagliata della domanda 2",
             "spiegazione": {
-                "daccordo": "significa che sei daccordo",
-                "neutrale": "significa che sei neutrale",
-                "disaccordo": "significa che sei in disaccordo"
+                "daccordo": "La cannabis va legalizzata, in quanto non è più pericolosa dell'alcol e potrebbe contrastare lo spaccio della criminalità organizzata.",
+                "neutrale": "Bisognerebbe guardare gli stati in cui la cannabis è legale, trovare eventuali criticità e legalizzarne la vendita solo tramite enti statali, stabilendo anche una dose massima giornaliera.",
+                "disaccordo": "L'erba non va legalizzata, poichè rischia di aprire le porte a gravi problemi di dipendenza, e all'utilizzo di droghe più pesanti, e non riscuoterebbe alcun effetto negativo sul crimine organizzato, in quanto la marijuana legale costerebbe più del tripo di quella spacciata."
             },
             "categorie": {
                 "economia": 0.1,
@@ -86,9 +86,9 @@
             "id": 4,
             "descrizione": "Descrizione dettagliata della domanda 4",
             "spiegazione": {
-                "daccordo": "significa che sei daccordo",
-                "neutrale": "significa che sei neutrale",
-                "disaccordo": "significa che sei in disaccordo"
+                "daccordo": "Bisogna tassare pesantemente le aziende le fascie di popolazione più ricche.",
+                "neutrale": "È giusto tassare maggiormente redditi più alti, tramite un aumento proggessivo delle imposte, fino ad un tetto massimo percentuale di tassazione.",
+                "disaccordo": "Bisognerebbe sottotassare aziende ed imprenditori, in quanto promotori dell'economia e responsabili per la generazione della maggior parte de posti di lavoro."
             },
             "categorie": {
                 "economia": 0.7,
@@ -113,9 +113,9 @@
             "id": 5,
             "descrizione": "Descrizione dettagliata della domanda 5",
             "spiegazione": {
-                "daccordo": "significa che sei daccordo",
-                "neutrale": "significa che sei neutrale",
-                "disaccordo": "significa che sei in disaccordo"
+                "daccordo": "Fake news e idee estremiste sono una grave minaccia alla democrazia, quindi bisogna controllare i contenuti dei media per impedire che vengano postate.",
+                "neutrale": "Bisogna permettere ad ognuno di postare quello che vuole, lasciando ai servizzi segreti ed altre organizzazioni per la sicurezza la possibilità di richiedere ad appositi tribunali di controllare profili social e numeri di telefono per prevenire atti criminali e terroristici",
+                "disaccordo": "Ognuno ha il diritto di dire e credere in ciò che vuole, ed il controllo dei social rischia di trasformarsi in una grave deriva antidemocratica."
             },
             "categorie": {
                 "economia": 0,
@@ -140,7 +140,7 @@
             "id": 6,
             "descrizione": "Descrizione della domanda 6",
             "spiegazione": {
-                "daccordo": "e necessario aumentare le spese nel settore della difesa, sia sul piano nazionale, sia in favore della NATO.",
+                "daccordo": "È necessario aumentare le spese nel settore della difesa, sia sul piano nazionale, sia in favore della NATO.",
                 "neutrale": "È necessario investire nella difesa, ma senza aumentarne i fondi, anche perchè facciamo parte della NATO.",
                 "disaccordo": "L'Italia dovrebbe andare verso un disarmo, e ridestinare i fondi su altri settori."
             },
@@ -248,9 +248,9 @@
             "id": 10,
             "descrizione": "Descrizione domanda 10",
             "spiegazione": {
-                "daccordo": "significa che sei daccordo",
-                "neutrale": "significa che sei neutrale",
-                "disaccordo": "significa che sei in disaccordo"
+                "daccordo": "Il flusso di armamenti non deve cessare, perchè è necessario sconfiggere la Russia per scoraggiarne future mire egemoniche.",
+                "neutrale": "Bisogna inviare armi e rifornimenti, premendo però su entrambe le arti per arrivare ad una pace il prima possibile.",
+                "disaccordo": "Bisogna cessare quanto prima l'invio di armi in Ucraina, in quanto è un'ingente spesa per una guerra che non potrà mai essere vinta."
             },
             "categorie": {
                 "economia": 0.6,
@@ -323,7 +323,35 @@
                 "M5S": [1.4, 0.6, 0, 0, 0],
                 "VeS": [1.4, 0.6, 0, 0, 0]
             }
+        },
+        {
+            "domanda": "Lo stato deve normare ed influenzare il mercato perché, se lasciato libero, gli imprenditori cercheranno solo di guadagnare infischiandosene del benessere del compratore",
+            "id": 13,
+            "descrizione": "Descrizione domanda 13",
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "categorie": {
+                "economia": 1,
+                "politica interna": 0.5,
+                "politica estera": 0,
+                "politiche energetiche": 0,
+                "etica": 0
+            },
+            "partiti": {
+                "Lega": [0.4, 1, 0.6, 0, 0],
+                "FdI": [0.6, 1, 0.4, 0, 0],
+                "FI": [0.8, 1.2, 0, 0, 0],
+                "Italia Viva": [0, 0.5, 1.2, 0.3, 0],
+                "Azione": [0, 0.5, 1.2, 0.3, 0],
+                "PD": [0, 0, 1, 0.6, 0.4],
+                "M5S": [0, 0, 1, 0.6, 0.4],
+                "VeS": [0, 0, 0, 1.2, 0.8]
+            }
         }
+
 
 
 
