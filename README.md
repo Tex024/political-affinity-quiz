@@ -26,24 +26,49 @@ L'opzione ***"Non Interessato"*** è disponibile per saltare le domande non rile
 
 ## 💻 Sezione 2: Struttura Dati e Logica (Backend)
 
-Questa sezione è destinata agli sviluppatori e descrive l'organizzazione dei file e la logica di posizionamento dei partiti.
+Questa sezione descrive l'organizzazione dei file e la logica di posizionamento dei partiti.
 
 ### 2.1 Organizzazione dei Topic
 
 Tutti i dati del quiz sono organizzati per **topic** (argomenti).
 
 * **Cartella `topics/`**: Contiene tutti i file JSON individuali di ogni argomento.
-* **Indice dei Topic (`topics.json`)**: Un file JSON che elenca i nomi di tutti gli argomenti disponibili (senza l'estensione `.json`).
-
-**Esempio: `topics.json`**
+* **Indice dei Topic (`topics.json`)**: Un file JSON che elenca i tutti gli argomenti/quiz disponibili.
 
 ```json
 {
-    "topics": [
-        "nucleare",
-        "partito",
-        "economia",
-        ...
+    "topics":
+    [
+        {
+            "name": "nucleare",
+            "description": "quiz sul nucleare",
+            "active": true,
+            "partiti": {
+                "Lega": "descrizione della positione",
+                "FdI": "descrizione della positione",
+                "FI": "descrizione della positione",
+                "Italia Viva": "descrizione della positione",
+                "Azione": "descrizione della positione",
+                "PD": "descrizione della positione",
+                "M5S": "descrizione della positione",
+                "VeS": "descrizione della positione"
+            }
+        },
+        {
+            "name": "generale",
+            "description": "quiz generale",
+            "active": true,
+            "partiti": {
+                "Lega": "descrizione della positione",
+                "FdI": "descrizione della positione",
+                "FI": "descrizione della positione",
+                "Italia Viva": "descrizione della positione",
+                "Azione": "descrizione della positione",
+                "PD": "descrizione della positione",
+                "M5S": "descrizione della positione",
+                "VeS": "descrizione della positione"
+            }
+        }
     ]
 }
 ```
@@ -58,7 +83,7 @@ Schema di un Topic File:
 {
     "domande": [
         {
-            "domanda": "Domanda 1.",
+            "domanda": "Domanda 1",
             "id": 1,
             "descrizione": "Descrizione dettagliata della domanda 1",
             "spiegazione": {
@@ -125,8 +150,22 @@ Per ogni partito, la posizione ufficiale su una determinata affermazione è rapp
 Esempi:
 
 ```
-[μ=0,σ=0] ->    t=[ 1,   0,     0,      0,      0]
-[μ=0,σ=0.5] ->  t=[ 1,   0.1,   0,      0,      0]
-[μ=0,σ=1] ->    t=[ 1,   0.6,   0.1,    0,      0]
-[μ=0,σ=2] ->    t=[ 1,   0.9,   0.6,    0.3,    0.1]
+[μ=0,σ=0]   -> t=[1.0, 0.0, 0.0, 0.0, 0.0]
+[μ=0,σ=0.5] -> t=[1.0, 0.1, 0.0, 0.0, 0.0]
+[μ=0,σ=0.6] -> t=[1.0, 0.2, 0.0, 0.0, 0.0]
+[μ=0,σ=0.7] -> t=[1.0, 0.3, 0.0, 0.0, 0.0]
+[μ=0,σ=0.8] -> t=[1.0, 0.4, 0.0, 0.0, 0.0]
+[μ=0,σ=0.9] -> t=[1.0, 0.5, 0.0, 0.0, 0.0]
+[μ=0,σ=1]   -> t=[1.0, 0.6, 0.1, 0.0, 0.0]
+[μ=0,σ=1.1] -> t=[1.0, 0.7, 0.2, 0.0, 0.0]
+[μ=0,σ=1.2] -> t=[1.0, 0.7, 0.3, 0.1, 0.0]
+[μ=0,σ=1.3] -> t=[1.0, 0.8, 0.4, 0.1, 0.0]
+[μ=0,σ=1.4] -> t=[1.0, 0.8, 0.5, 0.2, 0.0]
+[μ=0,σ=1.5] -> t=[1.0, 0.9, 0.5, 0.3, 0.1]
+[μ=0,σ=1.6] -> t=[1.0, 0.9, 0.6, 0.3, 0.1]
+[μ=0,σ=1.7] -> t=[1.0, 0.9, 0.6, 0.4, 0.1]
+[μ=0,σ=1.8] -> t=[1.0, 0.9, 0.7, 0.4, 0.1]
+[μ=0,σ=1.9] -> t=[1.0, 0.9, 0.7, 0.5, 0.1]
+[μ=0,σ=2]   -> t=[1.0, 0.9, 0.6, 0.3, 0.1]
+
 ```
