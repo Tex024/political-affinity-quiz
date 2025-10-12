@@ -1,6 +1,15 @@
 {
     "topics":
     [
-        "nucleare"
+        {
+            "name": "nucleare",
+            "description": "quiz sul nucleare",
+            "active": true
+        },
+        {
+            "name": "random theme",
+            "description": "tema randomico",
+            "active": true
+        }
     ]
 }

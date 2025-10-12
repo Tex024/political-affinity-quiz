@@ -1,171 +1,147 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const homeButton = document.getElementById("home-button");
-    const resultsContainer = document.querySelector("#results-container");
-    const generalResultsList = document.querySelector("#general-results-list");
-    const categoryResultsList = document.querySelector("#category-results-list");
-    const userAnswers = JSON.parse(localStorage.getItem("userAnswers"));
-  
-    if (!userAnswers) {
-      displayError("Non sono stati trovati risultati.");
-      return;
-    }
-  
-    try {
-      const questions = await loadQuestions();
-  
-      const { partyResults, categoryResults } = calculateResults(questions, userAnswers);
-  
-      renderGeneralResults(partyResults, generalResultsList);
-      renderCategoryResults(categoryResults, categoryResultsList);
-    } catch (error) {
-      displayError("Errore nel caricamento dei dati.");
-      console.error("Errore:", error);
-    }
-  
-    homeButton.addEventListener("click", () => {
-        if (confirm("Andando alla Home perderai tutte le statistiche. Sei sicuro?") == true) {
-            window.location.href = "index.html";
+// results_manager.js
+// Reads topic JSON and answers vector from sessionStorage and computes party affinities.
+// Party positions are expected as [mean, std] for each question inside topic.domande[].partiti
+
+document.addEventListener('DOMContentLoaded', () => {
+  const PARAM_TOPIC = 'topic';
+  const STORAGE_PREFIX = 'quiz_answers::';
+
+  const homeButton = document.getElementById('home-button');
+  const resultsList = document.getElementById('results-list');
+  const debugJson = document.getElementById('debug-json');
+
+  homeButton.addEventListener('click', () => location.href = 'index.html');
+
+  const topicName = new URLSearchParams(window.location.search).get(PARAM_TOPIC);
+  if (!topicName) {
+    resultsList.innerHTML = '<p>Topic mancante. Torna alla home.</p>';
+    return;
+  }
+
+  const storageKey = STORAGE_PREFIX + topicName;
+  const answers = safeParse(sessionStorage.getItem(storageKey));
+  if (!Array.isArray(answers)) {
+    resultsList.innerHTML = '<p>Nessuna risposta trovata per questo quiz.</p>';
+    return;
+  }
+
+  fetch(`topics/${encodeURIComponent(topicName)}.json`, { cache: 'no-store' })
+    .then(resp => {
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      return resp.json();
+    })
+    .then(topicJson => {
+      const questions = Array.isArray(topicJson.domande) ? topicJson.domande : [];
+      // Compute affinities
+      const partyScores = {}; // party -> sum of match weights
+      let answeredCount = 0;
+
+      for (let qi = 0; qi < questions.length; qi++) {
+        const userAnswer = answers[qi]; // null | -1 | 0..4
+        if (userAnswer === null || userAnswer === -1) continue;
+        answeredCount++;
+
+        const question = questions[qi];
+        const partiti = question.partiti || {}; // mapping party -> [mean, std] or possibly precomputed vector
+
+        // For each party compute truncated gaussian vector t[0..4] from [mean,std]
+        for (const partyName of Object.keys(partiti)) {
+          // ensure initialization
+          if (!(partyName in partyScores)) partyScores[partyName] = 0;
+
+          const partyValue = partiti[partyName];
+          const t = gaussianToTruncatedVector(partyValue);
+
+          // defensive: if t is invalid, skip
+          if (!Array.isArray(t) || t.length !== 5) continue;
+
+          // add match weight at user's selected index
+          const weight = t[userAnswer] || 0;
+          partyScores[partyName] += weight;
         }
+      }
+
+      // Convert to percentage affinity: (sum weights / answeredCount) * 100
+      const results = Object.keys(partyScores).map(p => {
+        const sum = partyScores[p];
+        const pct = answeredCount > 0 ? (sum / answeredCount) * 100 : 0;
+        return { party: p, score: sum, percent: Math.round(pct * 10) / 10 };
+      });
+
+      // sort descending by percent
+      results.sort((a,b) => b.percent - a.percent);
+
+      // Render table
+      if (results.length === 0) {
+        resultsList.innerHTML = '<p>Nessun partito trovato nel topic.</p>';
+      } else {
+        const table = document.createElement('table');
+        table.className = 'results-table';
+        table.innerHTML = `<thead><tr><th>Partito</th><th>Punteggio</th><th>Affinità (%)</th></tr></thead>`;
+        const tbody = document.createElement('tbody');
+        for (const r of results) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${escapeHtml(r.party)}</td><td>${(Math.round(r.score*10)/10).toFixed(1)}</td><td>${r.percent.toFixed(1)}%</td>`;
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+        resultsList.innerHTML = '';
+        resultsList.appendChild(table);
+      }
+
+      // Optional debug (hidden by default)
+      if (debugJson) {
+        debugJson.textContent = JSON.stringify({ topic: topicName, answeredCount, results, rawAnswers: answers }, null, 2);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      resultsList.innerHTML = `<p>Errore nel caricamento del topic: ${escapeHtml(err.message)}</p>`;
     });
-  });
-  
-  async function loadQuestions() {
-    const response = await fetch("questions.json");
-    if (!response.ok) {
-      throw new Error("Impossibile caricare il file JSON delle domande.");
+
+  // ---------- helper functions ----------
+  function gaussianToTruncatedVector(partyValue) {
+    // partyValue expected: [mean, std] OR an already-provided vector [t0..t4].
+    if (Array.isArray(partyValue) && partyValue.length === 5 && partyValue.every(v => typeof v === 'number')) {
+      // Already a vector of 5 numbers -> assume it's already truncated weights
+      return partyValue.map(v => Math.max(0, Math.min(1, Math.floor(v * 10) / 10)));
     }
-    const data = await response.json();
-    return data.domande;
+
+    if (!Array.isArray(partyValue) || (partyValue.length < 1)) return [0,0,0,0,0];
+
+    const mu = Number(partyValue[0]);
+    const sigma = partyValue.length >= 2 ? Number(partyValue[1]) : 0;
+
+    // If sigma <= 0 treat as dirac centered at nearest integer of mu
+    if (!isFinite(mu)) return [0,0,0,0,0];
+    if (!isFinite(sigma) || sigma <= 0) {
+      const idx = Math.round(Math.max(0, Math.min(4, mu)));
+      const vec = [0,0,0,0,0];
+      vec[idx] = 1;
+      return vec;
+    }
+
+    // Evaluate gaussian pdf at x = 0..4
+    const values = [];
+    for (let x = 0; x <= 4; x++) {
+      const g = (1 / (sigma * Math.sqrt(2*Math.PI))) * Math.exp(-((x - mu)*(x - mu)) / (2 * sigma * sigma));
+      values.push(g);
+    }
+    // Rescale so max becomes 1
+    const maxv = Math.max(...values);
+    if (maxv <= 0) return [0,0,0,0,0];
+    const rescaled = values.map(v => v / maxv);
+    // Truncate to 1 decimal (floor)
+    const truncated = rescaled.map(r => Math.floor(r * 10) / 10);
+    return truncated;
   }
-  
-  function calculateResults(questions, userAnswers) {
-    const partyScores = initializeScores(questions[0].partiti);
-    const categoryScores = initializeCategoryScores(questions[0].categorie, questions[0].partiti);
-  
-    userAnswers.forEach((answer, index) => {
-      if (answer === -1) return;
-  
-      const question = questions[index];
-      updatePartyScores(question.partiti, answer, partyScores);
-      updateCategoryScores(question.categorie, question.partiti, answer, categoryScores);
-    });
-  
-    const partyResults = calculatePercentages(partyScores);
-    const categoryResults = Object.fromEntries(
-      Object.entries(categoryScores).map(([category, scores]) => [
-        category,
-        calculatePercentages(scores),
-      ])
+
+  function safeParse(raw) {
+    try { return JSON.parse(raw); } catch (e) { return null; }
+  }
+  function escapeHtml(s) {
+    return String(s || '').replace(/[&<>"']/g, c =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
     );
-  
-    return { partyResults, categoryResults };
   }
-  
-  function initializeScores(parties) {
-    const scores = {};
-    Object.keys(parties).forEach((party) => {
-      scores[party] = { userScore: 0, maxScore: 0 };
-    });
-    return scores;
-  }
-  
-  function initializeCategoryScores(categories, parties) {
-    const scores = {};
-    Object.keys(categories).forEach((category) => {
-      scores[category] = initializeScores(parties);
-    });
-    return scores;
-  }
-  
-  function updatePartyScores(parties, answer, partyScores) {
-    Object.entries(parties).forEach(([party, scores]) => {
-      const score = scores[answer - 1] || 0;
-      partyScores[party].userScore += score;
-      partyScores[party].maxScore += Math.max(...scores);
-    });
-  }
-  
-  function updateCategoryScores(categories, parties, answer, categoryScores) {
-    Object.entries(categories).forEach(([category, weight]) => {
-      Object.entries(parties).forEach(([party, scores]) => {
-        const score = (scores[answer - 1] || 0) * weight;
-        const maxScore = Math.max(...scores) * weight;
-        categoryScores[category][party].userScore += score;
-        categoryScores[category][party].maxScore += maxScore;
-      });
-    });
-  }
-  
-  function calculatePercentages(scores) {
-    return Object.keys(scores).map((key) => {
-      const { userScore, maxScore } = scores[key];
-      const percentage = maxScore > 0 ? (userScore / maxScore) * 100 : 0;
-      return { name: key, userScore, maxScore, percentage };
-    }).sort((a, b) => b.percentage - a.percentage);
-  }
-  
-  function renderGeneralResults(results, container) {
-    const table = document.createElement("table");
-    table.classList.add("results-table");
-  
-    const headerRow = document.createElement("tr");
-    headerRow.innerHTML = `
-      <th>Partito</th>
-      <th>Affinità</th>
-      <th>Punteggio</th>
-    `;
-    table.appendChild(headerRow);
-  
-    results.forEach((result) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${result.name}</td>
-        <td>${result.percentage.toFixed(1)}%</td>
-        <td>${result.userScore.toFixed(2)}/${result.maxScore.toFixed(2)}</td>
-      `;
-      table.appendChild(row);
-    });
-  
-    container.appendChild(table);
-  }
-  
-  function renderCategoryResults(results, container) {
-    Object.entries(results).forEach(([category, scores]) => {
-      const categorySection = document.createElement("section");
-      const categoryTitle = document.createElement("h3");
-      categoryTitle.textContent = `Categoria: ${category}`;
-      categorySection.appendChild(categoryTitle);
-  
-      const table = document.createElement("table");
-      table.classList.add("results-table");
-  
-      const headerRow = document.createElement("tr");
-      headerRow.innerHTML = `
-        <th>Partito</th>
-        <th>Affinità</th>
-        <th>Punteggio</th>
-      `;
-      table.appendChild(headerRow);
-  
-      scores.forEach((result) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${result.name}</td>
-          <td>${result.percentage.toFixed(1)}%</td>
-          <td>${result.userScore.toFixed(2)}/${result.maxScore.toFixed(2)}</td>
-        `;
-        table.appendChild(row);
-      });
-  
-      categorySection.appendChild(table);
-      container.appendChild(categorySection);
-    });
-  }
-  
-  
-  function displayError(message) {
-    const errorParagraph = document.createElement("p");
-    errorParagraph.textContent = message;
-    errorParagraph.classList.add("error");
-    document.querySelector("#results-container").appendChild(errorParagraph);
-  }
+});

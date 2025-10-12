@@ -1,65 +1,93 @@
 // home.js
-// Loads topics.json and populates <ul id="quiz-list"> with links to begin.html?topic=...
+// Loads topics.json (new structure) and populates <ul id="quiz-list"> with links to begin.html?topic=...
+// Topic schema:
+// {
+//   "topics": [
+//     { "name": "nucleare", "description": "quiz sul nucleare", "active": true },
+//     ...
+//   ]
+// }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const listElement = document.getElementById('quiz-list');
+  const LIST_ID = 'quiz-list';
+  const TOPICS_FILE = 'topics.json';
+
+  const listElement = document.getElementById(LIST_ID);
   if (!listElement) return;
 
   loadTopics();
 
   async function loadTopics() {
     try {
-      const response = await fetch('topics.json', { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Failed to fetch topics.json (status ${response.status})`);
-      const json = await response.json();
+      const resp = await fetch(TOPICS_FILE, { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`Failed to fetch ${TOPICS_FILE} (status ${resp.status})`);
+      const data = await resp.json();
 
-      // Accept either { "topics": [ ... ] } or a raw array
-      const topics = Array.isArray(json.topics) ? json.topics : Array.isArray(json) ? json : [];
+      const rawTopics = Array.isArray(data.topics) ? data.topics : [];
+      // Normalize: keep only objects with name; default active = true
+      const topics = rawTopics
+        .map(t => ({
+          name: String(t.name || '').trim(),
+          description: String(t.description || '').trim(),
+          active: (typeof t.active === 'boolean') ? t.active : true
+        }))
+        .filter(t => t.name.length > 0 && t.active)
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
 
       if (topics.length === 0) {
         renderEmpty('Nessun topic disponibile.');
         return;
       }
 
-      listElement.innerHTML = ''; // clear placeholder
-      topics.forEach(topicName => {
-        const safeTopic = String(topicName);
-        const listItem = document.createElement('li');
-
-        const link = document.createElement('a');
-        // Link to begin.html with query parameter "topic"
-        link.href = `begin.html?topic=${encodeURIComponent(safeTopic)}`;
-        link.textContent = humanizeTopicName(safeTopic);
-        link.setAttribute('aria-label', `Apri quiz ${safeTopic}`);
-
-        listItem.appendChild(link);
-        listElement.appendChild(listItem);
-      });
-
-    } catch (error) {
-      console.error('Error loading topics.json:', error);
-      renderEmpty(`Errore caricamento topics: ${escapeHtml(error.message)}`);
+      listElement.innerHTML = '';
+      for (const topic of topics) {
+        listElement.appendChild(createTopicItem(topic));
+      }
+    } catch (err) {
+      console.error('Error loading topics.json:', err);
+      renderEmpty(`Errore caricamento topics: ${escapeHtml(err.message)}`);
     }
+  }
+
+  function createTopicItem(topic) {
+    const li = document.createElement('li');
+
+    const link = document.createElement('a');
+    link.className = 'topic-card';
+    link.href = `begin.html?topic=${encodeURIComponent(topic.name)}`;
+    link.setAttribute('aria-label', `Apri quiz ${topic.name}`);
+
+    const title = document.createElement('div');
+    title.className = 'topic-title';
+    title.textContent = humanizeTopicName(topic.name);
+
+    const sub = document.createElement('div');
+    sub.className = 'topic-sub';
+    sub.textContent = topic.description || 'Nessuna descrizione.';
+
+    link.appendChild(title);
+    link.appendChild(sub);
+    li.appendChild(link);
+    return li;
   }
 
   function renderEmpty(message) {
     listElement.innerHTML = '';
-    const item = document.createElement('li');
-    item.textContent = message;
-    listElement.appendChild(item);
+    const li = document.createElement('li');
+    li.className = 'placeholder';
+    li.textContent = message;
+    listElement.appendChild(li);
   }
 
-  // Convert "nucleare" or "some-topic_name" -> "Nucleare" / "Some Topic Name"
   function humanizeTopicName(name) {
     return String(name)
       .replace(/[-_]+/g, ' ')
       .replace(/\b\w/g, ch => ch.toUpperCase());
   }
 
-  // Basic HTML escape for error text shown to user
   function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, c =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+    return String(s || '').replace(/[&<>"']/g, c =>
+      ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;' }[c])
     );
   }
 });

@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Quiz di Affinità Politica</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
-  <link rel="stylesheet" href="css/intro_style.css">
+  <link rel="stylesheet" href="css/home_style.css">
   <script src="js/home.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Quiz di Affinità Politica</h1>
-    </header>
-    <p>Scegli un quiz per scoprire il tuo allineamento politico!</p>
-    <ul id="quiz-list">
-    </ul>
+  <header>
+    <h1>Quiz di Affinità Politica</h1>
+  </header>
+
+  <main>
+    <section id="description" class="card">
+      <p>
+        Scegli un quiz per esplorare il tuo allineamento politico su un tema specifico.
+      </p>
+    </section>
+
+    <section id="topics" class="card">
+      <h2 class="section-title">Quiz disponibili:</h2>
+      <p class="section-sub">Clicca sul tema per iniziare.</p>
+
+      <!-- Populated by js/home.js -->
+      <ul id="quiz-list" aria-live="polite" aria-label="Lista dei quiz">
+        <li class="placeholder">Caricamento...</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 - Quiz di Affinità Politica</p>
+  </footer>
 </body>
 </html>

@@ -19,6 +19,26 @@
                 "M5S": [3,0.5],
                 "VeS": [0,0]
             }
+        },
+        {
+            "domanda": "Domanda 2.",
+            "id": 1,
+            "descrizione": "Descrizione dettagliata della domanda 2",
+            "spiegazione": {
+                "daccordo": "significa che sei daccordo",
+                "neutrale": "significa che sei neutrale",
+                "disaccordo": "significa che sei in disaccordo"
+            },
+            "partiti": {
+                "Lega": [2,0],
+                "FdI": [3,1],
+                "FI": [0,2],
+                "Italia Viva": [2,0.5],
+                "Azione": [4,0],
+                "PD": [2,0],
+                "M5S": [3,0.5],
+                "VeS": [0,0]
+            }
         }
     ]
 }

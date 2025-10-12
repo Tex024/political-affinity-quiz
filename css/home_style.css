@@ -1,0 +1,218 @@
+/* General resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    color: #2d3e50;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  #description p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
+  #description ul {
+    margin-left: 20px;
+    color: #555;
+  }
+  
+  #description li {
+    margin-bottom: 8px;
+  }
+  
+  #description em {
+    font-style: italic;
+    color: #007bff;
+  }
+  
+  #start {
+    text-align: center;
+  }
+  
+  #start p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  #start button {
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  #start button:hover {
+    background-color: #0056b3;
+  }
+  
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 40px;
+  }
+  
+  footer p {
+    margin: 10px 0;
+  }
+
+  /* --- Sezione 2: Lista dei Topic (Card Grid) --- */
+
+/* La lista <ul> */
+#quiz-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; /* Leggermente aumentato il gap */
+  padding: 10px; /* Padding leggero per distaccare */
+  background-color: #fff; /* Sfondo bianco per contenitore principale */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Ombra coerente con 'section' in begin_style */
+  margin-bottom: 20px; /* Margine coerente */
+}
+
+/* Elemento LI: Il contenitore della card */
+#quiz-list li {
+  /* Assicura che la LI non interferisca con lo stile della Card (Anchor) */
+  margin: 0;
+  padding: 0;
+}
+
+/* L'elemento A.topic-card (La scheda cliccabile) */
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrato verticalmente il contenuto */
+  height: 120px;
+  padding: 15px; /* Padding coerente */
+  background: linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%); /* Sfondo più tenue */
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 8px rgba(45,62,80,0.08); /* Ombra più morbida */
+  border: 1px solid rgba(45,62,80,0.06); /* Bordo più visibile */
+  transition: transform .2s ease, box-shadow .2s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Accento visivo: Stripe a sinistra (leggermente più definito) */
+.topic-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px; /* Spessore leggermente ridotto */
+  height: 100%;
+  /* Colore blu primario per coerenza (usato anche per il bottone in begin_style) */
+  background: #007bff; 
+  opacity: 0.2; /* Più visibile */
+  transition: opacity 0.2s ease;
+}
+
+/* Hover lift and color accent */
+.topic-card:hover {
+  transform: translateY(-5px); /* Sollevamento più contenuto */
+  box-shadow: 0 10px 25px rgba(45,62,80,0.15);
+}
+
+.topic-card:hover::before {
+    opacity: 0.5; /* Accento colore all'hover */
+}
+
+
+/* Titolo del Topic */
+.topic-title {
+  font-size: 1.2rem; /* Più grande per enfasi */
+  font-weight: 700;
+  color: #2d3e50;
+  margin-bottom: 5px;
+  text-transform: capitalize;
+}
+
+/* Descrizione/Sottotitolo (Non presente nello script JS ma utile per l'HTML) */
+.topic-sub {
+    font-size: 0.9rem;
+    color: #666;
+    opacity: 0.9;
+}
+
+/* Placeholder per quando la lista è vuota */
+#quiz-list .placeholder {
+  grid-column: 1 / -1; /* Occupa tutta la larghezza */
+  color: #777;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  background: #fdfdfd;
+  border: 1px dashed rgba(0,0,0,0.1);
+  box-shadow: none;
+}
+
+/* Elementi non più necessari (rimossi o integrati):
+   .section-title, .section-sub, .topic-meta, .topic-chevron, .card
+   Il contenitore #quiz-list ora funge da Card principale.
+*/
+
+/* --- Sezione 3: Responsive (Migliorata) --- */
+@media (max-width: 1000px) {
+  #quiz-list { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  header h1 { font-size: 2rem; }
+  body { padding: 15px; } /* Padding ridotto */
+  body > p:first-of-type { margin: -10px auto 20px auto; }
+  #quiz-list { 
+    grid-template-columns: 1fr; 
+    gap: 12px;
+    padding: 0; /* Rimosso il padding interno se su una colonna singola */
+    background-color: transparent; /* Rimosso lo sfondo card del contenitore */
+    box-shadow: none; /* Rimosso l'ombra del contenitore */
+  }
+  .topic-card { 
+    height: 100px; 
+    padding: 15px; 
+    text-align: left;
+  }
+}

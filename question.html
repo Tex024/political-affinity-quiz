@@ -1,50 +1,39 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Quiz - Domanda</title>
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
   <link rel="stylesheet" href="css/question_style.css">
   <script src="js/question_manager.js" defer></script>
 </head>
-
 <body>
   <header>
-    <button id="home-button">Home</button>
-    <h1>Quiz di Affinità Politica</h1>
+    <button id="home-button" aria-label="Torna alla home">Home</button>
+    <h1 id="site-title">Quiz di Affinità Politica</h1>
   </header>
 
   <main>
     <section id="question-container">
       <h2 id="question-text">Caricamento della domanda...</h2>
-      <div id="answers">
-        <button class="answer-btn" data-value="1">
-          <span class="icon">😡</span> <!-- Totally disagree -->
-        </button>
-        <button class="answer-btn" data-value="2">
-          <span class="icon">🙁</span> <!-- Disagree -->
-        </button>
-        <button class="answer-btn" data-value="3">
-          <span class="icon">😐</span> <!-- Neutral -->
-        </button>
-        <button class="answer-btn" data-value="4">
-          <span class="icon">🙂</span> <!-- Agree -->
-        </button>
-        <button class="answer-btn" data-value="5">
-          <span class="icon">🤩</span> <!-- Totally agree -->
-        </button>
+
+      <div id="answers" aria-label="Opzioni di risposta">
+        <!-- buttons inserted by JS; keeps the layout and classes expected by your CSS -->
       </div>
-      <button id="not-interested-button" class="secondary-btn">Non Interessato</button>
-      <div id="navigation">
-        <button id="next-button" class="primary-btn" style="display: none;">Avanti</button>
+
+      <div style="text-align:center; margin-top:8px;">
+        <button id="not-interested-button" class="secondary-btn" aria-pressed="false">Non Interessato</button>
+      </div>
+
+      <div id="navigation" role="navigation" aria-label="Navigazione domande">
+        <button id="prev-button" class="secondary-btn">Indietro</button>
+        <button id="next-button" class="primary-btn">Avanti</button>
       </div>
     </section>
 
     <section id="details-section">
-      <button id="toggle-details" class="secondary-btn">Mostra dettagli</button>
+      <button id="toggle-details" class="secondary-btn" aria-expanded="false">Mostra dettagli</button>
       <div id="details" style="display: none;">
         <h3>Dettagli della Domanda</h3>
         <p id="description">Descrizione non disponibile.</p>
@@ -61,5 +50,4 @@
     <p>© 2024 - Quiz di Affinità Politica</p>
   </footer>
 </body>
-
 </html>
