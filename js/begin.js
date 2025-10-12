@@ -1,10 +1,14 @@
 // begin.js
-// Loads topic file, initializes answers vector in sessionStorage and navigates to question.html when started.
-// All functions/variables in English; UI text in Italian.
+// Robust begin script: loads topics/<topic>.json, initializes sessionStorage answers,
+// and redirects to error.html on any fatal problem.
+// UI text remains Italian; variables/functions are English-named.
 
 document.addEventListener('DOMContentLoaded', () => {
   const PARAM_KEY = 'topic';
   const STORAGE_PREFIX = 'quiz_answers::';
+  const TOPICS_PATH = 'topics/';
+  const ERROR_PAGE = 'error.html';
+  const MAX_ERROR_LENGTH = 200; // truncate error text for URL safety
 
   const homeButton = document.getElementById('home-button');
   const topicTitleEl = document.getElementById('topic-title');
@@ -12,78 +16,118 @@ document.addEventListener('DOMContentLoaded', () => {
   const questionsCountEl = document.getElementById('questions-count');
   const startButton = document.getElementById('start-button');
 
-  homeButton.addEventListener('click', () => location.href = 'index.html');
+  if (homeButton) {
+    homeButton.addEventListener('click', () => { window.location.href = 'index.html'; });
+  }
 
-  let topicName = getQueryParam(PARAM_KEY);
-  if (!topicName) {
-    // If topic not supplied, show a generic intro and instruct to open from home.
-    topicTitleEl.textContent = 'Quiz di Affinità Politica';
-    introTextEl.textContent = 'Apri questa pagina dalla lista dei quiz (home).';
-    startButton.disabled = true;
+  // Ensure required UI elements exist
+  if (!topicTitleEl || !introTextEl || !questionsCountEl || !startButton) {
+    console.error('Required DOM elements missing in begin.html');
+    redirectToError('Configurazione pagina non valida (elementi mancanti).');
     return;
   }
 
-  const humanTopic = humanizeTopicName(topicName);
-  document.title = `Quiz — ${humanTopic}`;
-  topicTitleEl.textContent = `Quiz: ${humanTopic}`;
+  (async function main() {
+    const rawTopic = getQueryParam(PARAM_KEY);
+    if (!rawTopic) {
+      redirectToError('Parametro "topic" mancante.');
+      return;
+    }
 
-  // Load topic file to read number of questions and optional description
-  fetchTopicFile(topicName)
-    .then(topicJson => {
-      const description = topicJson.descrizione || topicJson.description || '';
-      if (description) {
-        introTextEl.textContent = description;
-      } else {
-        introTextEl.textContent = 'Questo quiz ti aiuterà a capire il tuo grado di affinità con i partiti su questo topic.';
-      }
+    const topicName = sanitizeTopicName(rawTopic);
+    if (!topicName) {
+      redirectToError('Nome quiz non valido.');
+      return;
+    }
+
+    const humanTopic = humanizeTopicName(topicName);
+    document.title = `Quiz — ${humanTopic}`;
+    topicTitleEl.textContent = `Quiz: ${humanTopic}`;
+
+    try {
+      const topicJson = await fetchAndValidateTopic(topicName);
+
+      // Description support for italian/english keys
+      const description = (topicJson.descrizione || topicJson.description || '').trim();
+      introTextEl.textContent = description || 'Questo quiz ti aiuterà a capire il tuo grado di affinità con i partiti su questo argomento.';
 
       const questions = Array.isArray(topicJson.domande) ? topicJson.domande : [];
       questionsCountEl.textContent = `Domande: ${questions.length}`;
 
-      // Initialize or resume answers in sessionStorage
-      const storageKey = STORAGE_PREFIX + topicName;
-      const stored = safeParse(sessionStorage.getItem(storageKey));
-      if (Array.isArray(stored) && stored.length === questions.length) {
-        const resume = confirm('Trovate risposte salvate per questo quiz. Vuoi riprendere da dove avevi lasciato? (OK = Riprendi)');
-        if (!resume) {
-          const empty = createEmptyAnswers(questions.length);
-          sessionStorage.setItem(storageKey, JSON.stringify(empty));
-        }
-      } else {
-        const empty = createEmptyAnswers(questions.length);
-        sessionStorage.setItem(storageKey, JSON.stringify(empty));
-      }
+      initializeAnswers(topicName, questions.length);
 
-      // Start button navigates to question.html?q=0
+      startButton.disabled = false;
       startButton.addEventListener('click', () => {
-        location.href = `question.html?topic=${encodeURIComponent(topicName)}&q=0`;
+        window.location.href = `question.html?topic=${encodeURIComponent(topicName)}&q=0`;
       });
-    })
-    .catch(err => {
-      console.error(err);
-      introTextEl.textContent = 'Errore caricamento topic. Torna alla home.';
-      startButton.disabled = true;
-    });
+    } catch (err) {
+      console.error('Error loading topic:', err);
+      // Any failure here is considered fatal -> redirect to error page
+      redirectToError(err && err.message ? err.message : 'Errore caricamento quiz');
+    }
+  })();
 
-  // ---------- helpers ----------
+  // ---------- Helpers ----------
+
   function getQueryParam(name) {
     return new URLSearchParams(window.location.search).get(name);
   }
+
+  function sanitizeTopicName(raw) {
+    if (!raw) return null;
+    const s = String(raw).trim();
+    // Only allow letters, numbers, dash and underscore to avoid traversal or strange names
+    return /^[a-zA-Z0-9_-]+$/.test(s) ? s : null;
+  }
+
   function humanizeTopicName(name) {
     return String(name).replace(/[-_]+/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
   }
-  function fetchTopicFile(name) {
-    return fetch(`topics/${encodeURIComponent(name)}.json`, { cache: 'no-store' })
-      .then(resp => {
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        return resp.json();
-      });
+
+  async function fetchAndValidateTopic(name) {
+    const path = `${TOPICS_PATH}${encodeURIComponent(name)}.json`;
+    const resp = await fetch(path, { cache: 'no-store' });
+
+    if (!resp.ok) {
+      // If 404 or other non-OK, throw with meaningful message
+      throw new Error(`Quiz non trovato (HTTP ${resp.status})`);
+    }
+
+    // Try parse JSON; if parse fails, treat as fatal
+    let json;
+    try {
+      json = await resp.json();
+    } catch (e) {
+      throw new Error('Quiz non valido (JSON malformato)');
+    }
+
+    // Validate shape: must be object and must have 'domande' array (even empty array acceptable,
+    // but we consider missing 'domande' a malformed topic file)
+    if (!json || typeof json !== 'object' || !Array.isArray(json.domande)) {
+      throw new Error('Quiz malformato o non valido (manca "domande").');
+    }
+
+    // All good
+    return json;
   }
+
+  function initializeAnswers(topicName, questionCount) {
+    const storageKey = STORAGE_PREFIX + topicName;
+    // Always create a fresh empty answers array
+    sessionStorage.setItem(storageKey, JSON.stringify(createEmptyAnswers(questionCount)));
+  }
+
   function createEmptyAnswers(n) {
-    // null = unanswered; -1 = Non Interessato; 0..4 numerical answers
     return new Array(n).fill(null);
   }
-  function safeParse(raw) {
-    try { return JSON.parse(raw); } catch (e) { return null; }
+
+  // Redirect to central error page with safe encoding & truncation
+  function redirectToError(message) {
+    const normalized = String(message || 'Errore sconosciuto').trim().replace(/\s+/g, ' ');
+    const truncated = normalized.length > MAX_ERROR_LENGTH
+      ? normalized.slice(0, MAX_ERROR_LENGTH - 3) + '...'
+      : normalized;
+    const url = `${ERROR_PAGE}?error=${encodeURIComponent(truncated)}`;
+    setTimeout(() => { window.location.href = url; }, 50);
   }
 });

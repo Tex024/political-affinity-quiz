@@ -10,14 +10,14 @@
                 "disaccordo": "significa che sei in disaccordo"
             },
             "partiti": {
-                "Lega": [2,0],
-                "FdI": [3,1],
-                "FI": [0,2],
-                "Italia Viva": [2,0.5],
+                "Lega": [0,0],
+                "FdI": [1,0],
+                "FI": [2,0],
+                "Italia Viva": [3,0],
                 "Azione": [4,0],
-                "PD": [2,0],
-                "M5S": [3,0.5],
-                "VeS": [0,0]
+                "PD": [0,0.5],
+                "M5S": [0,0.7],
+                "VeS": [0,1]
             }
         },
         {
@@ -30,14 +30,14 @@
                 "disaccordo": "significa che sei in disaccordo"
             },
             "partiti": {
-                "Lega": [2,0],
-                "FdI": [3,1],
-                "FI": [0,2],
-                "Italia Viva": [2,0.5],
+                "Lega": [0,0],
+                "FdI": [1,0],
+                "FI": [2,0],
+                "Italia Viva": [3,0],
                 "Azione": [4,0],
-                "PD": [2,0],
-                "M5S": [3,0.5],
-                "VeS": [0,0]
+                "PD": [0,0.5],
+                "M5S": [0,0.7],
+                "VeS": [0,1]
             }
         }
     ]

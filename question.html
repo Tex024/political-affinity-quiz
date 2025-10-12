@@ -15,11 +15,19 @@
   </header>
 
   <main>
+    <!-- Progress Bar -->
+    <div id="progress-wrapper">
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+      <div id="progress-text">Domanda 0 di 0</div>
+    </div>
+
+    <!-- Question Section -->
     <section id="question-container">
       <h2 id="question-text">Caricamento della domanda...</h2>
 
       <div id="answers" aria-label="Opzioni di risposta">
-        <!-- buttons inserted by JS; keeps the layout and classes expected by your CSS -->
       </div>
 
       <div style="text-align:center; margin-top:8px;">
@@ -32,6 +40,7 @@
       </div>
     </section>
 
+    <!-- Optional Details Section -->
     <section id="details-section">
       <button id="toggle-details" class="secondary-btn" aria-expanded="false">Mostra dettagli</button>
       <div id="details" style="display: none;">

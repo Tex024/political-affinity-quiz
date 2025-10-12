@@ -4,12 +4,32 @@
         {
             "name": "nucleare",
             "description": "quiz sul nucleare",
-            "active": true
+            "active": true,
+            "partiti": {
+                "Lega": "descrizione della positione",
+                "FdI": "descrizione della positione",
+                "FI": "descrizione della positione",
+                "Italia Viva": "descrizione della positione",
+                "Azione": "descrizione della positione",
+                "PD": "descrizione della positione",
+                "M5S": "descrizione della positione",
+                "VeS": "descrizione della positione"
+            }
         },
         {
-            "name": "random theme",
-            "description": "tema randomico",
-            "active": true
+            "name": "generale",
+            "description": "quiz generale",
+            "active": true,
+            "partiti": {
+                "Lega": "",
+                "FdI": "",
+                "FI": "",
+                "Italia Viva": "",
+                "Azione": "",
+                "PD": "",
+                "M5S": "",
+                "VeS": ""
+            }
         }
     ]
 }

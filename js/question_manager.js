@@ -6,14 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const PARAM_TOPIC = 'topic';
   const PARAM_Q = 'q';
   const STORAGE_PREFIX = 'quiz_answers::';
+  const TOPICS_PATH = 'topics/';
+  const ERROR_PAGE = 'error.html';
+  const MAX_ERROR_LENGTH = 200;
 
+  // UI elements (required)
   const homeButton = document.getElementById('home-button');
   const questionTextEl = document.getElementById('question-text');
   const answersContainer = document.getElementById('answers');
   const notInterestedButton = document.getElementById('not-interested-button');
   const prevButton = document.getElementById('prev-button');
   const nextButton = document.getElementById('next-button');
+  const progressBar = document.getElementById('progress-bar');
 
+  // Optional details UI
   const toggleDetails = document.getElementById('toggle-details');
   const detailsBox = document.getElementById('details');
   const descriptionEl = document.getElementById('description');
@@ -21,10 +27,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const explNeutral = document.getElementById('explanation-neutral');
   const explDisagree = document.getElementById('explanation-disagree');
 
-  let topicName = getQueryParam(PARAM_TOPIC);
+  // Basic validation: required UI elements must be present
+  if (!questionTextEl || !answersContainer || !notInterestedButton || !prevButton || !nextButton) {
+    console.error('Required DOM elements missing on question page');
+    redirectToError('Configurazione pagina non valida (elementi mancanti).');
+    return;
+  }
+
+  // Wire home button if present
+  if (homeButton) {
+    homeButton.addEventListener('click', () => { window.location.href = 'index.html'; });
+  }
+
+  // Toggle details if UI exists
+  if (toggleDetails && detailsBox) {
+    toggleDetails.addEventListener('click', () => {
+      const isHidden = detailsBox.style.display === 'none' || detailsBox.style.display === '';
+      detailsBox.style.display = isHidden ? 'block' : 'none';
+      toggleDetails.textContent = isHidden ? 'Nascondi dettagli' : 'Mostra dettagli';
+    });
+  }
+
+  // Parse params
+  const rawTopic = getQueryParam(PARAM_TOPIC);
   let qIndex = parseInt(getQueryParam(PARAM_Q) || '0', 10);
+  if (!rawTopic) {
+    redirectToError('Parametro "topic" mancante.');
+    return;
+  }
+
+  const topicName = sanitizeTopicName(rawTopic);
   if (!topicName) {
-    document.body.innerHTML = `<main style="padding:1rem"><h2>Errore</h2><p>Topic mancante. Apri il quiz dalla home.</p></main>`;
+    redirectToError('Nome quiz non valido.');
     return;
   }
 
@@ -33,98 +67,127 @@ document.addEventListener('DOMContentLoaded', () => {
   let questions = [];
   let answers = [];
 
-  homeButton.addEventListener('click', () => location.href = 'index.html');
-
-  toggleDetails.addEventListener('click', () => {
-    const visible = detailsBox.style.display === '' || detailsBox.style.display === 'block';
-    detailsBox.style.display = visible ? 'none' : 'block';
-    toggleDetails.textContent = visible ? 'Mostra dettagli' : 'Nascondi dettagli';
-  });
-
+  // Navigation handlers
   prevButton.addEventListener('click', () => {
-    if (qIndex > 0) {
-      navigateTo(qIndex - 1);
-    }
+    if (qIndex > 0) navigateTo(qIndex - 1);
   });
 
   nextButton.addEventListener('click', () => {
     if (qIndex < questions.length - 1) {
       navigateTo(qIndex + 1);
     } else {
-      // last question -> go to results
-      location.href = `results.html?topic=${encodeURIComponent(topicName)}`;
+      // Last question → results
+      window.location.href = `results.html?topic=${encodeURIComponent(topicName)}`;
     }
   });
 
   // Load topic and answers
-  fetch(`topics/${encodeURIComponent(topicName)}.json`, { cache: 'no-store' })
-    .then(resp => {
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      return resp.json();
-    })
-    .then(json => {
+  (async function load() {
+    try {
+      const json = await fetchAndValidateTopic(topicName);
       topicJson = json;
       questions = Array.isArray(json.domande) ? json.domande : [];
+
+      // Load or create answers array
       const stored = safeParse(sessionStorage.getItem(storageKey));
       if (Array.isArray(stored) && stored.length === questions.length) {
-        answers = stored;
+        answers = stored.slice(); // copy
       } else {
         answers = new Array(questions.length).fill(null);
-        sessionStorage.setItem(storageKey, JSON.stringify(answers));
+        persistAnswers();
       }
-      // If qIndex out of range, clamp
-      if (qIndex < 0) qIndex = 0;
-      if (qIndex >= questions.length) qIndex = Math.max(0, questions.length - 1);
-      renderQuestion(qIndex);
-    })
-    .catch(err => {
-      console.error(err);
-      document.body.innerHTML = `<main style="padding:1rem"><h2>Errore</h2><p>Impossibile caricare il topic (${escapeHtml(err.message)}). Torna alla home.</p></main>`;
-    });
 
-  // ---------- functions ----------
+      // Clamp qIndex
+      if (!Number.isFinite(qIndex) || qIndex < 0) qIndex = 0;
+      if (qIndex >= questions.length) qIndex = Math.max(0, questions.length - 1);
+
+      renderQuestion(qIndex);
+    } catch (err) {
+      console.error('Error loading topic:', err);
+      redirectToError(err && err.message ? err.message : 'Errore caricamento quiz');
+    }
+  })();
+
+  // ---------- Render / Actions ----------
+
   function renderQuestion(index) {
     const q = questions[index];
     if (!q) {
       questionTextEl.textContent = 'Domanda non trovata.';
+      descriptionEl && (descriptionEl.textContent = '');
+      answersContainer.innerHTML = '';
+      updateNavigationUI();
       return;
     }
-    questionTextEl.textContent = `${index+1}. ${q.domanda || 'Domanda senza testo'}`;
-    descriptionEl.textContent = q.descrizione || '';
 
-    // Explanations
+    // Title & description
+    questionTextEl.textContent = q.domanda || 'Domanda senza testo';
+    if (descriptionEl) descriptionEl.textContent = q.descrizione || '';
+
+    // Explanations (optional)
     const expl = q.spiegazione || {};
-    explAgree.textContent = expl.daccordo || 'N/A';
-    explNeutral.textContent = expl.neutrale || 'N/A';
-    explDisagree.textContent = expl.disaccordo || 'N/A';
+    if (explAgree) explAgree.textContent = expl.daccordo || '';
+    if (explNeutral) explNeutral.textContent = expl.neutrale || '';
+    if (explDisagree) explDisagree.textContent = expl.disaccordo || '';
 
     // Render answer buttons (0..4)
     answersContainer.innerHTML = '';
-    const labels = [
-      {emoji: '😡', text: 'Totalmente in disaccordo', value: 0},
-      {emoji: '🙁', text: 'In disaccordo', value: 1},
-      {emoji: '😐', text: 'Neutrale', value: 2},
-      {emoji: '🙂', text: 'D’accordo', value: 3},
-      {emoji: '🤩', text: 'Totalmente d’accordo', value: 4},
+    const choices = [
+      { emoji: '😡', title: 'Totalmente in disaccordo', value: 0 },
+      { emoji: '🙁', title: 'In disaccordo', value: 1 },
+      { emoji: '😐', title: 'Neutrale', value: 2 },
+      { emoji: '🙂', title: 'D’accordo', value: 3 },
+      { emoji: '🤩', title: 'Totalmente d’accordo', value: 4 },
     ];
 
-    labels.forEach(item => {
+    choices.forEach(choice => {
       const btn = document.createElement('button');
+      btn.type = 'button';
       btn.className = 'answer-btn';
-      btn.dataset.value = String(item.value);
-      btn.innerHTML = `<span class="icon">${item.emoji}</span>`;
-      btn.title = item.text;
-      if (answers[index] === item.value) btn.classList.add('selected');
+      btn.dataset.value = String(choice.value);
+      btn.setAttribute('aria-label', choice.title);
+      btn.title = choice.title;
+      btn.innerHTML = `<span class="icon" aria-hidden="true">${choice.emoji}</span>`;
+      if (answers[index] === choice.value) btn.classList.add('selected');
+
       btn.addEventListener('click', () => {
-        setAnswer(index, item.value);
+        // Clear not-interested if present
+        if (answers[index] === -1) {
+          // switching from non-interested to numeric
+        }
+        setAnswer(index, choice.value);
         // Visual update
         Array.from(answersContainer.querySelectorAll('.answer-btn')).forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
+        notInterestedButton.classList.remove('selected');
+        notInterestedButton.textContent = 'Non Interessato';
       });
+
       answersContainer.appendChild(btn);
     });
 
-    // Not interested button state
+    // Not interested toggle
+    updateNotInterestedUI(index);
+    notInterestedButton.onclick = () => {
+      if (answers[index] === -1) {
+        setAnswer(index, null);
+        notInterestedButton.classList.remove('selected');
+        notInterestedButton.textContent = 'Non Interessato';
+      } else {
+        setAnswer(index, -1);
+        Array.from(answersContainer.querySelectorAll('.answer-btn')).forEach(b => b.classList.remove('selected'));
+        notInterestedButton.classList.add('selected');
+        notInterestedButton.textContent = 'Non Interessato (selezionato)';
+      }
+    };
+
+    updateNavigationUI();
+    updateProgressBar();
+    // Update URL parameter q without reloading
+    updateUrlParam(PARAM_Q, String(index));
+  }
+
+  function updateNotInterestedUI(index) {
     if (answers[index] === -1) {
       notInterestedButton.classList.add('selected');
       notInterestedButton.textContent = 'Non Interessato (selezionato)';
@@ -132,57 +195,103 @@ document.addEventListener('DOMContentLoaded', () => {
       notInterestedButton.classList.remove('selected');
       notInterestedButton.textContent = 'Non Interessato';
     }
+  }
 
-    notInterestedButton.onclick = () => {
-      if (answers[index] === -1) {
-        // toggle off -> set to null
-        setAnswer(index, null);
-        notInterestedButton.classList.remove('selected');
-        notInterestedButton.textContent = 'Non Interessato';
-      } else {
-        setAnswer(index, -1);
-        // Clear numeric selections
-        Array.from(answersContainer.querySelectorAll('.answer-btn')).forEach(b => b.classList.remove('selected'));
-        notInterestedButton.classList.add('selected');
-        notInterestedButton.textContent = 'Non Interessato (selezionato)';
-      }
-    };
-
-    // Navigation buttons visibility
-    prevButton.disabled = index === 0;
-    nextButton.textContent = (index < questions.length - 1) ? 'Avanti' : 'Vedi Risultati';
-
-    // Update URL without reload
-    const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set(PARAM_Q, String(index));
-    window.history.replaceState({}, '', newUrl.toString());
+  function updateNavigationUI() {
+    prevButton.disabled = qIndex <= 0;
+    nextButton.textContent = (qIndex < questions.length - 1) ? 'Avanti' : 'Vedi Risultati';
   }
 
   function setAnswer(index, value) {
     // value: null | -1 | 0..4
     answers[index] = value;
+    persistAnswers();
+  }
+
+  function persistAnswers() {
     try {
       sessionStorage.setItem(storageKey, JSON.stringify(answers));
     } catch (e) {
-      console.warn('Unable to persist answers', e);
+      console.warn('Unable to persist answers to sessionStorage', e);
     }
   }
 
   function navigateTo(index) {
-    // navigate to question page with new q param
-    location.href = `question.html?topic=${encodeURIComponent(topicName)}&q=${index}`;
+    // update local index and render (do not reload the whole page)
+    qIndex = index;
+    renderQuestion(qIndex);
   }
 
-  // ---------- helpers ----------
+  function updateProgressBar() {
+    if (!progressBar || questions.length === 0) return;
+    const percent = ((qIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${percent}%`;
+
+    const progressText = document.getElementById('progress-text');
+    if (progressText) {
+      progressText.textContent = `Domanda ${qIndex + 1} di ${questions.length}`;
+    }
+  }
+
+  // ---------- Utilities & network ----------
+
   function getQueryParam(name) {
     return new URLSearchParams(window.location.search).get(name);
   }
+
+  function sanitizeTopicName(raw) {
+    if (!raw) return null;
+    const s = String(raw).trim();
+    return /^[a-zA-Z0-9_-]+$/.test(s) ? s : null;
+  }
+
   function safeParse(raw) {
     try { return JSON.parse(raw); } catch (e) { return null; }
   }
+
+  async function fetchAndValidateTopic(name) {
+    const path = `${TOPICS_PATH}${encodeURIComponent(name)}.json`;
+    const resp = await fetch(path, { cache: 'no-store' });
+
+    if (!resp.ok) {
+      throw new Error(`Quiz non trovato (HTTP ${resp.status})`);
+    }
+
+    let json;
+    try {
+      json = await resp.json();
+    } catch (e) {
+      throw new Error('Quiz non valido (JSON malformato)');
+    }
+
+    // Validate shape: object with array 'domande'
+    if (!json || typeof json !== 'object' || !Array.isArray(json.domande)) {
+      throw new Error('Quiz malformato o non valido (manca "domande").');
+    }
+
+    return json;
+  }
+
+  function updateUrlParam(key, value) {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set(key, value);
+      window.history.replaceState({}, '', url.toString());
+    } catch (e) {
+      // If URL API fails, ignore (non-fatal)
+    }
+  }
+
   function escapeHtml(s) {
     return String(s || '').replace(/[&<>"']/g, c =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
     );
+  }
+
+  function redirectToError(message) {
+    const normalized = String(message || 'Errore sconosciuto').trim().replace(/\s+/g, ' ');
+    const truncated = normalized.length > MAX_ERROR_LENGTH ? normalized.slice(0, MAX_ERROR_LENGTH - 3) + '...' : normalized;
+    const url = `${ERROR_PAGE}?error=${encodeURIComponent(truncated)}`;
+    setTimeout(() => { window.location.href = url; }, 50);
   }
 });

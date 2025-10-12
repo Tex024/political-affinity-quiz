@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Errore — Quiz di Affinità Politica</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="stylesheet" href="css/home_style.css">
+</head>
+<body>
+  <main role="main" style="max-width:720px;margin:60px auto;padding:22px;">
+    <section class="card" style="text-align:center;">
+      <h1 style="font-size:1.8rem;color:#2d3e50;margin-bottom:12px;">
+        Si è verificato un errore
+      </h1>
+
+      <p id="error-message" style="color:var(--muted);margin-bottom:18px;font-size:1.05rem;">
+        Caricamento in corso...
+      </p>
+
+      <a href="index.html"
+         style="display:inline-block;margin-top:10px;padding:10px 18px;
+                border-radius:var(--radius);background:var(--accent);
+                color:#fff;text-decoration:none;font-weight:600;
+                transition:background .2s ease;">
+        Torna alla Home
+      </a>
+    </section>
+  </main>
+
+  <footer style="text-align:center;margin-top:30px;color:#888;">
+    <p>© <span id="year">2024</span> - Quiz di Affinità Politica</p>
+  </footer>
+
+  <script>
+    (function () {
+      // --- Parse and display the "error" query parameter safely ---
+      const params = new URLSearchParams(window.location.search);
+      const msg = params.get('error');
+      const out = document.getElementById('error-message');
+
+      function escapeHtml(s) {
+        return String(s || '').replace(/[&<>"']/g, c =>
+          ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c])
+        );
+      }
+
+      if (msg && msg.trim() !== '') {
+        out.innerHTML = escapeHtml(msg.trim());
+      } else {
+        out.textContent = 'Errore sconosciuto o parametro mancante.';
+      }
+
+      // --- Set footer year dynamically ---
+      const yearEl = document.getElementById('year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>

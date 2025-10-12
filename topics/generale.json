@@ -1,0 +1,576 @@
+{
+    "domande": [
+    {
+      "domanda": "Per far fronte al sovrappopolamento delle carceri dovremmo liberare chi ha compiuto reati minori, come lo spaccio.",
+      "id": 1,
+      "descrizione": "Descrizione dettagliata della domanda 1",
+      "spiegazione": {
+        "daccordo": "significa che sei daccordo",
+        "neutrale": "significa che sei neutrale",
+        "disaccordo": "significa che sei in disaccordo"
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          1.0
+        ],
+        "FdI": [
+          0,
+          1.0
+        ],
+        "FI": [
+          1,
+          0.9
+        ],
+        "Italia Viva": [
+          2,
+          0.7
+        ],
+        "Azione": [
+          2,
+          0.7
+        ],
+        "PD": [
+          3,
+          0.6
+        ],
+        "M5S": [
+          3,
+          0.8
+        ],
+        "VeS": [
+          3,
+          0.6
+        ]
+      }
+    },
+    {
+      "domanda": "La cannabis andrebbe legalizzata.",
+      "id": 2,
+      "descrizione": "Descrizione dettagliata della domanda 2",
+      "spiegazione": {
+        "daccordo": "La cannabis va legalizzata, in quanto non è più pericolosa dell'alcol e potrebbe contrastare lo spaccio della criminalità organizzata.",
+        "neutrale": "Bisognerebbe guardare gli stati in cui la cannabis è legale, trovare eventuali criticità e legalizzarne la vendita solo tramite enti statali, stabilendo anche una dose massima giornaliera.",
+        "disaccordo": "L'erba non va legalizzata, poichè rischia di aprire le porte a gravi problemi di dipendenza, e all'utilizzo di droghe più pesanti, e non riscuoterebbe alcun effetto negativo sul crimine organizzato, in quanto la marijuana legale costerebbe più del tripo di quella spacciata."
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          1.0
+        ],
+        "FdI": [
+          0,
+          1.0
+        ],
+        "FI": [
+          2,
+          0.9
+        ],
+        "Italia Viva": [
+          2,
+          0.6
+        ],
+        "Azione": [
+          2,
+          0.6
+        ],
+        "PD": [
+          3,
+          1.1
+        ],
+        "M5S": [
+          4,
+          0.5
+        ],
+        "VeS": [
+          4,
+          1.0
+        ]
+      }
+    },
+    {
+      "domanda": "Ognuno è libero di fare tutto ciò che vuole, e lo stato non dovrebbe influire sulla volontà degli individui.",
+      "id": 3,
+      "descrizione": "Descrizione dettagliata della domanda 3",
+      "spiegazione": {
+        "daccordo": "significa che sei daccordo",
+        "neutrale": "significa che sei neutrale",
+        "disaccordo": "significa che sei in disaccordo"
+      },
+      "partiti": {
+        "Lega": [
+          2,
+          0.9
+        ],
+        "FdI": [
+          2,
+          0.9
+        ],
+        "FI": [
+          2,
+          0.7
+        ],
+        "Italia Viva": [
+          3,
+          0.5
+        ],
+        "Azione": [
+          3,
+          0.5
+        ],
+        "PD": [
+          3,
+          0.4
+        ],
+        "M5S": [
+          3,
+          0.5
+        ],
+        "VeS": [
+          3,
+          0.5
+        ]
+      }
+    },
+    {
+      "domanda": "Chi è più ricco dovrebbe pagare tasse più alte in percentuale.",
+      "id": 4,
+      "descrizione": "Descrizione dettagliata della domanda 4",
+      "spiegazione": {
+        "daccordo": "Bisogna tassare pesantemente le aziende le fascie di popolazione più ricche.",
+        "neutrale": "È giusto che le regioni lascino che lo stato ridistribuisca parte delle tasse da regioni economicamente più floride a quelle con difficoltà, ma bisognerebbe dare più autonomia alle regioni rispetto alla situazione attuale.",
+        "disaccordo": "Bisognerebbe sottotassare aziende ed imprenditori, in quanto promotori dell'economia e responsabili per la generazione della maggior parte de posti di lavoro."
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          0.9
+        ],
+        "FdI": [
+          0,
+          0.9
+        ],
+        "FI": [
+          0,
+          0.9
+        ],
+        "Italia Viva": [
+          0,
+          1.0
+        ],
+        "Azione": [
+          0,
+          1.0
+        ],
+        "PD": [
+          3,
+          0.7
+        ],
+        "M5S": [
+          3,
+          0.7
+        ],
+        "VeS": [
+          4,
+          0.6
+        ]
+      }
+    },
+    {
+      "domanda": "I media vanno controllati per impedire la propaganda d’idee estremiste.",
+      "id": 5,
+      "descrizione": "Descrizione dettagliata della domanda 5",
+      "spiegazione": {
+        "daccordo": "Fake news e idee estremiste sono una grave minaccia alla democrazia, quindi bisogna controllare i contenuti dei media per impedire che vengano postate.",
+        "neutrale": "Bisogna permettere ad ognuno di postare quello che vuole, lasciando ai servizzi segreti ed altre organizzazioni per la sicurezza la possibilità di richiedere ad appositi tribunali di controllare profili social e numeri di telefono per prevenire atti criminali e terroristici",
+        "disaccordo": "Ognuno ha il diritto di dire e credere in ciò che vuole, ed il controllo dei social rischia di trasformarsi in una grave deriva antidemocratica."
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          1.0
+        ],
+        "FdI": [
+          0,
+          1.0
+        ],
+        "FI": [
+          2,
+          0.7
+        ],
+        "Italia Viva": [
+          2,
+          0.6
+        ],
+        "Azione": [
+          2,
+          0.6
+        ],
+        "PD": [
+          4,
+          0.5
+        ],
+        "M5S": [
+          3,
+          0.5
+        ],
+        "VeS": [
+          3,
+          0.8
+        ]
+      }
+    },
+    {
+      "domanda": "L'Italia dovrebbe investire di più nella difesa?",
+      "id": 6,
+      "descrizione": "Descrizione della domanda 6",
+      "spiegazione": {
+        "daccordo": "È necessario aumentare le spese nel settore della difesa, sia sul piano nazionale, sia in favore della NATO.",
+        "neutrale": "È necessario investire nella difesa, ma senza aumentarne i fondi, anche perchè facciamo parte della NATO.",
+        "disaccordo": "L'Italia dovrebbe andare verso un disarmo, e ridestinare i fondi su altri settori."
+      },
+      "partiti": {
+        "Lega": [
+          4,
+          0.5
+        ],
+        "FdI": [
+          4,
+          0.4
+        ],
+        "FI": [
+          4,
+          0.5
+        ],
+        "Italia Viva": [
+          2,
+          0.8
+        ],
+        "Azione": [
+          2,
+          0.8
+        ],
+        "PD": [
+          2,
+          0.9
+        ],
+        "M5S": [
+          0,
+          0.9
+        ],
+        "VeS": [
+          0,
+          0.0
+        ]
+      }
+    },
+    {
+      "domanda": "Il passaggio all'energia nucleare va fatto, il prima possibile econ le tecnologie attualmente in commercio.",
+      "id": 7,
+      "descrizione": "Descrizione domanda 7",
+      "spiegazione": {
+        "daccordo": "Supporto la costruzone di centrali nucleari che utilizzino reattori di terza generazione.",
+        "neutrale": "Considero importante lo sfruttamento dell'energia nucleare, ma ho una serie di dubbi e vorrei aspettare l'entrata in commercio dei reattori di quarta generazione.",
+        "disaccordo": "Credo che le centrali nucleari siano più un pericolo piuttosto che una risorsa, bisogna concentrarsi su altre fonti per la produzioni d'energia."
+      },
+      "partiti": {
+        "Lega": [
+          4,
+          0.5
+        ],
+        "FdI": [
+          4,
+          0.4
+        ],
+        "FI": [
+          3,
+          0.9
+        ],
+        "Italia Viva": [
+          3,
+          0.5
+        ],
+        "Azione": [
+          3,
+          0.9
+        ],
+        "PD": [
+          1,
+          0.9
+        ],
+        "M5S": [
+          0,
+          1.1
+        ],
+        "VeS": [
+          0,
+          1.1
+        ]
+      }
+    },
+    {
+      "domanda": "Bisogna investire nelle energie rinnovabili, anche se svantaggioso economicamente per consumatori e aziende",
+      "id": 8,
+      "descrizione": "Descrizione domanda 8",
+      "spiegazione": {
+        "daccordo": "Le fonti fossili ed i motori termici vanno abbandonati subito, e bisogna investire in rinnovabili e mobilità elettrica, anche se economicamnte svantaggioso per le aziende ed i cittadini.",
+        "neutrale": "Bisogna abbandonare lo sfruttamento di risorse fossili, ma con i giusti tempi, per evitare un aumento del costo di energia e del carburante.",
+        "disaccordo": "Bisogna sfruttare al meglio le risorse attuali, al momento non sia in gradi di sostenere il compo causato da una rapida transizione alla mobilità elettrica ed ad altre fonti per la produzione d'energia."
+      },
+      "partiti": {
+        "Lega": [
+          1,
+          0.7
+        ],
+        "FdI": [
+          2,
+          0.6
+        ],
+        "FI": [
+          2,
+          0.7
+        ],
+        "Italia Viva": [
+          2,
+          0.6
+        ],
+        "Azione": [
+          2,
+          0.6
+        ],
+        "PD": [
+          4,
+          0.5
+        ],
+        "M5S": [
+          3,
+          0.6
+        ],
+        "VeS": [
+          4,
+          0.5
+        ]
+      }
+    },
+    {
+      "domanda": "È giusto che la maternità surrogata sia da considerare reato?",
+      "id": 9,
+      "descrizione": "Descrizione domanda 9",
+      "spiegazione": {
+        "daccordo": "La maternità surrogata è da considerare reato, in quanto porta alla nascita di aziende che sfruttano ragazze in situazioni di grave povertà.",
+        "neutrale": "Si potrebbe legalizzarla, ma dovrebbe essere pesantemente normata.",
+        "disaccordo": "Andrebbe legalizzata, poichè le donne che accettano questi accori lo fanno per loro spontanea volontà."
+      },
+      "partiti": {
+        "Lega": [
+          4,
+          0.5
+        ],
+        "FdI": [
+          4,
+          0.4
+        ],
+        "FI": [
+          3,
+          0.8
+        ],
+        "Italia Viva": [
+          1,
+          1.1
+        ],
+        "Azione": [
+          1,
+          1.1
+        ],
+        "PD": [
+          3,
+          0.8
+        ],
+        "M5S": [
+          3,
+          0.8
+        ],
+        "VeS": [
+          4,
+          0.5
+        ]
+      }
+    },
+    {
+      "domanda": "È necessario continuare ad inviare armi all'ucraina, per aiutarla contro la Russia.",
+      "id": 10,
+      "descrizione": "Descrizione domanda 10",
+      "spiegazione": {
+        "daccordo": "Il flusso di armamenti non deve cessare, perchè è necessario sconfiggere la Russia per scoraggiarne future mire egemoniche.",
+        "neutrale": "Bisogna inviare armi e rifornimenti, premendo però su entrambe le arti per arrivare ad una pace il prima possibile.",
+        "disaccordo": "Bisogna cessare quanto prima l'invio di armi in Ucraina, in quanto è un'ingente spesa per una guerra che non potrà mai essere vinta."
+      },
+      "partiti": {
+        "Lega": [
+          4,
+          0.6
+        ],
+        "FdI": [
+          4,
+          0.4
+        ],
+        "FI": [
+          4,
+          0.4
+        ],
+        "Italia Viva": [
+          3,
+          0.7
+        ],
+        "Azione": [
+          3,
+          0.7
+        ],
+        "PD": [
+          2,
+          0.9
+        ],
+        "M5S": [
+          0,
+          0.9
+        ],
+        "VeS": [
+          2,
+          1.0
+        ]
+      }
+    },
+    {
+      "domanda": "Bisogna porre fine alla produzione di motori termici nel minor tempo possibile, per favorire i veicoli eletrici",
+      "id": 11,
+      "descrizione": "Descrizione domanda 11",
+      "spiegazione": {
+        "daccordo": "Bisogna sanzionare le aziende che producono motori termici e porre una data oltre la quale vietarne interamente la produzione.",
+        "neutrale": "Non bisogna imporre sanzioni o bloccare la produzione di motori termici, bisogna lascilare il mercato libero, pensando ad eventuali incentivi per veicoli ibridi o eletrici.",
+        "disaccordo": "La mobilità elettrica non rappresenta un futuro sostenibile per l'industria italiana ed europea, bisognerebbe focalizzarsi sull'ibrido ed altre tecnologie"
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          0.9
+        ],
+        "FdI": [
+          0,
+          1.0
+        ],
+        "FI": [
+          0,
+          1.1
+        ],
+        "Italia Viva": [
+          3,
+          0.9
+        ],
+        "Azione": [
+          2,
+          0.9
+        ],
+        "PD": [
+          3,
+          0.7
+        ],
+        "M5S": [
+          4,
+          0.5
+        ],
+        "VeS": [
+          4,
+          0.6
+        ]
+      }
+    },
+    {
+      "domanda": "Le regioni italiane dovrebbero essere più indipendenti nella gestione dei fondi",
+      "id": 12,
+      "descrizione": "Descrizione domanda 12",
+      "spiegazione": {
+        "daccordo": "Le regioni dovrebbero avere grandi autonomie sulla gestione dei fonti provenienti dalle tassazioni, trattendone la maggior parte.",
+        "neutrale": "È giusto che le regioni lascino che lo stato ridistribuisca parte delle tasse da regioni economicamente più floride a quelle con difficoltà, ma bisognerebbe dare più autonomia alle regioni rispetto alla situazione attuale.",
+        "disaccordo": "bisogna intermente centralizzare la gestione dei fondi, con il governo che decide quanto investire in ogni regione."
+      },
+      "partiti": {
+        "Lega": [
+          4,
+          0.5
+        ],
+        "FdI": [
+          4,
+          0.5
+        ],
+        "FI": [
+          3,
+          0.8
+        ],
+        "Italia Viva": [
+          0,
+          1.0
+        ],
+        "Azione": [
+          3,
+          0.8
+        ],
+        "PD": [
+          1,
+          0.9
+        ],
+        "M5S": [
+          0,
+          0.9
+        ],
+        "VeS": [
+          0,
+          0.9
+        ]
+      }
+    },
+    {
+      "domanda": "Lo stato deve normare ed influenzare il mercato perché, se lasciato libero, gli imprenditori cercheranno solo di guadagnare infischiandosene del benessere del compratore",
+      "id": 13,
+      "descrizione": "Descrizione domanda 13",
+      "spiegazione": {
+        "daccordo": "significa che sei daccordo",
+        "neutrale": "significa che sei neutrale",
+        "disaccordo": "significa che sei in disaccordo"
+      },
+      "partiti": {
+        "Lega": [
+          0,
+          1.0
+        ],
+        "FdI": [
+          0,
+          0.8
+        ],
+        "FI": [
+          0,
+          0.9
+        ],
+        "Italia Viva": [
+          2,
+          0.8
+        ],
+        "Azione": [
+          2,
+          0.8
+        ],
+        "PD": [
+          2,
+          0.8
+        ],
+        "M5S": [
+          2,
+          0.8
+        ],
+        "VeS": [
+          4,
+          0.6
+        ]
+      }
+    }
+  ]
+}

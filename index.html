@@ -3,36 +3,92 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quiz di Affinità Politica</title>
+  <title>Quiz di Affinità Politica — Home</title>
+  <meta name="description" content="Scegli un quiz per esplorare il tuo allineamento politico su temi specifici." />
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
   <link rel="stylesheet" href="css/home_style.css">
   <script src="js/home.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Quiz di Affinità Politica</h1>
+  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;">Salta al contenuto</a>
+
+  <header role="banner" aria-label="Intestazione sito">
+    <div class="header-inner" style="display:flex;align-items:center;justify-content:center;gap:18px;position:relative;">
+      <!-- optional logo -->
+      <img src="favicons/favicon-32x32.png" alt="" width="36" height="36" aria-hidden="true" style="opacity:.95">
+      <h1>Quiz di Affinità Politica</h1>
+    </div>
   </header>
 
-  <main>
-    <section id="description" class="card">
-      <p>
-        Scegli un quiz per esplorare il tuo allineamento politico su un tema specifico.
+  <main id="main" role="main" aria-labelledby="hero-title">
+    <!-- Hero / Intro -->
+    <section id="hero" class="card" aria-labelledby="hero-title" style="display:flex;flex-direction:column;gap:8px;">
+      <h2 id="hero-title" style="font-size:1.15rem;margin-bottom:4px;color:#2d3e50;">Scopri il tuo allineamento</h2>
+      <p style="color:var(--muted);">
+        Seleziona un tema e rispondi a poche domande per ottenere una mappa sintetica delle tue posizioni.
       </p>
+
+      <!-- quick actions: search + CTA -->
+      <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap;">
+        <label for="topic-filter" class="visually-hidden" style="position:absolute;left:-9999px;">Filtra quiz</label>
+        <input id="topic-filter" type="search" placeholder="Cerca tema (es. economia, ambiente)" aria-label="Cerca quiz" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid rgba(45,62,80,0.06)">
+      </div>
     </section>
 
-    <section id="topics" class="card">
-      <h2 class="section-title">Quiz disponibili:</h2>
-      <p class="section-sub">Clicca sul tema per iniziare.</p>
+    <!-- Topics list -->
+    <section id="topics" class="card" aria-labelledby="topics-title">
+      <h2 id="topics-title" class="section-title">Quiz disponibili:</h2>
+      <p class="section-sub">Clicca sul tema che ti interessa per iniziare.</p>
 
-      <!-- Populated by js/home.js -->
       <ul id="quiz-list" aria-live="polite" aria-label="Lista dei quiz">
         <li class="placeholder">Caricamento...</li>
       </ul>
     </section>
+
+    <!-- Privacy informational panel -->
+    <section id="info" class="card" aria-labelledby="info-title" style="display:flex;flex-direction:column;gap:6px;">
+      <h3 id="info-title" style="font-size:1rem;margin-bottom:4px;">Nota sulla privacy</h3>
+      <p style="color:var(--muted);font-size:0.95rem;">
+        Il quiz è anonimo. Nessun dato personale viene raccolto dal sito.
+      </p>
+    </section>
   </main>
 
-  <footer>
-    <p>© 2024 - Quiz di Affinità Politica</p>
+  <footer role="contentinfo">
+    <p id="copyright">© <span id="year">2024</span> - Quiz di Affinità Politica</p>
   </footer>
+
+  <!--  client-side filtering of loaded topics.-->
+  <script>
+    (function () {
+      const filterInput = document.getElementById('topic-filter');
+      const list = document.getElementById('quiz-list');
+
+      if (!filterInput || !list) return;
+
+      filterInput.addEventListener('input', () => {
+        const q = filterInput.value.trim().toLowerCase();
+        const items = Array.from(list.querySelectorAll('li')).filter(li => !li.classList.contains('placeholder'));
+        if (!q) {
+          // show all
+          items.forEach(li => li.style.display = '');
+          return;
+        }
+        items.forEach(li => {
+          const title = (li.querySelector('.topic-title')?.textContent || '').toLowerCase();
+          const sub = (li.querySelector('.topic-sub')?.textContent || '').toLowerCase();
+          const matches = title.includes(q) || sub.includes(q);
+          li.style.display = matches ? '' : 'none';
+        });
+      });
+    })();
+
+    // set footer year dynamically
+    (function () {
+      const y = new Date().getFullYear();
+      const el = document.getElementById('year');
+      if (el) el.textContent = y;
+    })();
+  </script>
 </body>
 </html>
