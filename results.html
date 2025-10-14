@@ -29,8 +29,17 @@
     </section>
   </main>
 
-  <footer>
-    <p>© 2024 - Quiz di Affinità Politica</p>
+  <footer role="contentinfo">
+    <p id="copyright">© <span id="year">2024</span> - Quiz di Affinità Politica</p>
   </footer>
+
+  <script>
+    // set footer year dynamically
+    (function () {
+      const y = new Date().getFullYear();
+      const el = document.getElementById('year');
+      if (el) el.textContent = y;
+    })();
+  </script>
 </body>
 </html>

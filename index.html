@@ -30,8 +30,13 @@
 
       <!-- quick actions: search + CTA -->
       <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap;">
-        <label for="topic-filter" class="visually-hidden" style="position:absolute;left:-9999px;">Filtra quiz</label>
-        <input id="topic-filter" type="search" placeholder="Cerca tema (es. economia, ambiente)" aria-label="Cerca quiz" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid rgba(45,62,80,0.06)">
+        <div class="search-container" style="position:relative;flex:1;min-width:180px;">
+          <label for="topic-filter" class="visually-hidden">Cerca tema: </label>
+          <input id="topic-filter" type="search" placeholder="es. economia, ambiente" aria-label="Cerca quiz" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid rgba(45,62,80,0.06);padding-right:32px;">
+          <button id="clear-filter" aria-label="Cancella filtro" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;line-height:1;padding:0;display:none;">
+              &times;
+          </button>
+        </div>
       </div>
     </section>
 
