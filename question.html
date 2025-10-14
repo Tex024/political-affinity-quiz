@@ -9,28 +9,29 @@
   <script src="js/question_manager.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+
   <header>
     <button id="home-button" aria-label="Torna alla home">Home</button>
-    <h1 id="site-title">Quiz di Affinità Politica</h1>
+    <h1 id="topic-title">Quiz di Affinità Politica</h1>
   </header>
 
-  <main>
+  <main id="main" role="main" aria-labelledby="site-title">
     <!-- Progress Bar -->
-    <div id="progress-wrapper">
+    <div id="progress-wrapper" class="card">
       <div id="progress-container">
-        <div id="progress-bar"></div>
+        <div id="progress-bar" style="width:0%"></div>
       </div>
       <div id="progress-text">Domanda 0 di 0</div>
     </div>
 
     <!-- Question Section -->
-    <section id="question-container">
+    <section id="question-container" class="card" aria-labelledby="question-text">
       <h2 id="question-text">Caricamento della domanda...</h2>
 
-      <div id="answers" aria-label="Opzioni di risposta">
-      </div>
+      <div id="answers" aria-label="Opzioni di risposta"></div>
 
-      <div style="text-align:center; margin-top:8px;">
+      <div class="center-row">
         <button id="not-interested-button" class="secondary-btn" aria-pressed="false">Non Interessato</button>
       </div>
 
@@ -41,9 +42,10 @@
     </section>
 
     <!-- Optional Details Section -->
-    <section id="details-section">
+    <section id="details-section" class="card" aria-labelledby="details-heading">
+      <h3 id="details-heading" class="visually-hidden">Dettagli della domanda</h3>
       <button id="toggle-details" class="secondary-btn" aria-expanded="false">Mostra dettagli</button>
-      <div id="details" style="display: none;">
+      <div id="details" hidden>
         <h3>Dettagli della Domanda</h3>
         <p id="description">Descrizione non disponibile.</p>
         <ul>
@@ -56,16 +58,7 @@
   </main>
 
   <footer role="contentinfo">
-    <p id="copyright">© <span id="year">2024</span> - Quiz di Affinità Politica</p>
+    <p>© <span id="year">2024</span> - Quiz di Affinità Politica</p>
   </footer>
-
-  <script>
-    // set footer year dynamically
-    (function () {
-      const y = new Date().getFullYear();
-      const el = document.getElementById('year');
-      if (el) el.textContent = y;
-    })();
-  </script>
 </body>
 </html>

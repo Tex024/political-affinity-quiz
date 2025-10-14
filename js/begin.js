@@ -1,7 +1,7 @@
 // begin.js
-// Robust begin script: loads topics/<topic>.json, initializes sessionStorage answers,
-// and redirects to error.html on any fatal problem.
-// UI text remains Italian; variables/functions are English-named.
+// Loads topics/<topic>.json, initializes sessionStorage answers,
+// and redirects to error.html on fatal problems.
+// UI text remains Italian; variables/functions use English names.
 
 document.addEventListener('DOMContentLoaded', () => {
   const PARAM_KEY = 'topic';
@@ -27,6 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // set footer year dynamically
+  (function setYear() {
+    const el = document.getElementById('year');
+    if (el) el.textContent = String(new Date().getFullYear());
+  })();
+
   (async function main() {
     const rawTopic = getQueryParam(PARAM_KEY);
     if (!rawTopic) {
@@ -47,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const topicJson = await fetchAndValidateTopic(topicName);
 
-      // Description support for italian/english keys
+      // Support italian 'descrizione' or english 'description'
       const description = (topicJson.descrizione || topicJson.description || '').trim();
       introTextEl.textContent = description || 'Questo quiz ti aiuterà a capire il tuo grado di affinità con i partiti su questo argomento.';
 
@@ -62,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } catch (err) {
       console.error('Error loading topic:', err);
-      // Any failure here is considered fatal -> redirect to error page
       redirectToError(err && err.message ? err.message : 'Errore caricamento quiz');
     }
   })();
@@ -93,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error(`Quiz non trovato (HTTP ${resp.status})`);
     }
 
-    // Try parse JSON; if parse fails, treat as fatal
     let json;
     try {
       json = await resp.json();
@@ -101,19 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error('Quiz non valido (JSON malformato)');
     }
 
-    // Validate shape: must be object and must have 'domande' array (even empty array acceptable,
-    // but we consider missing 'domande' a malformed topic file)
     if (!json || typeof json !== 'object' || !Array.isArray(json.domande)) {
       throw new Error('Quiz malformato o non valido (manca "domande").');
     }
 
-    // All good
     return json;
   }
 
   function initializeAnswers(topicName, questionCount) {
     const storageKey = STORAGE_PREFIX + topicName;
-    // Always create a fresh empty answers array
     sessionStorage.setItem(storageKey, JSON.stringify(createEmptyAnswers(questionCount)));
   }
 
@@ -121,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return new Array(n).fill(null);
   }
 
-  // Redirect to central error page with safe encoding & truncation
   function redirectToError(message) {
     const normalized = String(message || 'Errore sconosciuto').trim().replace(/\s+/g, ' ');
     const truncated = normalized.length > MAX_ERROR_LENGTH

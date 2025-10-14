@@ -14,13 +14,14 @@
     <h1 id="topic-title">Quiz di Affinità Politica</h1>
   </header>
 
-  <main>
-    <section id="description">
+  <main id="main" role="main" aria-labelledby="topic-title">
+    <section id="description" class="card" aria-labelledby="description-heading">
+      <h2 id="description-heading" class="visually-hidden">Descrizione quiz</h2>
       <p id="intro-text">
         Caricamento in corso...
       </p>
 
-      <ul id="scale-list">
+      <ul id="scale-list" aria-hidden="false">
         <li><strong>😡 :</strong> Totalmente in disaccordo </li>
         <li><strong>🙁 :</strong> In disaccordo </li>
         <li><strong>😐 :</strong> Neutrale </li>
@@ -33,23 +34,15 @@
       </p>
     </section>
 
-    <section id="start">
+    <section id="start" class="card" aria-labelledby="start-heading">
+      <h2 id="start-heading" class="visually-hidden">Avvia quiz</h2>
       <p id="questions-count">Domande: —</p>
-      <button id="start-button">Inizia il Quiz</button>
+      <button id="start-button" disabled>Inizia il Quiz</button>
     </section>
   </main>
 
   <footer role="contentinfo">
     <p id="copyright">© <span id="year">2024</span> - Quiz di Affinità Politica</p>
   </footer>
-
-  <script>
-    // set footer year dynamically
-    (function () {
-      const y = new Date().getFullYear();
-      const el = document.getElementById('year');
-      if (el) el.textContent = y;
-    })();
-  </script>
 </body>
 </html>

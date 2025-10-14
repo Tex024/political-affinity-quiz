@@ -1,48 +1,47 @@
-/* General resets */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-  }
-  
-  header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  header h1 {
-    font-size: 2.5rem;
-    color: #2d3e50;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-  
-  main {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
+:root{
+  --bg:#f4f4f9;
+  --text:#333;
+  --muted:#555;
+  --accent:#007bff;
+  --card:#fff;
+  --radius:8px;
+}
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 20px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Accessibility helper */
+.visually-hidden {
+  position: absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* Header */
+header { text-align: center; margin-bottom: 40px; position: relative; }
+header h1 {
+  font-size: 2.5rem;
+  color: #2d3e50;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
 /* Home button (top-right) */
 #home-button {
   font-size: 1rem;
-  background-color: #007bff;
+  background-color: var(--accent);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -56,70 +55,64 @@
 }
 #home-button:hover { background-color: #0056b3; transform: translateY(-2px); }
 #home-button:active { transform: translateY(0); }
-  
-  #description p {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    color: #555;
-  }
-  
-  #description ul {
-    margin-left: 20px;
-    color: #555;
-  }
-  
-  #description li {
-    margin-bottom: 8px;
-  }
-  
-  #description em {
-    font-style: italic;
-    color: #007bff;
-  }
-  
-  #start {
-    text-align: center;
-  }
-  
-  #start p {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  #start button {
-    font-size: 1.2rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  #start button:hover {
-    background-color: #0056b3;
-  }
-  
-  footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 40px;
-  }
-  
-  footer p {
-    margin: 10px 0;
+#home-button:focus { outline: 3px solid rgba(0,123,255,0.14); }
+
+/* Main constraints */
+main { max-width: 800px; margin: 0 auto; }
+
+/* Card */
+.card { background-color: var(--card); padding: 20px; border-radius: var(--radius); box-shadow: 0 4px 6px rgba(0,0,0,0.06); margin-bottom: 20px; }
+
+/* Description */
+#description p {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: var(--muted);
+}
+#description ul {
+  margin-left: 20px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+#description li { margin-bottom: 8px; }
+#description em { font-style: italic; color: var(--accent); }
+
+/* Start area */
+#start { text-align: center; }
+#start p { font-size: 1.2rem; margin-bottom: 15px; color: var(--text); }
+#start button {
+  font-size: 1.2rem;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#start button:hover { background-color: #0056b3; }
+
+/* Footer */
+footer { text-align: center; font-size: 0.9rem; color: #888; margin-top: 40px; }
+footer p { margin: 10px 0; }
+
+/* Responsive tweaks */
+/* === ADDED: when screen is narrow, make the home button part of the normal flow
+   so it sits above the title (same behavior as question page) === */
+@media (max-width: 768px) {
+  header h1 { font-size: 2rem; }
+
+  /* make home button flow above title on narrow screens */
+  #home-button {
+    position: static;
+    display: inline-block;
+    margin: 0 0 12px 0;
+    transform: none;
+    right: auto;
+    top: auto;
+    box-shadow: 0 6px 16px rgba(0,123,255,0.08);
   }
 
-  @media (max-width: 768px) {
-    header h1 {
-      font-size: 2rem; /* Reduce title size */
-    }
-
-    #question-text {
-        font-size: 1.2rem; /* Reduce question size */
-    }
-  }
-  
+  #description p { font-size: 1rem; }
+  #start p { font-size: 1.1rem; }
+}

@@ -22,10 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // Optional details UI
   const toggleDetails = document.getElementById('toggle-details');
   const detailsBox = document.getElementById('details');
+  const topicTitleEl = document.getElementById('topic-title');
   const descriptionEl = document.getElementById('description');
   const explAgree = document.getElementById('explanation-agree');
   const explNeutral = document.getElementById('explanation-neutral');
   const explDisagree = document.getElementById('explanation-disagree');
+
+  // set footer year
+  (function setYear() {
+    const el = document.getElementById('year');
+    if (el) el.textContent = String(new Date().getFullYear());
+  })();
 
   // Basic validation: required UI elements must be present
   if (!questionTextEl || !answersContainer || !notInterestedButton || !prevButton || !nextButton) {
@@ -39,12 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
     homeButton.addEventListener('click', () => { window.location.href = 'index.html'; });
   }
 
-  // Toggle details if UI exists
+  // Toggle details if UI exists — keep aria-expanded in sync with visibility
   if (toggleDetails && detailsBox) {
     toggleDetails.addEventListener('click', () => {
-      const isHidden = detailsBox.style.display === 'none' || detailsBox.style.display === '';
-      detailsBox.style.display = isHidden ? 'block' : 'none';
-      toggleDetails.textContent = isHidden ? 'Nascondi dettagli' : 'Mostra dettagli';
+      const isHidden = detailsBox.hasAttribute('hidden');
+      if (isHidden) {
+        detailsBox.removeAttribute('hidden');
+        toggleDetails.setAttribute('aria-expanded', 'true');
+        toggleDetails.textContent = 'Nascondi dettagli';
+      } else {
+        detailsBox.setAttribute('hidden', '');
+        toggleDetails.setAttribute('aria-expanded', 'false');
+        toggleDetails.textContent = 'Mostra dettagli';
+      }
     });
   }
 
@@ -81,6 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  (async function main() {
+    const humanTopic = humanizeTopicName(topicName);
+    document.title = `Quiz — ${humanTopic}`;
+    topicTitleEl.textContent = `Quiz: ${humanTopic}`;
+  })();
+
   // Load topic and answers
   (async function load() {
     try {
@@ -114,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const q = questions[index];
     if (!q) {
       questionTextEl.textContent = 'Domanda non trovata.';
-      descriptionEl && (descriptionEl.textContent = '');
+      if (descriptionEl) descriptionEl.textContent = '';
       answersContainer.innerHTML = '';
       updateNavigationUI();
       return;
@@ -151,15 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (answers[index] === choice.value) btn.classList.add('selected');
 
       btn.addEventListener('click', () => {
-        // Clear not-interested if present
-        if (answers[index] === -1) {
-          // switching from non-interested to numeric
-        }
         setAnswer(index, choice.value);
         // Visual update
         Array.from(answersContainer.querySelectorAll('.answer-btn')).forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
         notInterestedButton.classList.remove('selected');
+        notInterestedButton.setAttribute('aria-pressed', 'false');
         notInterestedButton.textContent = 'Non Interessato';
       });
 
@@ -172,11 +189,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (answers[index] === -1) {
         setAnswer(index, null);
         notInterestedButton.classList.remove('selected');
+        notInterestedButton.setAttribute('aria-pressed', 'false');
         notInterestedButton.textContent = 'Non Interessato';
       } else {
         setAnswer(index, -1);
         Array.from(answersContainer.querySelectorAll('.answer-btn')).forEach(b => b.classList.remove('selected'));
         notInterestedButton.classList.add('selected');
+        notInterestedButton.setAttribute('aria-pressed', 'true');
         notInterestedButton.textContent = 'Non Interessato (selezionato)';
       }
     };
@@ -190,9 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateNotInterestedUI(index) {
     if (answers[index] === -1) {
       notInterestedButton.classList.add('selected');
+      notInterestedButton.setAttribute('aria-pressed', 'true');
       notInterestedButton.textContent = 'Non Interessato (selezionato)';
     } else {
       notInterestedButton.classList.remove('selected');
+      notInterestedButton.setAttribute('aria-pressed', 'false');
       notInterestedButton.textContent = 'Non Interessato';
     }
   }
@@ -217,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function navigateTo(index) {
-    // update local index and render (do not reload the whole page)
     qIndex = index;
     renderQuestion(qIndex);
   }
@@ -249,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try { return JSON.parse(raw); } catch (e) { return null; }
   }
 
+  function humanizeTopicName(name) {
+    return String(name).replace(/[-_]+/g, ' ').replace(/\b\w/g, ch => ch.toUpperCase());
+  }
+
   async function fetchAndValidateTopic(name) {
     const path = `${TOPICS_PATH}${encodeURIComponent(name)}.json`;
     const resp = await fetch(path, { cache: 'no-store' });
@@ -264,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
       throw new Error('Quiz non valido (JSON malformato)');
     }
 
-    // Validate shape: object with array 'domande'
     if (!json || typeof json !== 'object' || !Array.isArray(json.domande)) {
       throw new Error('Quiz malformato o non valido (manca "domande").');
     }
@@ -278,14 +301,8 @@ document.addEventListener('DOMContentLoaded', () => {
       url.searchParams.set(key, value);
       window.history.replaceState({}, '', url.toString());
     } catch (e) {
-      // If URL API fails, ignore (non-fatal)
+      // ignore non-fatal
     }
-  }
-
-  function escapeHtml(s) {
-    return String(s || '').replace(/[&<>"']/g, c =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])
-    );
   }
 
   function redirectToError(message) {

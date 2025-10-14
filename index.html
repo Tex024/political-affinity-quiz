@@ -10,32 +10,30 @@
   <script src="js/home.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main" style="position:absolute;left:-9999px;top:auto;">Salta al contenuto</a>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
 
   <header role="banner" aria-label="Intestazione sito">
-    <div class="header-inner" style="display:flex;align-items:center;justify-content:center;gap:18px;position:relative;">
+    <div class="header-inner">
       <!-- optional logo -->
-      <img src="favicons/favicon-32x32.png" alt="" width="36" height="36" aria-hidden="true" style="opacity:.95">
+      <img src="favicons/favicon-32x32.png" alt="" width="36" height="36" aria-hidden="true" class="logo">
       <h1>Quiz di Affinità Politica</h1>
     </div>
   </header>
 
   <main id="main" role="main" aria-labelledby="hero-title">
     <!-- Hero / Intro -->
-    <section id="hero" class="card" aria-labelledby="hero-title" style="display:flex;flex-direction:column;gap:8px;">
-      <h2 id="hero-title" style="font-size:1.15rem;margin-bottom:4px;color:#2d3e50;">Scopri il tuo allineamento</h2>
-      <p style="color:var(--muted);">
+    <section id="hero" class="card" aria-labelledby="hero-title">
+      <h2 id="hero-title">Scopri il tuo allineamento</h2>
+      <p class="muted">
         Seleziona un tema e rispondi a poche domande per ottenere una mappa sintetica delle tue posizioni.
       </p>
 
       <!-- quick actions: search + CTA -->
-      <div style="display:flex;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap;">
-        <div class="search-container" style="position:relative;flex:1;min-width:180px;">
-          <label for="topic-filter" class="visually-hidden">Cerca tema: </label>
-          <input id="topic-filter" type="search" placeholder="es. economia, ambiente" aria-label="Cerca quiz" style="flex:1;min-width:180px;padding:10px;border-radius:8px;border:1px solid rgba(45,62,80,0.06);padding-right:32px;">
-          <button id="clear-filter" aria-label="Cancella filtro" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem;line-height:1;padding:0;display:none;">
-              &times;
-          </button>
+      <div class="hero-actions">
+        <div class="search-container">
+          <label for="topic-filter" class="visually-hidden">Cerca tema:</label>
+          <input id="topic-filter" type="search" placeholder="es. economia, ambiente" aria-label="Cerca quiz" class="search-input">
+          <button id="clear-filter" aria-label="Cancella filtro" class="clear-filter" hidden>&times;</button>
         </div>
       </div>
     </section>
@@ -51,9 +49,9 @@
     </section>
 
     <!-- Privacy informational panel -->
-    <section id="info" class="card" aria-labelledby="info-title" style="display:flex;flex-direction:column;gap:6px;">
-      <h3 id="info-title" style="font-size:1rem;margin-bottom:4px;">Nota sulla privacy</h3>
-      <p style="color:var(--muted);font-size:0.95rem;">
+    <section id="info" class="card" aria-labelledby="info-title">
+      <h3 id="info-title">Nota sulla privacy</h3>
+      <p class="muted small">
         Il quiz è anonimo. Nessun dato personale viene raccolto dal sito.
       </p>
     </section>
@@ -62,38 +60,5 @@
   <footer role="contentinfo">
     <p id="copyright">© <span id="year">2024</span> - Quiz di Affinità Politica</p>
   </footer>
-
-  <!--  client-side filtering of loaded topics.-->
-  <script>
-    (function () {
-      const filterInput = document.getElementById('topic-filter');
-      const list = document.getElementById('quiz-list');
-
-      if (!filterInput || !list) return;
-
-      filterInput.addEventListener('input', () => {
-        const q = filterInput.value.trim().toLowerCase();
-        const items = Array.from(list.querySelectorAll('li')).filter(li => !li.classList.contains('placeholder'));
-        if (!q) {
-          // show all
-          items.forEach(li => li.style.display = '');
-          return;
-        }
-        items.forEach(li => {
-          const title = (li.querySelector('.topic-title')?.textContent || '').toLowerCase();
-          const sub = (li.querySelector('.topic-sub')?.textContent || '').toLowerCase();
-          const matches = title.includes(q) || sub.includes(q);
-          li.style.display = matches ? '' : 'none';
-        });
-      });
-    })();
-
-    // set footer year dynamically
-    (function () {
-      const y = new Date().getFullYear();
-      const el = document.getElementById('year');
-      if (el) el.textContent = y;
-    })();
-  </script>
 </body>
 </html>
