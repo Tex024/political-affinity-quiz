@@ -3,21 +3,21 @@
         {
             "domanda": "1) Lo stato dovrebbe investire nella ricerca sull’energia Nucleare.",
             "id": 1,
-            "descrizione": "Descrizione dettagliata della domanda 1",
+            "descrizione": "Pensi che lo stato debba stanziare fondi ad università, azienede e finanziare progetti scientifici internzazionali con l'bbiettivo di sviluppare nuove tecnologie per la produzione di energia elettrica sgruttando la fissione o la fusione nucleare?",
             "spiegazione": {
-                "daccordo": "significa che sei daccordo",
-                "neutrale": "significa che sei neutrale",
-                "disaccordo": "significa che sei in disaccordo"
+                "daccordo": "Significa che è importante che lo stato investa nella ricerca per sviluppare nuove tecnologie tecnologie nell'ambito dell'energia atomica, anche per non restare indietro rispetto ad altri paesi.",
+                "neutrale": "Significa che non sei contrario all'idea di finanziare questi progetti, ma non li vedi come qualcosa d'importante.",
+                "disaccordo": "Significa che reputi che investire nella ricerca sull'energia atomica sia uno spreco di denaro pubblico."
             },
             "partiti": {
-                "Lega": [0,0],
-                "FdI": [1,0],
-                "FI": [2,0],
-                "Italia Viva": [3,0],
-                "Azione": [4,0],
-                "PD": [0,0.5],
-                "M5S": [0,0.7],
-                "VeS": [0,1]
+                "Lega": [4,0.7],
+                "FdI": [4,0.9],
+                "FI": [4,0.9],
+                "Italia Viva": [4,0.9],
+                "Azione": [4,0.6],
+                "PD": [3,1],
+                "M5S": [2,0.9],
+                "VeS": [1,0.7]
             }
         },
         {
