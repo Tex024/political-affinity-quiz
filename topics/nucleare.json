@@ -27,17 +27,137 @@
             "spiegazione": {
                 "daccordo": "L'Italia dovrebbe dotarsi di reattori il prima possibile, installando tipologie di reattori già ampiamente collaudate e già disponibili sul mercato.",
                 "neutrale": "L'Italia deve dotarsi di centrali, ma bisogna prendere un aproccio più cauto, analizzando prima tutte le possibità e scegliendo quelle più adatte.",
-                "disaccordo": "L'Italia non dovrà mai più dotarsi di rettori nucleari convenzionali, bisogna puntare su delle soluzioni diverse"
+                "disaccordo": "L'Italia non dovrà mai più dotarsi di rettori nucleari convenzionali, bisogna puntare su diverse soluzioni."
+            },
+            "partiti": {
+                "Lega": [3,0.9],
+                "FdI": [2,0.7],
+                "FI": [2,0.7],
+                "Italia Viva": [2,0.8],
+                "Azione": [4,0.7],
+                "PD": [1,0.8],
+                "M5S": [0,0.8],
+                "VeS": [0,0.6]
+            }
+        },
+        {
+            "domanda": "3)	Vista la complessità tecnica dell'argomento, pensi che sia giusto valutare il ritorno all’energia nucleare, senza prima passare da un referendum popolare?",
+            "id": 3,
+            "descrizione": "Gli italiani sono stati chiamati ad esprimersi sull'energia nucleare due volte, con i referendum del 1987 e del 2011; in trambi si sono espressi contro l'energia atomica, ma entranbi i referendum furono fatti dopo due incidenti (1986 Chernobyl, 2011 Fukushima) e sfruttati per ottenere consenso politico. Pensi che la reintrosuzione del nucleare nel mix energetico italiano debba prima passare da un ulteriore referndum popolare, o credi che lo stato a dover prendere l'iniziativa?",
+            "spiegazione": {
+                "daccordo": "Credo sia giusto che non si passi da un referendum popolare, vista la complessità dell'argomento e l'elevata disinformazione su di esso.",
+                "neutrale": "E' giusto che il governo prenda l'iniziativa, ma dovrebbe prima capire l'opinione popolare; per esempio, parlando apertamente della tematica nei programmi elettorali",
+                "disaccordo": "Prima di pensare al ritorno dell'energia nucleare, bisogna assolutamente passare da un referendum."
+            },
+            "partiti": {
+                "Lega": [4,0.6],
+                "FdI": [4,0.7],
+                "FI": [4,0.7],
+                "Italia Viva": [3,0.8],
+                "Azione": [4,0.6],
+                "PD": [1,0.7],
+                "M5S": [0,0.7],
+                "VeS": [0,0.7]
+            }
+        },
+        {
+            "domanda": "4)	L’Italia deve investire e partecipare a progetti internazionali sullo sviluppo di reattori a fusione nucleare (come progetto ITER).",
+            "id": 4,
+            "descrizione": "La fusione nucleare è un processo che stiamo cercando di realizzare da più di quarant'anni, vista la sua capacità di produrre un'enorme quantità di energia con una pochissima quantià di combustibile (combustibile che, a differenza della fissione, non è radioattivo). Al momento il più grande esperimento su questa tecnologia è il progetto ITER (situato in francia), a cui partecipano Stati Uniti, Cina, Russia, Giappone, India, Corea del Sud ed Unione Europea; questo progetto (in cui l'Italia sta svolgendo un ruolo chiave nel fabbricare alcune delle componenti necessarie al funzionamento del reattore) punta a dimostrare che un reattore a fusione può essere vantaggioso economicamente, con l'obbiettivo di iniziare a costrure i primi reattori commerciali nel 2060.",
+            "spiegazione": {
+                "daccordo": "Dobbiamo partecipare alla ricerca sulla fusione, per non restare indietro rispetto ad altre nazioni su questa tecnologia, visto il suo elevato pontenziale.",
+                "neutrale": "L'Italia può partecipare e finanziare progetti simili, ma dovrebbe concentrarsi su altre tecnologie energetiche.",
+                "disaccordo": "Dovremmo uscire da progetti simili, visti i costi elevati e la lontananza dei possibili benefici che potremmo ottenere da questi esperimenti"
+            },
+            "partiti": {
+                "Lega": [4,0.6],
+                "FdI": [4,0.6],
+                "FI": [4,0.6],
+                "Italia Viva": [4,0.6],
+                "Azione": [4,0.6],
+                "PD": [4,0.9],
+                "M5S": [3,0.8],
+                "VeS": [2,0.8]
+            }
+        },
+        {
+            "domanda": "5)	La costruzione di centrali è importante per diminuire la nostra dipendenza da gas, petrolio e carbone, ma non dovremmo tornare a delle centrali tradizionali, ma dovremmo focalizzarci su nuove tecnologie come gli Small Modular Reactors (SMR) e i reattori di quarta generazione.",
+            "id": 5,
+            "descrizione": "Per reattori di quarta generazione, si intendono reattori in fase di svilupo, che sfruttano dei liquidi refrigeranti diversi dall'acqua, aumentando l'efficienza dei reattori e diminuendo ulteriormente il rischio di incidenti. Mentre per SMR s'intendono reattori più piccoli ed economici (poiché sarebbero producibili in scala), con circa un quarto della potenza dei reattori tradizionali; questi reattori permetterebbero di costruire centrali più economiche e di renderle operative in tempi più brevi, la modularità permetterebbe anche di aumentare o diminuire velocemente la potenza della centrale (installando ulteriori reattori, o spegnedone alcuni in caso di una bassa richiesta di elettricità). Entrambe le tipologie, però, sono ancora in fase sperimentale, e non saranno disponibili almeno fino al 2035",
+            "spiegazione": {
+                "daccordo": "Bisogna reintrodurre il nucleare nel mix energetico italiano, ma utilizzando solo le tecnologie più all'avanguardia di cui potremo disporre.",
+                "neutrale": "E' giusto puntare a queste nuove tecnologie, ma dovremmo anche valutare l'utilizzo di tecnologie attualmente in commercio (come i reattori delle generazioni III e III+).",
+                "disaccordo": "Dobbiamo abbandonare l'idea del ritorno alla fissione nucleare, sia per quanto riguarda le tecnologie attuali, che per quelle in via di sviluppo."
+            },
+            "partiti": {
+                "Lega": [4,0.7],
+                "FdI": [3,0.9],
+                "FI": [4,0.7],
+                "Italia Viva": [4,0.7],
+                "Azione": [2,0],
+                "PD": [1,0],
+                "M5S": [0,0],
+                "VeS": [0,0]
+            }
+        },
+        {
+            "domanda": "6) ...",
+            "id": 6,
+            "descrizione": "...",
+            "spiegazione": {
+                "daccordo": "...",
+                "neutrale": "...",
+                "disaccordo": "..."
             },
             "partiti": {
                 "Lega": [0,0],
-                "FdI": [1,0],
-                "FI": [2,0],
-                "Italia Viva": [3,0],
-                "Azione": [4,0],
-                "PD": [0,0.5],
-                "M5S": [0,0.7],
-                "VeS": [0,1]
+                "FdI": [0,0],
+                "FI": [0,0],
+                "Italia Viva": [0,0],
+                "Azione": [0,0],
+                "PD": [0,0],
+                "M5S": [0,0],
+                "VeS": [0,0]
+            }
+        },
+        {
+            "domanda": "7) ...",
+            "id": 7,
+            "descrizione": "...",
+            "spiegazione": {
+                "daccordo": "...",
+                "neutrale": "...",
+                "disaccordo": "..."
+            },
+            "partiti": {
+                "Lega": [0,0],
+                "FdI": [0,0],
+                "FI": [0,0],
+                "Italia Viva": [0,0],
+                "Azione": [0,0],
+                "PD": [0,0],
+                "M5S": [0,0],
+                "VeS": [0,0]
+            }
+        },
+        {
+            "domanda": "8) ...",
+            "id": 8,
+            "descrizione": "...",
+            "spiegazione": {
+                "daccordo": "...",
+                "neutrale": "...",
+                "disaccordo": "..."
+            },
+            "partiti": {
+                "Lega": [0,0],
+                "FdI": [0,0],
+                "FI": [0,0],
+                "Italia Viva": [0,0],
+                "Azione": [0,0],
+                "PD": [0,0],
+                "M5S": [0,0],
+                "VeS": [0,0]
             }
         }
     ]
