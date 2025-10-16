@@ -41,7 +41,7 @@
             }
         },
         {
-            "domanda": "3)	Vista la complessità tecnica dell'argomento, pensi che sia giusto valutare il ritorno all’energia nucleare, senza prima passare da un referendum popolare?",
+            "domanda": "3) Vista la complessità tecnica dell'argomento, pensi che sia giusto valutare il ritorno all’energia nucleare, senza prima passare da un referendum popolare?",
             "id": 3,
             "descrizione": "Gli italiani sono stati chiamati ad esprimersi sull'energia nucleare due volte, con i referendum del 1987 e del 2011; in trambi si sono espressi contro l'energia atomica, ma entranbi i referendum furono fatti dopo due incidenti (1986 Chernobyl, 2011 Fukushima) e sfruttati per ottenere consenso politico. Pensi che la reintrosuzione del nucleare nel mix energetico italiano debba prima passare da un ulteriore referndum popolare, o credi che lo stato a dover prendere l'iniziativa?",
             "spiegazione": {
@@ -61,7 +61,7 @@
             }
         },
         {
-            "domanda": "4)	L’Italia deve investire e partecipare a progetti internazionali sullo sviluppo di reattori a fusione nucleare (come progetto ITER).",
+            "domanda": "4) L’Italia deve investire e partecipare a progetti internazionali sullo sviluppo di reattori a fusione nucleare (come progetto ITER).",
             "id": 4,
             "descrizione": "La fusione nucleare è un processo che stiamo cercando di realizzare da più di quarant'anni, vista la sua capacità di produrre un'enorme quantità di energia con una pochissima quantià di combustibile (combustibile che, a differenza della fissione, non è radioattivo). Al momento il più grande esperimento su questa tecnologia è il progetto ITER (situato in francia), a cui partecipano Stati Uniti, Cina, Russia, Giappone, India, Corea del Sud ed Unione Europea; questo progetto (in cui l'Italia sta svolgendo un ruolo chiave nel fabbricare alcune delle componenti necessarie al funzionamento del reattore) punta a dimostrare che un reattore a fusione può essere vantaggioso economicamente, con l'obbiettivo di iniziare a costrure i primi reattori commerciali nel 2060.",
             "spiegazione": {
@@ -81,7 +81,7 @@
             }
         },
         {
-            "domanda": "5)	La costruzione di centrali è importante per diminuire la nostra dipendenza da gas, petrolio e carbone, ma non dovremmo tornare a delle centrali tradizionali, ma dovremmo focalizzarci su nuove tecnologie come gli Small Modular Reactors (SMR) e i reattori di quarta generazione.",
+            "domanda": "5) La costruzione di centrali è importante per diminuire la nostra dipendenza da gas, petrolio e carbone, ma non dovremmo tornare a delle centrali tradizionali, ma dovremmo focalizzarci su nuove tecnologie come gli Small Modular Reactors (SMR) e i reattori di quarta generazione.",
             "id": 5,
             "descrizione": "Per reattori di quarta generazione, si intendono reattori in fase di svilupo, che sfruttano dei liquidi refrigeranti diversi dall'acqua, aumentando l'efficienza dei reattori e diminuendo ulteriormente il rischio di incidenti. Mentre per SMR s'intendono reattori più piccoli ed economici (poiché sarebbero producibili in scala), con circa un quarto della potenza dei reattori tradizionali; questi reattori permetterebbero di costruire centrali più economiche e di renderle operative in tempi più brevi, la modularità permetterebbe anche di aumentare o diminuire velocemente la potenza della centrale (installando ulteriori reattori, o spegnedone alcuni in caso di una bassa richiesta di elettricità). Entrambe le tipologie, però, sono ancora in fase sperimentale, e non saranno disponibili almeno fino al 2035",
             "spiegazione": {
@@ -101,7 +101,7 @@
             }
         },
         {
-            "domanda": "6)	Sono daccordo con la Tassonomia Verde dell'Unione Europea, che consiglia d'investire, oltre che sulle rinnovabili, sull'energia atomica e sul gas naturale per sostituire completamente carbone e petrolio.",
+            "domanda": "6) Sono daccordo con la Tassonomia Verde dell'Unione Europea, che consiglia d'investire, oltre che sulle rinnovabili, sull'energia atomica e sul gas naturale per sostituire completamente carbone e petrolio.",
             "id": 6,
             "descrizione": "Nel 2022 la Commissione Europea ha approvato un atto delegato complementare alla cosiddetta Tassonomia delle attività sostenibili. Questo atto non cambia la definizione di “rinnovabile”, ma serve a indirizzare gli investimenti: stabilisce cioè quali attività economiche possono essere considerate “sostenibili” o “transitorie” per raggiungere la neutralità climatica. Con questo atto, l'energia nucleare è stata aggiunta alle fonti di energia pulita (attenzione, NON è stata aggiunta alle energie rinnovabili, come alcune testate giornalistiche hanno riportato). Qui ci chiediamo se sia giusto considerare il nucleare come una fonte sostenibile e necessaria per raggiungere gli obbiettivi di decarbonizzazaione.",
             "spiegazione": {
@@ -121,7 +121,7 @@
             }
         },
         {
-            "domanda": "7)	Lo stato dovrebbe dare fondi ad aziende italiane che stanno sviluppando reattori di quarta generazione, anche se, allo stato attuale, questi ultimi non possono essere installati nel nostro paese.",
+            "domanda": "7) Lo stato dovrebbe dare fondi ad aziende italiane che stanno sviluppando reattori di quarta generazione, anche se, allo stato attuale, questi ultimi non possono essere installati nel nostro paese.",
             "id": 7,
             "descrizione": "Al momento esistono delle aziende italiane che stanno sviluppando reattori di quarta generazione, un'arrivo di fondi statali permetterebbe a queste aziende italiane di guadagnare un vantaggio sulle altre azinde che stanno cercando creare un reattore commerciale di IV generazione; però, allo stato attuale, questi generatori non potrebbero essere installati in italia, vista l'assenza di un effettivo piano per la costruzione di nuove centrali nucleari nel nostro paese, queste aziende dovrebbero rivolgersi all'estero per tovare potenziali clienti.",
             "spiegazione": {
@@ -141,7 +141,7 @@
             }
         },
         {
-            "domanda": "8)	Visti i lunghi tempi di costruzione di una centrale nucleare, lo stato dovrebbe investire nelle sole energie rinnovabili",
+            "domanda": "8) Visti i lunghi tempi di costruzione di una centrale nucleare, lo stato dovrebbe investire nelle sole energie rinnovabili",
             "id": 8,
             "descrizione": "...",
             "spiegazione": {
