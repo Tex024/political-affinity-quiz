@@ -101,63 +101,63 @@
             }
         },
         {
-            "domanda": "6) ...",
+            "domanda": "6)	Sono daccordo con la Tassonomia Verde dell'Unione Europea, che consiglia d'investire, oltre che sulle rinnovabili, sull'energia atomica e sul gas naturale per sostituire completamente carbone e petrolio.",
             "id": 6,
-            "descrizione": "...",
+            "descrizione": "Nel 2022 la Commissione Europea ha approvato un atto delegato complementare alla cosiddetta Tassonomia delle attività sostenibili. Questo atto non cambia la definizione di “rinnovabile”, ma serve a indirizzare gli investimenti: stabilisce cioè quali attività economiche possono essere considerate “sostenibili” o “transitorie” per raggiungere la neutralità climatica. Con questo atto, l'energia nucleare è stata aggiunta alle fonti di energia pulita (attenzione, NON è stata aggiunta alle energie rinnovabili, come alcune testate giornalistiche hanno riportato). Qui ci chiediamo se sia giusto considerare il nucleare come una fonte sostenibile e necessaria per raggiungere gli obbiettivi di decarbonizzazaione.",
             "spiegazione": {
-                "daccordo": "...",
-                "neutrale": "...",
-                "disaccordo": "..."
+                "daccordo": "Concordo con la decisione dell'unione Europea, vista l'assenza di emisione di gas serra ed inquinanti per quanto riguarda l'energia nucleare, metre il gas rappresenta il combustibile meno inquinante ed è anche quello più facile da sostituire con biogas artificali.",
+                "neutrale": "Bisogna puntare sull'energia nucleare, in quanto fonte energetica pulita, ma non si dovrebbe incentivare l'utilizzo del gas",
+                "disaccordo": "L'Unione Europea dovrebbe puntare sulle sole rinnovavibili per raggiungere gli obbiettivi di neutralità climatica."
             },
             "partiti": {
-                "Lega": [0,0],
-                "FdI": [0,0],
-                "FI": [0,0],
-                "Italia Viva": [0,0],
-                "Azione": [0,0],
-                "PD": [0,0],
-                "M5S": [0,0],
-                "VeS": [0,0]
+                "Lega": [4,0.9],
+                "FdI": [4,0.9],
+                "FI": [4,0.9],
+                "Italia Viva": [3,0.7],
+                "Azione": [4,0.9],
+                "PD": [2,0.8],
+                "M5S": [1,0.7],
+                "VeS": [0,0.6]
             }
         },
         {
-            "domanda": "7) ...",
+            "domanda": "7)	Lo stato dovrebbe dare fondi ad aziende italiane che stanno sviluppando reattori di quarta generazione, anche se, allo stato attuale, questi ultimi non possono essere installati nel nostro paese.",
             "id": 7,
-            "descrizione": "...",
+            "descrizione": "Al momento esistono delle aziende italiane che stanno sviluppando reattori di quarta generazione, un'arrivo di fondi statali permetterebbe a queste aziende italiane di guadagnare un vantaggio sulle altre azinde che stanno cercando creare un reattore commerciale di IV generazione; però, allo stato attuale, questi generatori non potrebbero essere installati in italia, vista l'assenza di un effettivo piano per la costruzione di nuove centrali nucleari nel nostro paese, queste aziende dovrebbero rivolgersi all'estero per tovare potenziali clienti.",
             "spiegazione": {
-                "daccordo": "...",
-                "neutrale": "...",
-                "disaccordo": "..."
+                "daccordo": "Bisogna finanziare queste aziende, per permettegli di arrivare il prima possibile ad un prodotto pronto per essere instalalto.",
+                "neutrale": "Non è sbagliato puntare su simili aziende, ma è fondamentale creare un piano per installare questi generatori qui in Italia.",
+                "disaccordo": "Il finanziamento per lo sviluppo di reattori di IV generazione sarebbe uno spreco di soldi publici."
             },
             "partiti": {
-                "Lega": [0,0],
-                "FdI": [0,0],
-                "FI": [0,0],
-                "Italia Viva": [0,0],
-                "Azione": [0,0],
-                "PD": [0,0],
+                "Lega": [3,0.7],
+                "FdI": [2,0.8],
+                "FI": [3,0.9],
+                "Italia Viva": [3,1],
+                "Azione": [4,0.8],
+                "PD": [1,0.6],
                 "M5S": [0,0],
                 "VeS": [0,0]
             }
         },
         {
-            "domanda": "8) ...",
+            "domanda": "8)	Visti i lunghi tempi di costruzione di una centrale nucleare, lo stato dovrebbe investire nelle sole energie rinnovabili",
             "id": 8,
             "descrizione": "...",
             "spiegazione": {
-                "daccordo": "...",
-                "neutrale": "...",
-                "disaccordo": "..."
+                "daccordo": "Le fonti d'energia rinnovabili rappresentano l'unica soluzione per liberarci dalle fonti fossili ed abbattere le emissioni di gas serra ed inquinanti.",
+                "neutrale": "L'incremento della produzione di energia elettrica da fonti rinnovabili rimane una questione di vitale importanza, d'altro canto non bisogna escludere a priori anche soluzioni differeneti, a patto che anche quest'ultime non poroducano gas serra o inquinanti.",
+                "disaccordo": "Le sole rinnovabili non sono la soluzione ottimale per coprire l'intero fabbisogno energetico di una nazione, vista la loro dipendenza da fattori incostanti e spesso dipendenti da fattori geografici o difficili da prevedere. L'energia nucleare potrebbe rapresentare un'ottima soluzione per coprire il carico di base, lasciando alle rinnovabili il compito di coprire il carico variabile."
             },
             "partiti": {
-                "Lega": [0,0],
-                "FdI": [0,0],
-                "FI": [0,0],
-                "Italia Viva": [0,0],
+                "Lega": [0,0,6],
+                "FdI": [1,0.8],
+                "FI": [0,0.6],
+                "Italia Viva": [2,0.9],
                 "Azione": [0,0],
-                "PD": [0,0],
-                "M5S": [0,0],
-                "VeS": [0,0]
+                "PD": [3,0.9],
+                "M5S": [3,0.3],
+                "VeS": [4,0]
             }
         }
     ]
